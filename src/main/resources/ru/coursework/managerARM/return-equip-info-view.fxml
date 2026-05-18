@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.coursework.managerARM.controller.ReturnInfoController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
+         <children>
+            <Label text="Контракт:">
+               <VBox.margin>
+                  <Insets bottom="13.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Дата возврата: ">
+               <VBox.margin>
+                  <Insets bottom="13.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Описание состояния:">
+               <VBox.margin>
+                  <Insets bottom="13.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Фото состояния:">
+               <VBox.margin>
+                  <Insets bottom="13.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Сумма повреждений:">
+               <VBox.margin>
+                  <Insets bottom="13.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Сумма удержания:">
+               <VBox.margin>
+                  <Insets bottom="13.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Требуется ли ремонт:">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+         <children>
+            <ComboBox fx:id="cbContract" prefWidth="150.0" promptText="contract">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </ComboBox>
+            <TextField fx:id="tfReturnDate" text="date of return">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="tfConditionDesc" text="condition desc">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="tfConditionPhoto" text="condition photo">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="tfDamage" text="damage amount">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="tfRepair" text="deduction amount">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="tfStatus" text="repair">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <HBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="250.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="Ок" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

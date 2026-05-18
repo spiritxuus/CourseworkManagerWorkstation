@@ -1,0 +1,132 @@
+package ru.coursework.managerARM.dao.impl;
+
+import ru.coursework.managerARM.dao.ReturnOfEquipmentDao;
+import ru.coursework.managerARM.util.DbUtils;
+import ru.coursework.managerARM.model.ReturnOfEquipment;
+
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+public class ReturnOfEquipmentDaoImpl implements ReturnOfEquipmentDao {
+    private static final String INSERT =
+            "INSERT INTO my_schema.return_of_equipment (contract, return_date, condition_desc, condition_photo, damage_amount, deduction_amount, repair_required) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    private static final String SELECT_BY_ID =
+            "SELECT return_id, contract, return_date, condition_desc, condition_photo, damage_amount, deduction_amount, repair_required FROM my_schema.return_of_equipment WHERE return_id = ?";
+
+    private static final String SELECT =
+            "SELECT return_id, contract, return_date, condition_desc, condition_photo, damage_amount, deduction_amount, repair_required FROM my_schema.return_of_equipment";
+
+    private static final String UPDATE =
+            "UPDATE my_schema.return_of_equipment " +
+                    "SET contract = ?, return_date = ?, condition_desc = ?, condition_photo = ?, damage_amount = ?, deduction_amount = ?, repair_required = ? " +
+                    "WHERE return_id = ?";
+
+    private final static String DELETE =
+            "DELETE FROM my_schema.return_of_equipment WHERE return_id = ?";
+
+    protected List<ReturnOfEquipment> mapper(ResultSet rs){
+        List<ReturnOfEquipment> list = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                list.add(new ReturnOfEquipment(rs.getLong("return_id"),
+                        rs.getLong("contract"),
+                        rs.getDate("return_date").toLocalDate(),
+                        rs.getString("condition_desc"),
+                        rs.getString("condition_photo"),
+                        rs.getBigDecimal("damage_amount"),
+                        rs.getBigDecimal("deduction_amount"),
+                        rs.getBoolean("repair_required")));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+
+    @Override
+    public void add(ReturnOfEquipment returnOfEquipment) {
+        try(PreparedStatement statement =
+                    DbUtils.getConnection().prepareStatement(INSERT)){
+            statement.setLong(1, returnOfEquipment.getContract());
+            statement.setDate(2, Date.valueOf(returnOfEquipment.getReturnDate()));
+            statement.setString(3, returnOfEquipment.getConditionDesc());
+            statement.setString(4, returnOfEquipment.getConditionPhoto());
+            statement.setBigDecimal(5, returnOfEquipment.getDamageAmount());
+            statement.setBigDecimal(6, returnOfEquipment.getDeductionAmount());
+            statement.setBoolean(7, returnOfEquipment.getRepairRequired());
+            statement.executeUpdate();
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public Optional<ReturnOfEquipment> getById(Long id) {
+        try (PreparedStatement statement = DbUtils.getConnection().prepareStatement(SELECT_BY_ID)) {
+            statement.setLong(1, id);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return Optional.of(new ReturnOfEquipment(rs.getLong("return_id"),
+                            rs.getLong("contract"),
+                            rs.getDate("return_date").toLocalDate(),
+                            rs.getString("condition_desc"),
+                            rs.getString("condition_photo"),
+                            rs.getBigDecimal("damage_amount"),
+                            rs.getBigDecimal("deduction_amount"),
+                            rs.getBoolean("repair_required")));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public List<ReturnOfEquipment> getAll() {
+        List<ReturnOfEquipment> list = new ArrayList<>();
+        ResultSet rs = null;
+        try(PreparedStatement statement =
+                    DbUtils.getConnection().prepareStatement(SELECT)) {
+            rs = statement.executeQuery();
+            list = mapper(rs);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+
+    @Override
+    public void update(ReturnOfEquipment returnOfEquipment) {
+        try(PreparedStatement statement =
+                    DbUtils.getConnection().prepareStatement(UPDATE)){
+            statement.setLong(1, returnOfEquipment.getContract());
+            statement.setDate(2, Date.valueOf(returnOfEquipment.getReturnDate()));
+            statement.setString(3, returnOfEquipment.getConditionDesc());
+            statement.setString(4, returnOfEquipment.getConditionPhoto());
+            statement.setBigDecimal(5, returnOfEquipment.getDamageAmount());
+            statement.setBigDecimal(6, returnOfEquipment.getDeductionAmount());
+            statement.setBoolean(7, returnOfEquipment.getRepairRequired());
+            statement.executeUpdate();
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void delete(Long id) {
+        try(PreparedStatement statement =
+                    DbUtils.getConnection().prepareStatement(DELETE)) {
+            statement.setLong(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.coursework.managerARM.controller.AddressInfoController">
+   <children>
+      <VBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
+         <children>
+            <Label text="Страна:">
+               <VBox.margin>
+                  <Insets bottom="12.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Область:">
+               <VBox.margin>
+                  <Insets bottom="13.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Пункт проживания:">
+               <VBox.margin>
+                  <Insets bottom="13.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Улица:">
+               <VBox.margin>
+                  <Insets bottom="13.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Дом:">
+               <VBox.margin>
+                  <Insets bottom="13.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Квартира:">
+               <VBox.margin>
+                  <Insets bottom="13.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+         <children>
+            <TextField fx:id="tfName" text="country">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="tfSurname" text="region">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="tfPatronymic" text="city">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="tfBirthdate" text="street">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="tfGender" text="house">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="tfPassportSeries" text="apartment">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+      </VBox>
+      <HBox AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="200.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="Ок">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
