@@ -46,32 +46,32 @@
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
          <children>
-            <TextField fx:id="tfName" text="country">
+            <TextField fx:id="tfCountry" text="country">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfSurname" text="region">
+            <TextField fx:id="tfRegion" text="region">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfPatronymic" text="city">
+            <TextField fx:id="tfCity" text="city">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfBirthdate" text="street">
+            <TextField fx:id="tfStreet" text="street">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfGender" text="house">
+            <TextField fx:id="tfHouse" text="house">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfPassportSeries" text="apartment">
+            <TextField fx:id="tfApartment" text="apartment">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
@@ -85,6 +85,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
             </Button>
+            <Button mnemonicParsing="false" onAction="#onExitButton" text="Выход" />
          </children>
       </HBox>
    </children>

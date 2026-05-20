@@ -6,6 +6,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import ru.coursework.managerARM.model.Address;
+import ru.coursework.managerARM.model.NaturalPerson;
 
 public class AddressInfoController {
 
@@ -15,28 +17,46 @@ public class AddressInfoController {
     @Setter
     private Stage stage;
 
-    @FXML
-    private TextField tfBirthdate;
+    private Address address;
 
     @FXML
-    private TextField tfGender;
+    private TextField tfApartment;
 
     @FXML
-    private TextField tfName;
+    private TextField tfCity;
 
     @FXML
-    private TextField tfPassportSeries;
+    private TextField tfCountry;
 
     @FXML
-    private TextField tfPatronymic;
+    private TextField tfHouse;
 
     @FXML
-    private TextField tfSurname;
+    private TextField tfRegion;
+
+    @FXML
+    private TextField tfStreet;
 
     @FXML
     void onOkayButtonClick(ActionEvent event) {
 
     }
 
+    @FXML
+    void onExitButton(ActionEvent event) {
+
+    }
+
+    public void setAddress(Address address){
+        this.address = address;
+
+        tfCountry.setText(address.getCountry());
+        tfRegion.setText(address.getRegion());
+        tfCity.setText(address.getCity());
+        tfStreet.setText(address.getStreet());
+        tfHouse.setText(address.getHouse());
+        tfApartment.setText(address.getApartment());
+
+    }
 
 }

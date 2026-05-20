@@ -31,14 +31,16 @@ public class LegalClientInfoController {
     @Getter
     private boolean confirmed = false;
 
+    private Stage stage;
+
     @Getter
     private LegalPerson legalPerson;
 
     @FXML
-    private ComboBox<String> cbAddress;
+    private ComboBox<AddressView> cbAddress;
 
     @FXML
-    private ComboBox<String> cbContactPhone;
+    private ComboBox<NaturalPersonView> cbContactPhone;
 
     @FXML
     private TextField ftEmail;
@@ -58,9 +60,9 @@ public class LegalClientInfoController {
     @FXML
     private TextField tfPhoneNumber;
 
-    private ObservableList<String> phones = FXCollections.observableArrayList();
+    private ObservableList<String> phonesList = FXCollections.observableArrayList();
 
-    private ObservableList<String> address = FXCollections.observableArrayList();
+    private ObservableList<String> addressList = FXCollections.observableArrayList();
 
     private NaturalPersonDao naturalPersonDao;
 
@@ -72,10 +74,10 @@ public class LegalClientInfoController {
         this.naturalPersonDao = new NaturalPersonDaoImpl();
         this.addressDao = new AddressDaoImpl();
 
-        cbContactPhone.setItems(phones);
-        cbAddress.setItems(address);
-        phones.setAll(naturalPersonDao.getAllByPhone());
-        address.setAll(addressDao.getAllConcat()); //TODO РЕАЛИЗОВАТЬ И ЗАТЕСТИТЬ
+        cbContactPhone.setItems(phonesList);
+        cbAddress.setItems(addressList);
+        phonesList.setAll(naturalPersonDao.getAllByPhone());
+        addressList.setAll(addressDao.getAllConcat()); //TODO РЕАЛИЗОВАТЬ И ЗАТЕСТИТЬ
     }
 
 
@@ -84,13 +86,12 @@ public class LegalClientInfoController {
         Address address = new Address();
         showAddressDialog(address);
 
-        if(Objects.equals(address.getCountry(), "") | Objects.equals(address.getRegion(), "")
-                | Objects.equals(address.getCity(), "") | Objects.equals(address.getStreet(), "")
-                | Objects.equals(address.getHouse(), "")){
-            //new Alert(Alert.AlertType.WARNING, "Введены некорректные данные.", ButtonType.OK).showAndWait();
+        if(showAddressDialog(address) && isValid(address)){
+            addressDao.add(address);
+            addressList.setAll(addressDao.getAllConcat());
         }
         else{
-            addressDao.add(address);
+            //new Alert(Alert.AlertType.WARNING, "Введены некорректные данные.", ButtonType.OK).showAndWait();
         }
     }
 
@@ -99,15 +100,12 @@ public class LegalClientInfoController {
         NaturalPerson naturalPerson = new NaturalPerson();
         showContactDialog(naturalPerson);
 
-        if(Objects.equals(naturalPerson.getName(), "") | Objects.equals(naturalPerson.getSurname(), "")
-                | Objects.equals(naturalPerson.getPatronymic(), "") | Objects.equals(naturalPerson.getBirthDate(), "")
-                | Objects.equals(naturalPerson.getGender(), "") | Objects.equals(naturalPerson.getPassportSeries(), "")
-                | Objects.equals(naturalPerson.getPassportNumber(), "") | Objects.equals(naturalPerson.getPhone(), "")
-                | Objects.equals(naturalPerson.getEmail(), "") | naturalPerson.getAddress() == null){
-            //new Alert(Alert.AlertType.WARNING, "Введены некорректные данные.", ButtonType.OK).showAndWait();
+        if(showContactDialog(naturalPerson) && isValid(naturalPerson)){
+            naturalPersonDao.add(naturalPerson);
+            phonesList.setAll(naturalPersonDao.getAllByPhone());
         }
         else{
-            naturalPersonDao.add(naturalPerson);
+            //new Alert(Alert.AlertType.WARNING, "Введены некорректные данные.", ButtonType.OK).showAndWait();
         }
     }
 
@@ -119,8 +117,10 @@ public class LegalClientInfoController {
         legalPerson.setOgrn(tfOgrn.getText());
         legalPerson.setPhone(tfPhoneNumber.getText());
         legalPerson.setEmail(ftEmail.getText());
-        legalPerson.setAddress(Long.valueOf(cbAddress.getValue()));
+        legalPerson.setAddress(Long.valueOf(cbAddress.getValue())); //TODO ПОДУМАТЬ, КАК УСТАНАВЛИВАТЬ СТРОКУ АДРЕСА
         legalPerson.setContactPerson(Long.valueOf(cbContactPhone.getValue()));
+        confirmed = true;
+        stage.close();
     }
 
     public void setLegalPerson(LegalPerson legalPerson){
@@ -132,8 +132,27 @@ public class LegalClientInfoController {
         tfOgrn.setText(legalPerson.getOgrn());
         tfPhoneNumber.setText(legalPerson.getPhone());
         ftEmail.setText(legalPerson.getEmail());
-        cbAddress.setItems(address);
-        cbContactPhone.setItems(phones);
+        cbAddress.setItems(addressList);
+        cbContactPhone.setItems(phonesList);
+    }
+
+    private boolean isValid(Address address){
+        return address.getCountry() != null && !address.getCountry().isBlank()
+                && address.getRegion() != null && !address.getRegion().isBlank()
+                && address.getCity() != null && !address.getCity().isBlank()
+                && address.getStreet() != null && !address.getStreet().isBlank()
+                && address.getHouse() != null && !address.getHouse().isBlank();
+    }
+
+    private boolean isValid(NaturalPerson person){
+        return person.getName() != null && !person.getName().isBlank()
+                && person.getSurname() != null && !person.getSurname().isBlank()
+                && person.getBirthDate() != null
+                && person.getGender() != null && !person.getGender().isBlank()
+                && person.getPassportSeries() != null && !person.getPassportSeries().isBlank()
+                && person.getPassportNumber() != null && !person.getPassportNumber().isBlank()
+                && person.getPhone() != null && !person.getPhone().isBlank()
+                && person.getAddress() != null;
     }
 
     private boolean showContactDialog(NaturalPerson naturalPerson){
@@ -153,6 +172,7 @@ public class LegalClientInfoController {
 
         NaturalClientInfoController controller = fxmlLoader.getController();
         controller.setStage(stage);
+        controller.setNaturalPerson(naturalPerson);
 
         stage.showAndWait();
         return controller.isConfirmed();
@@ -175,6 +195,7 @@ public class LegalClientInfoController {
 
         AddressInfoController controller = fxmlLoader.getController();
         controller.setStage(stage);
+        controller.setAddress(address);
 
         stage.showAndWait();
         return controller.isConfirmed();
