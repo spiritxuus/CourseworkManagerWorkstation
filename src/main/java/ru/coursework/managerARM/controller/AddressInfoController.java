@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import ru.coursework.managerARM.model.Address;
-import ru.coursework.managerARM.model.NaturalPerson;
 
 public class AddressInfoController {
 
@@ -39,23 +38,32 @@ public class AddressInfoController {
 
     @FXML
     void onOkayButtonClick(ActionEvent event) {
+        address.setCountry(tfCountry.getText());
+        address.setRegion(tfRegion.getText());
+        address.setCity(tfCity.getText());
+        address.setStreet(tfStreet.getText());
+        address.setHouse(tfHouse.getText());
+        address.setApartment(tfApartment.getText());
 
+        confirmed = true;
+        stage.close();
     }
 
     @FXML
     void onExitButton(ActionEvent event) {
-
+        confirmed = false;
+        stage.close();
     }
 
     public void setAddress(Address address){
         this.address = address;
 
-        tfCountry.setText(address.getCountry());
-        tfRegion.setText(address.getRegion());
-        tfCity.setText(address.getCity());
-        tfStreet.setText(address.getStreet());
-        tfHouse.setText(address.getHouse());
-        tfApartment.setText(address.getApartment());
+        tfCountry.setText(address.getCountry().trim());
+        tfRegion.setText(address.getRegion().trim());
+        tfCity.setText(address.getCity().trim());
+        tfStreet.setText(address.getStreet().trim());
+        tfHouse.setText(address.getHouse().trim());
+        tfApartment.setText(address.getApartment().trim());
 
     }
 

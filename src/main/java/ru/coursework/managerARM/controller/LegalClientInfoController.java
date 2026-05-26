@@ -89,6 +89,9 @@ public class LegalClientInfoController {
         if(showAddressDialog(address) && isValid(address)){
             addressDao.add(address);
             addressViews.setAll(addressDao.getAllViews());
+
+            AddressView last = addressDao.getAllViews().getLast();
+            cbAddress.getSelectionModel().select(last);
         }
     }
 
@@ -107,12 +110,12 @@ public class LegalClientInfoController {
         AddressView selectedAddress = cbAddress.getValue();
         NaturalPersonView selectedContact = cbContactPerson.getValue();
 
-        legalPerson.setCompanyName(tfCompanyName.getText());
-        legalPerson.setInn(tfInn.getText());
-        legalPerson.setKpp(tfKpp.getText());
-        legalPerson.setOgrn(tfOgrn.getText());
-        legalPerson.setPhone(tfPhoneNumber.getText());
-        legalPerson.setEmail(ftEmail.getText());
+        legalPerson.setCompanyName(tfCompanyName.getText().trim());
+        legalPerson.setInn(tfInn.getText().trim());
+        legalPerson.setKpp(tfKpp.getText().trim());
+        legalPerson.setOgrn(tfOgrn.getText().trim());
+        legalPerson.setPhone(tfPhoneNumber.getText().trim());
+        legalPerson.setEmail(ftEmail.getText().trim());
 
         if (selectedAddress != null) {
             legalPerson.setAddress(selectedAddress.getAddressId());

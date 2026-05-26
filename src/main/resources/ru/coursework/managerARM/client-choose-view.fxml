@@ -21,7 +21,7 @@
       </VBox>
    </top>
    <bottom>
-      <HBox BorderPane.alignment="BOTTOM_CENTER">
+      <HBox alignment="TOP_RIGHT">
          <children>
             <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#onExitButtonClick" text="Выход">
                <HBox.margin>

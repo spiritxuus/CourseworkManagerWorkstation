@@ -57,47 +57,47 @@
       </VBox>
       <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
          <children>
-            <TextField fx:id="tfName" text="name">
+            <TextField fx:id="tfName">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfSurname" text="surname">
+            <TextField fx:id="tfSurname">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfPatronymic" text="patronymic">
+            <TextField fx:id="tfPatronymic">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfBirthdate" text="birthdate">
+            <TextField fx:id="tfBirthdate">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfGender" text="сделать комбобокс">
+            <ComboBox fx:id="cbGender" prefWidth="150.0">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </ComboBox>
+            <TextField fx:id="tfPassportSeries">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfPassportSeries" text="passport_series">
+            <TextField fx:id="tfPassportNumber">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="ftfPassportNumber" text="passport_number">
+            <TextField fx:id="tfPhoneNumber">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfPhoneNumber" text="phone_number">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="ftEmail" text="email">
+            <TextField fx:id="ftEmail">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>

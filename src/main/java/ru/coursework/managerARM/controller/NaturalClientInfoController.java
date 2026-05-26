@@ -1,14 +1,27 @@
 package ru.coursework.managerARM.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
-import ru.coursework.managerARM.model.LegalPerson;
+import ru.coursework.managerARM.MainApplication;
+import ru.coursework.managerARM.dao.AddressDao;
+import ru.coursework.managerARM.dao.impl.AddressDaoImpl;
+import ru.coursework.managerARM.dto.AddressView;
+import ru.coursework.managerARM.model.Address;
 import ru.coursework.managerARM.model.NaturalPerson;
+import java.io.IOException;
+import java.time.LocalDate;
 
 public class NaturalClientInfoController {
 
@@ -21,19 +34,19 @@ public class NaturalClientInfoController {
     private Stage stage;
 
     @FXML
-    private ComboBox<String> cbAddress;
+    private ComboBox<AddressView> cbAddress;
+
+    @FXML
+    private ComboBox<String> cbGender;
 
     @FXML
     private TextField ftEmail;
 
     @FXML
-    private TextField ftfPassportNumber;
+    private TextField tfPassportNumber;
 
     @FXML
     private TextField tfBirthdate;
-
-    @FXML
-    private TextField tfGender;
 
     @FXML
     private TextField tfName;
@@ -50,19 +63,99 @@ public class NaturalClientInfoController {
     @FXML
     private TextField tfSurname;
 
+    private ObservableList<AddressView> addressViews = FXCollections.observableArrayList();
+
+    private AddressDao addressDao;
+
+    @FXML
+    public void initialize() {
+        cbGender.setItems(FXCollections.observableArrayList("Мужчина", "Женщина"));
+
+        this.addressDao = new AddressDaoImpl();
+
+        cbAddress.setItems(addressViews);
+        addressViews.setAll(addressDao.getAllViews());
+    }
+
     public void setNaturalPerson(NaturalPerson naturalPerson){
         this.naturalPerson = naturalPerson;
 
+        tfName.setText(naturalPerson.getName());
+        tfSurname.setText(naturalPerson.getSurname());
+        tfPatronymic.setText(naturalPerson.getPatronymic());
+        tfBirthdate.setText(String.valueOf(naturalPerson.getBirthDate())); //TODO Если дата null, в поле может попасть строка "null". Лучше так:
+        cbGender.setValue(naturalPerson.getGender());
+        tfPassportSeries.setText(naturalPerson.getPassportSeries());
+        tfPassportNumber.setText(naturalPerson.getPassportNumber());
+        tfPhoneNumber.setText(naturalPerson.getPhone());
+        ftEmail.setText(naturalPerson.getEmail());
     }
 
     @FXML
     void onAddAddrButton(ActionEvent event) {
+        Address address = new Address();
 
+        if(showAddressDialog(address) && isValid(address)){
+            addressDao.add(address);
+            addressViews.setAll(addressDao.getAllViews());
+
+            AddressView last = addressDao.getAllViews().getLast();
+            cbAddress.getSelectionModel().select(last);
+        }
     }
 
     @FXML
     void onOkayButtonClick(ActionEvent event) {
+        AddressView selectedAddress = cbAddress.getValue();
 
+        naturalPerson.setName(tfName.getText().trim());
+        naturalPerson.setSurname(tfSurname.getText().trim());
+        naturalPerson.setPatronymic(tfPatronymic.getText().trim());
+        naturalPerson.setBirthDate(LocalDate.parse(tfBirthdate.getText()));
+        naturalPerson.setGender(cbGender.getValue());
+        naturalPerson.setPassportSeries(tfPassportSeries.getText().trim());
+        naturalPerson.setPassportNumber(tfPassportNumber.getText().trim());
+        naturalPerson.setPhone(tfPhoneNumber.getText().trim());
+        naturalPerson.setEmail(ftEmail.getText().trim());
+
+        if (selectedAddress != null) {
+            naturalPerson.setAddress(selectedAddress.getAddressId());
+        }
+
+        confirmed = true;
+        stage.close();
+    }
+
+    private boolean showAddressDialog(Address address){
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("address-info-view.fxml"));
+        Scene scene = null;
+        try{
+            scene = new Scene(fxmlLoader.load(), 340, 300);
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            return false;
+        }
+        Stage stage = new Stage();
+
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(MainApplication.getStage());
+        stage.setTitle("Введите адрес.");
+        stage.setScene(scene);
+
+        AddressInfoController controller = fxmlLoader.getController();
+        controller.setStage(stage);
+        controller.setAddress(address);
+
+        stage.showAndWait();
+        return controller.isConfirmed();
+    }
+
+    private boolean isValid(Address address){
+        return address.getCountry() != null && !address.getCountry().isBlank()
+                && address.getRegion() != null && !address.getRegion().isBlank()
+                && address.getCity() != null && !address.getCity().isBlank()
+                && address.getStreet() != null && !address.getStreet().isBlank()
+                && address.getHouse() != null && !address.getHouse().isBlank();
     }
 
 }
