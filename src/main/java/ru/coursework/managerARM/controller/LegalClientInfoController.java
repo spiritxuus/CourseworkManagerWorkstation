@@ -19,11 +19,12 @@ import ru.coursework.managerARM.dao.AddressDao;
 import ru.coursework.managerARM.dao.NaturalPersonDao;
 import ru.coursework.managerARM.dao.impl.AddressDaoImpl;
 import ru.coursework.managerARM.dao.impl.NaturalPersonDaoImpl;
+import ru.coursework.managerARM.dto.AddressView;
+import ru.coursework.managerARM.dto.NaturalPersonView;
 import ru.coursework.managerARM.model.Address;
 import ru.coursework.managerARM.model.LegalPerson;
 import ru.coursework.managerARM.model.NaturalPerson;
 import java.io.IOException;
-import java.util.Objects;
 
 public class LegalClientInfoController {
 
@@ -31,6 +32,7 @@ public class LegalClientInfoController {
     @Getter
     private boolean confirmed = false;
 
+    @Setter
     private Stage stage;
 
     @Getter
@@ -40,7 +42,7 @@ public class LegalClientInfoController {
     private ComboBox<AddressView> cbAddress;
 
     @FXML
-    private ComboBox<NaturalPersonView> cbContactPhone;
+    private ComboBox<NaturalPersonView> cbContactPerson;
 
     @FXML
     private TextField ftEmail;
@@ -60,65 +62,66 @@ public class LegalClientInfoController {
     @FXML
     private TextField tfPhoneNumber;
 
-    private ObservableList<String> phonesList = FXCollections.observableArrayList();
+    private ObservableList<NaturalPersonView> contactViews = FXCollections.observableArrayList();
 
-    private ObservableList<String> addressList = FXCollections.observableArrayList();
+    private ObservableList<AddressView> addressViews = FXCollections.observableArrayList();
 
     private NaturalPersonDao naturalPersonDao;
 
     private AddressDao addressDao;
-    //TODO ЧЕК ЧАТЖПТ ДЛЯ РЕДАКТИРОВАНИЯ РПОБЛЕМЫНХ МОМЕНТВ
 
     @FXML
     void initialize(){
         this.naturalPersonDao = new NaturalPersonDaoImpl();
         this.addressDao = new AddressDaoImpl();
 
-        cbContactPhone.setItems(phonesList);
-        cbAddress.setItems(addressList);
-        phonesList.setAll(naturalPersonDao.getAllByPhone());
-        addressList.setAll(addressDao.getAllConcat()); //TODO РЕАЛИЗОВАТЬ И ЗАТЕСТИТЬ
+        cbContactPerson.setItems(contactViews);
+        cbAddress.setItems(addressViews);
+        contactViews.setAll(naturalPersonDao.getAllViews());
+        addressViews.setAll(addressDao.getAllViews());
     }
 
 
     @FXML
     void onAddAddrButton(ActionEvent event) {
         Address address = new Address();
-        showAddressDialog(address);
 
         if(showAddressDialog(address) && isValid(address)){
             addressDao.add(address);
-            addressList.setAll(addressDao.getAllConcat());
-        }
-        else{
-            //new Alert(Alert.AlertType.WARNING, "Введены некорректные данные.", ButtonType.OK).showAndWait();
+            addressViews.setAll(addressDao.getAllViews());
         }
     }
 
     @FXML
     void onAddContactButton(ActionEvent event) {
         NaturalPerson naturalPerson = new NaturalPerson();
-        showContactDialog(naturalPerson);
 
         if(showContactDialog(naturalPerson) && isValid(naturalPerson)){
             naturalPersonDao.add(naturalPerson);
-            phonesList.setAll(naturalPersonDao.getAllByPhone());
-        }
-        else{
-            //new Alert(Alert.AlertType.WARNING, "Введены некорректные данные.", ButtonType.OK).showAndWait();
+            contactViews.setAll(naturalPersonDao.getAllViews());
         }
     }
 
     @FXML
     void onOkayButtonClick(ActionEvent event) {
+        AddressView selectedAddress = cbAddress.getValue();
+        NaturalPersonView selectedContact = cbContactPerson.getValue();
+
         legalPerson.setCompanyName(tfCompanyName.getText());
         legalPerson.setInn(tfInn.getText());
         legalPerson.setKpp(tfKpp.getText());
         legalPerson.setOgrn(tfOgrn.getText());
         legalPerson.setPhone(tfPhoneNumber.getText());
         legalPerson.setEmail(ftEmail.getText());
-        legalPerson.setAddress(Long.valueOf(cbAddress.getValue())); //TODO ПОДУМАТЬ, КАК УСТАНАВЛИВАТЬ СТРОКУ АДРЕСА
-        legalPerson.setContactPerson(Long.valueOf(cbContactPhone.getValue()));
+
+        if (selectedAddress != null) {
+            legalPerson.setAddress(selectedAddress.getAddressId());
+        }
+
+        if (selectedContact != null) {
+            legalPerson.setContactPerson(selectedContact.getNaturalPersonId());
+        }
+
         confirmed = true;
         stage.close();
     }
@@ -132,8 +135,8 @@ public class LegalClientInfoController {
         tfOgrn.setText(legalPerson.getOgrn());
         tfPhoneNumber.setText(legalPerson.getPhone());
         ftEmail.setText(legalPerson.getEmail());
-        cbAddress.setItems(addressList);
-        cbContactPhone.setItems(phonesList);
+        cbAddress.setItems(addressViews);
+        cbContactPerson.setItems(contactViews);
     }
 
     private boolean isValid(Address address){
@@ -161,7 +164,8 @@ public class LegalClientInfoController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait(); //TODO логирование ContactDialog
+            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            return false;
         }
         Stage stage = new Stage();
 
@@ -184,7 +188,8 @@ public class LegalClientInfoController {
         try{
             scene = new Scene(fxmlLoader.load(), 340, 300);
         } catch (IOException e) {
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait(); //TODO логирование ContactDialog
+            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            return false;
         }
         Stage stage = new Stage();
 

@@ -1,5 +1,6 @@
 package ru.coursework.managerARM.dao;
 
+import ru.coursework.managerARM.dto.AddressView;
 import ru.coursework.managerARM.model.Address;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public interface AddressDao {
     void add(Address address);
     Optional<Address> getById(Long id);
     List<Address> getAll();
-    List<String> getAllConcat();
+    List<AddressView> getAllViews();
     void update(Address address);
     void delete(Long id);
 }

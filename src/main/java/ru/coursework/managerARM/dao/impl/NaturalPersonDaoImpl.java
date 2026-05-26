@@ -1,6 +1,8 @@
 package ru.coursework.managerARM.dao.impl;
 
 import ru.coursework.managerARM.dao.NaturalPersonDao;
+import ru.coursework.managerARM.dto.AddressView;
+import ru.coursework.managerARM.dto.NaturalPersonView;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.NaturalPerson;
 
@@ -35,8 +37,14 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
                     "phone = ?, email = ?, address = ? " +
                     "WHERE natural_person_id = ?";
 
-    private final static String DELETE =
+    private static final String DELETE =
             "DELETE FROM my_schema.natural_person WHERE natural_person_id = ?";
+
+
+    private static final String SELECT_VIEWS =
+            "SELECT natural_person_id, name, surname, patronymic, phone, email " +
+                    "FROM my_schema.natural_person " +
+                    "ORDER BY surname, name, patronymic";
 
     protected List<NaturalPerson> mapper(ResultSet rs){
         List<NaturalPerson> list = new ArrayList<>();
@@ -120,8 +128,27 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
     }
 
     @Override
-    public List<String> getAllByPhone() {
-        return List.of();
+    public List<NaturalPersonView> getAllViews() {
+        List<NaturalPersonView> list = new ArrayList<>();
+        try (PreparedStatement statement = DbUtils.getConnection().prepareStatement(SELECT_VIEWS);
+             ResultSet rs = statement.executeQuery()) {
+
+            while (rs.next()) {
+                list.add(new NaturalPersonView(
+                        rs.getLong("natural_person_id"),
+                        rs.getString("name"),
+                        rs.getString("surname"),
+                        rs.getString("patronymic"),
+                        rs.getString("phone"),
+                        rs.getString("email")
+                ));
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return list;
     }
 
     @Override

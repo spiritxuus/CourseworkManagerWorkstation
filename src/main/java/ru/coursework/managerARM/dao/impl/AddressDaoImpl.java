@@ -1,6 +1,7 @@
 package ru.coursework.managerARM.dao.impl;
 
 import ru.coursework.managerARM.dao.AddressDao;
+import ru.coursework.managerARM.dto.AddressView;
 import ru.coursework.managerARM.model.Address;
 import ru.coursework.managerARM.util.DbUtils;
 
@@ -26,8 +27,13 @@ public class AddressDaoImpl implements AddressDao {
                     "SET country = ?, region = ?, city = ?, street = ?, house = ?, apartment = ? " +
                     "WHERE address_id = ?";
 
-    private final static String DELETE =
+    private static final String DELETE =
             "DELETE FROM my_schema.address WHERE address_id = ?";
+
+    private static final String SELECT_VIEWS =
+            "SELECT address_id, country, region, city, street, house, apartment " +
+                    "FROM my_schema.address " +
+                    "ORDER BY country, region, city, street, house, apartment";
 
     protected List<Address> mapper(ResultSet rs){
         List<Address> list = new ArrayList<>();
@@ -99,8 +105,26 @@ public class AddressDaoImpl implements AddressDao {
     }
 
     @Override
-    public List<String> getAllConcat() {
-        return List.of(); //TODO РЕАЛИЗОВАТЬ И ЗАТЕСТИТЬ
+    public List<AddressView> getAllViews() {
+        List<AddressView> list = new ArrayList<>();
+        try (PreparedStatement statement = DbUtils.getConnection().prepareStatement(SELECT_VIEWS);
+             ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                list.add(new AddressView(
+                        rs.getLong("address_id"),
+                        rs.getString("country"),
+                        rs.getString("region"),
+                        rs.getString("city"),
+                        rs.getString("street"),
+                        rs.getString("house"),
+                        rs.getString("apartment")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return list;
     }
 
     @Override

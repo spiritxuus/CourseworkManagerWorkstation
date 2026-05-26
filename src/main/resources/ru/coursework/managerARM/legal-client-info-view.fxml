@@ -92,7 +92,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </ComboBox>
-            <ComboBox fx:id="cbContactPhone" prefWidth="150.0" promptText="phone">
+            <ComboBox fx:id="cbContactPerson" prefWidth="150.0" promptText="phone">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
