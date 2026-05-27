@@ -115,7 +115,7 @@ public class LegalClientInfoController {
         legalPerson.setKpp(tfKpp.getText().trim());
         legalPerson.setOgrn(tfOgrn.getText().trim());
         legalPerson.setPhone(tfPhoneNumber.getText().trim());
-        legalPerson.setEmail(ftEmail.getText().trim());
+        legalPerson.setEmail(ftEmail.getText());
 
         if (selectedAddress != null) {
             legalPerson.setAddress(selectedAddress.getAddressId());

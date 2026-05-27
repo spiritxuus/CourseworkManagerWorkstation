@@ -26,7 +26,7 @@
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="clientsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <columns>
                                           <TableColumn fx:id="clientTypeColumn" prefWidth="75.0" text="Тип клиента" />
                                           <TableColumn fx:id="clientNameColumn" prefWidth="75.0" text="ФИО/Компания" />
@@ -47,7 +47,7 @@
                                           <Button mnemonicParsing="false" onAction="#onAddClientButtonClick" text="Добавить" />
                                           <Button mnemonicParsing="false" onAction="#onEditClientButtonClick" text="Редактировать" />
                                           <Button mnemonicParsing="false" onAction="#onDeleteClientButtonClick" text="Удалить" />
-                                          <Button mnemonicParsing="false" onAction="#onResetButtonClick" text="Сброс" />
+                                          <Button mnemonicParsing="false" onAction="#onResetClientButtonClick" text="Сброс" />
                                        </children>
                                     </HBox>
                                     <VBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
@@ -102,7 +102,7 @@
                                        <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                              <children>
-                                                <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="equipmentTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
                                                       <TableColumn fx:id="equipCategoryColumn" prefWidth="75.0" text="Категория" />
                                                       <TableColumn fx:id="equipNameColumn" prefWidth="75.0" text="Наименование" />
@@ -124,7 +124,7 @@
                                           </AnchorPane>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                              <children>
-                                                <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="clientsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
                                                       <TableColumn fx:id="clientTypeColumn" prefWidth="75.0" text="Тип клиента" />
                                                       <TableColumn fx:id="clientNameColumn" prefWidth="75.0" text="ФИО/Название компании" />
@@ -151,7 +151,7 @@
                                           <Button mnemonicParsing="false" onAction="#onReserveButtonClick" text="Забронировать" />
                                           <Button mnemonicParsing="false" onAction="#onRepairButtonClick" text="Создать запрос на ремонт" />
                                           <Button mnemonicParsing="false" onAction="#onDeleteEquipButtonClick" text="Удалить" />
-                                          <Button mnemonicParsing="false" onAction="#onResetButtonClick" text="Сброс" />
+                                          <Button mnemonicParsing="false" onAction="#onResetEquipClientButtonClick" text="Сброс" />
                                        </children>
                                     </HBox>
                                     <VBox AnchorPane.rightAnchor="151.3333333333334" AnchorPane.topAnchor="1.0">
@@ -234,7 +234,7 @@
                                       <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                              <children>
-                                                <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="contractsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
                                                       <TableColumn fx:id="contractReservIdColumn" prefWidth="75.0" text="ID брони" />
                                                       <TableColumn fx:id="contractClientColumn" prefWidth="75.0" text="Клиент" />
@@ -255,7 +255,7 @@
                                           </AnchorPane>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                              <children>
-                                                <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="reservationsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
                                                       <TableColumn fx:id="reservIdColumn" prefWidth="75.0" text="ID" />
                                                       <TableColumn fx:id="reservClientcolumn" prefWidth="75.0" text="Клиент" />
@@ -282,7 +282,7 @@
                                           <Button mnemonicParsing="false" onAction="#onEditContractClick" text="Редактировать" />
                                           <Button mnemonicParsing="false" onAction="#onShowPaymentButtonClick" text="Показать платеж" />
                                           <Button mnemonicParsing="false" onAction="#onDeleteContractReservButtonClick" text="Удалить" />
-                                          <Button mnemonicParsing="false" onAction="#onResetButtonClick" text="Сброс" />
+                                          <Button mnemonicParsing="false" onAction="#onResetContractReservButtonClick" text="Сброс" />
                                        </children>
                                     </HBox>
                                     <VBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
@@ -323,7 +323,7 @@
                            <items>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="returnsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <columns>
                                           <TableColumn fx:id="returnContractIdColumn" prefWidth="75.0" text="ID контракта" />
                                           <TableColumn fx:id="returnDateColumn" prefWidth="75.0" text="Дата возврата" />
@@ -365,7 +365,7 @@
                            <items>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="historyTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <columns>
                                           <TableColumn fx:id="historyContractIdColumn" prefWidth="75.0" text="ID контракта" />
                                           <TableColumn fx:id="historyDateColumn" prefWidth="75.0" text="Дата события" />
@@ -383,7 +383,7 @@
                                     <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#onDeleteHistoryButtonClick" text="Удалить" />
-                                          <Button mnemonicParsing="false" onAction="#onResetButtonClick" text="Сброс" />
+                                          <Button mnemonicParsing="false" onAction="#onResetHistoryButtonClick" text="Сброс" />
                                        </children>
                                     </HBox>
                                     <VBox AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">

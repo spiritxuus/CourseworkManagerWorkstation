@@ -6,8 +6,6 @@ module ru.coursework.managerARM {
     requires javafx.graphics;
     requires jdk.compiler;
     requires javafx.base;
-    requires ru.coursework.managerARM;
-
 
     opens ru.coursework.managerARM to javafx.fxml;
     exports ru.coursework.managerARM;

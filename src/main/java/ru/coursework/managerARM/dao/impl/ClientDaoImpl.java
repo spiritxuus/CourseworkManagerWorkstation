@@ -1,6 +1,7 @@
 package ru.coursework.managerARM.dao.impl;
 
 import ru.coursework.managerARM.dao.ClientDao;
+import ru.coursework.managerARM.dto.ClientView;
 import ru.coursework.managerARM.model.Client;
 import ru.coursework.managerARM.util.DbUtils;
 
@@ -26,8 +27,28 @@ public class ClientDaoImpl implements ClientDao {
                     "SET natural_person_id = ?, legal_person_id = ?, status = ? " +
                     "WHERE client_id = ?";
 
-    private final static String DELETE =
+    private static final String DELETE =
             "DELETE FROM my_schema.client WHERE client_id = ?";
+
+    private static final String SELECT_VIEWS =
+            "SELECT c.client_id, " +
+                    "CASE " +
+                    "WHEN c.natural_person_id IS NOT NULL " +
+                    "THEN 'Физическое лицо' " +
+                    "ELSE 'Юридическое лицо' " +
+                    "END AS client_type, " +
+                    "CASE " +
+                    "WHEN c.natural_person_id IS NOT NULL " +
+                    "THEN CONCAT_WS(np.surname, ' ', np.name, ' ', np.patronymic) " +
+                    "ELSE lp.company_name" +
+                    "END AS display_name, " +
+                    "COALESCE(np.phone, lp.phone AS phone, " +
+                    "COALESCE(np.email, lp.email) AS email, " +
+                    "CONCAT_WS(', ', a.country, a.region, a.city, a.street, a.house, a.apartment) AS address " +
+                    "FROM my_schema.client c " +
+                    "LEFT JOIN my_schema.natural_person np ON c.natural_person_id = np.natural_person_id " +
+                    "LEFT JOIN LEFT JOIN my_schema.legal_person lp ON c.legal_person_id = lp.legal_person_id " +
+                    "LEFT JOIN my_schema.address a ON a_address_id = COALESCE(np.address_id, lp.address_id);";
 
     protected List<Client> mapper(ResultSet rs){
         List<Client> list = new ArrayList<>();
@@ -86,6 +107,28 @@ public class ClientDaoImpl implements ClientDao {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return list;
+    }
+
+    @Override
+    public List<ClientView> getAllViews() {
+        List<ClientView> list = new ArrayList<>();
+        try (PreparedStatement statement = DbUtils.getConnection().prepareStatement(SELECT_VIEWS);
+             ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                list.add(new ClientView(
+                        rs.getLong("client_id"),
+                        rs.getString("client_type"),
+                        rs.getString("display_name"),
+                        rs.getString("phone"),
+                        rs.getString("email"),
+                        rs.getString("address")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
         return list;
     }
 

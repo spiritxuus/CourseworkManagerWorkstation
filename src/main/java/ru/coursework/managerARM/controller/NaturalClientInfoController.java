@@ -83,7 +83,7 @@ public class NaturalClientInfoController {
         tfName.setText(naturalPerson.getName());
         tfSurname.setText(naturalPerson.getSurname());
         tfPatronymic.setText(naturalPerson.getPatronymic());
-        tfBirthdate.setText(String.valueOf(naturalPerson.getBirthDate())); //TODO Если дата null, в поле может попасть строка "null". Лучше так:
+        tfBirthdate.setText(naturalPerson.getBirthDate() != null ? naturalPerson.getBirthDate().toString() : "");
         cbGender.setValue(naturalPerson.getGender());
         tfPassportSeries.setText(naturalPerson.getPassportSeries());
         tfPassportNumber.setText(naturalPerson.getPassportNumber());
@@ -110,13 +110,13 @@ public class NaturalClientInfoController {
 
         naturalPerson.setName(tfName.getText().trim());
         naturalPerson.setSurname(tfSurname.getText().trim());
-        naturalPerson.setPatronymic(tfPatronymic.getText().trim());
+        naturalPerson.setPatronymic(tfPatronymic.getText());
         naturalPerson.setBirthDate(LocalDate.parse(tfBirthdate.getText()));
         naturalPerson.setGender(cbGender.getValue());
         naturalPerson.setPassportSeries(tfPassportSeries.getText().trim());
         naturalPerson.setPassportNumber(tfPassportNumber.getText().trim());
         naturalPerson.setPhone(tfPhoneNumber.getText().trim());
-        naturalPerson.setEmail(ftEmail.getText().trim());
+        naturalPerson.setEmail(ftEmail.getText());
 
         if (selectedAddress != null) {
             naturalPerson.setAddress(selectedAddress.getAddressId());
@@ -157,5 +157,4 @@ public class NaturalClientInfoController {
                 && address.getStreet() != null && !address.getStreet().isBlank()
                 && address.getHouse() != null && !address.getHouse().isBlank();
     }
-
 }

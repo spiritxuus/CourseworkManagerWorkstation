@@ -38,11 +38,11 @@ public class AddressInfoController {
 
     @FXML
     void onOkayButtonClick(ActionEvent event) {
-        address.setCountry(tfCountry.getText());
-        address.setRegion(tfRegion.getText());
-        address.setCity(tfCity.getText());
-        address.setStreet(tfStreet.getText());
-        address.setHouse(tfHouse.getText());
+        address.setCountry(tfCountry.getText().trim());
+        address.setRegion(tfRegion.getText().trim());
+        address.setCity(tfCity.getText().trim());
+        address.setStreet(tfStreet.getText().trim());
+        address.setHouse(tfHouse.getText().trim());
         address.setApartment(tfApartment.getText());
 
         confirmed = true;
@@ -58,12 +58,12 @@ public class AddressInfoController {
     public void setAddress(Address address){
         this.address = address;
 
-        tfCountry.setText(address.getCountry().trim());
-        tfRegion.setText(address.getRegion().trim());
-        tfCity.setText(address.getCity().trim());
-        tfStreet.setText(address.getStreet().trim());
-        tfHouse.setText(address.getHouse().trim());
-        tfApartment.setText(address.getApartment().trim());
+        tfCountry.setText(address.getCountry());
+        tfRegion.setText(address.getRegion());
+        tfCity.setText(address.getCity());
+        tfStreet.setText(address.getStreet());
+        tfHouse.setText(address.getHouse());
+        tfApartment.setText(address.getApartment());
 
     }
 
