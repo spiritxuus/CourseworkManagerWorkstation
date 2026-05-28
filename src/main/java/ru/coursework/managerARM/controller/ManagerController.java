@@ -219,7 +219,7 @@ public class ManagerController {
 
     @FXML
     void OnEditEquipButtonClick(ActionEvent event) {
-
+        //TODO НАЧАЛ ДЕЛАТЬ ОБОРУДОВАНИЕ
     }
 
     @FXML
