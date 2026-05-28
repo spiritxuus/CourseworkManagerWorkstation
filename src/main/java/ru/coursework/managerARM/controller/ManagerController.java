@@ -19,11 +19,8 @@ import ru.coursework.managerARM.dto.ClientView;
 import javafx.scene.Scene;
 import ru.coursework.managerARM.model.LegalPerson;
 import ru.coursework.managerARM.model.NaturalPerson;
-
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 public class ManagerController {
 
