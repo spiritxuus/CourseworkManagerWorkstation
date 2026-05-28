@@ -49,7 +49,7 @@ public class ClientDaoImpl implements ClientDao {
                     "FROM my_schema.client c " +
                     "LEFT JOIN my_schema.natural_person np ON c.natural_person_id = np.natural_person_id " +
                     "LEFT JOIN my_schema.legal_person lp ON c.legal_person_id = lp.legal_person_id " +
-                    "LEFT JOIN my_schema.address a ON a.address_id = COALESCE(np.address_id, lp.address_id)";
+                    "LEFT JOIN my_schema.address a ON a.address_id = COALESCE(np.address, lp.address)";
 
     protected List<Client> mapper(ResultSet rs){
         List<Client> list = new ArrayList<>();
