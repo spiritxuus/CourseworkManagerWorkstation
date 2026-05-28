@@ -9,10 +9,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import lombok.Getter;
 import lombok.Setter;
 import ru.coursework.managerARM.MainApplication;
-import ru.coursework.managerARM.model.Address;
 import ru.coursework.managerARM.model.LegalPerson;
 import ru.coursework.managerARM.model.NaturalPerson;
 
