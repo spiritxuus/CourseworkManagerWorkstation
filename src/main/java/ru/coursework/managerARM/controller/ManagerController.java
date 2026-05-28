@@ -24,7 +24,9 @@ import ru.coursework.managerARM.model.LegalPerson;
 import ru.coursework.managerARM.model.NaturalPerson;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class ManagerController {
 
@@ -228,8 +230,7 @@ public class ManagerController {
 
     @FXML
     void onAddClientButtonClick(ActionEvent event) {
-        Client client = new Client();
-        boolean confirmed = showClientDialog(client);
+        showClientDialog();
     }
 
     @FXML
@@ -290,13 +291,14 @@ public class ManagerController {
         }
 
         if ("Физическое лицо".equals(client.getClientType())){
-            NaturalPerson naturalPerson = naturalPersonDao.getById(client.getClientId()).orElse(null);
+            NaturalPerson naturalPerson = naturalPersonDao.getById(client.getNaturalPersonId()).orElse(null);
 
             if (naturalPerson == null){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Физическое лицо не найдено.");
                 alert.showAndWait();
+                return;
             }
 
             boolean confirmed = showNaturalPersonDialog(naturalPerson);
@@ -307,19 +309,21 @@ public class ManagerController {
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Введены некорректные данные.");
                 alert.showAndWait();
+                return;
             }
 
             naturalPersonDao.update(naturalPerson);
             clientViews.setAll(clientDao.getAllViews());
         }
         else{
-            LegalPerson legalPerson = legalPersonDao.getById(client.getClientId()).orElse(null);
+            LegalPerson legalPerson = legalPersonDao.getById(client.getLegalPersonId()).orElse(null);
 
             if (legalPerson == null) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Юридическое лицо не найдено.");
                 alert.showAndWait();
+                return;
             }
 
             boolean confirmed = showLegalPersonDialog(legalPerson);
@@ -332,6 +336,7 @@ public class ManagerController {
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Введены некорректные данные.");
                 alert.showAndWait();
+                return;
             }
 
             legalPersonDao.update(legalPerson);
@@ -381,25 +386,49 @@ public class ManagerController {
 
     @FXML
     void onSearchClientButtonClick(ActionEvent event) {
-        if (tfSearchClientCompany != null){
-            LegalPerson legalPerson = legalPersonDao.getByCompany(String.valueOf(tfSearchClientCompany.getText()));
-            if (legalPerson == null) clientViews.clear();
-            else clientViews.setAll(clientDao.getAllViews());
-        }
-        else if (tfSearchClientSurname != null){
-            NaturalPerson naturalPerson = naturalPersonDao.getBySurname(String.valueOf(tfSearchClientSurname.getText()));
-            if (naturalPerson == null) clientViews.clear();
-            else clientViews.setAll(clientDao.getAllViews());
-        }
-        else{
+       String companyText = tfSearchClientCompany.getText() == null ? "" : tfSearchClientCompany.getText().trim();
+       String surnameText = tfSearchClientSurname.getText() == null ? "" : tfSearchClientSurname.getText().trim();
+
+
+        if (companyText.isEmpty() && surnameText.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
-            alert.setHeaderText("Поиск невозможен.");
+            alert.setHeaderText("Введите данные для поиска.");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!companyText.isEmpty() && !surnameText.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Заполните только одно поле поиска.");
+            alert.showAndWait();
+            return;
+        }
+
+        String query = !companyText.isEmpty() ? companyText.toLowerCase() : surnameText.toLowerCase();
+
+        List<ClientView> filtered = clientDao.getAllViews().stream()
+                .filter(client ->
+                        (client.getClientName() != null && client.getClientName().toLowerCase().contains(query)) ||
+                                (client.getClientPhone() != null && client.getClientPhone().toLowerCase().contains(query)) ||
+                                (client.getClientEmail() != null && client.getClientEmail().toLowerCase().contains(query)) ||
+                                (client.getClientAddress() != null && client.getClientAddress().toLowerCase().contains(query)) ||
+                                (client.getClientType() != null && client.getClientType().toLowerCase().contains(query))
+                )
+                .toList();
+
+        clientViews.setAll(filtered);
+
+        tfSearchClientCompany.clear();
+        tfSearchClientSurname.clear();
+
+        if (filtered.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Результат поиска");
+            alert.setHeaderText("Ничего не найдено.");
             alert.showAndWait();
         }
-        tfSearchClientSurname.clear();
-        tfSearchClientCompany.clear();
-        //TODO ДОДЕЛАТЬ ПОИСК В MANAGER WINDOW
     }
 
     @FXML
@@ -427,7 +456,7 @@ public class ManagerController {
 
     }
 
-    private boolean showClientDialog(Client client){
+    private void showClientDialog(){
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("client-choose-view.fxml"));
         Scene scene = null;
         try{
@@ -447,7 +476,6 @@ public class ManagerController {
         controller.setStage(stage);
 
         stage.showAndWait();
-        return controller.isConfirmed();
     }
 
     private boolean showNaturalPersonDialog(NaturalPerson naturalPerson){
@@ -468,6 +496,7 @@ public class ManagerController {
 
         NaturalClientInfoController controller = fxmlLoader.getController();
         controller.setStage(stage);
+        controller.setNaturalPerson(naturalPerson);
 
         stage.showAndWait();
         return controller.isConfirmed();
@@ -491,6 +520,7 @@ public class ManagerController {
 
         LegalClientInfoController controller = fxmlLoader.getController();
         controller.setStage(stage);
+        controller.setLegalPerson(legalPerson);
 
         stage.showAndWait();
         return controller.isConfirmed();

@@ -11,6 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ClientView {
     private long clientId;
+    private Long naturalPersonId;
+    private Long legalPersonId;
     private String clientType;
     private String clientName;
     private String clientPhone;

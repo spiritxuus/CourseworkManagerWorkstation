@@ -20,16 +20,6 @@ import java.io.IOException;
 
 public class ClientChooseController {
 
-    private LegalPerson legalPerson;
-
-    private NaturalPerson naturalPerson;
-
-    private Address address;
-
-    @Setter
-    @Getter
-    private boolean confirmed = false;
-
     @Setter
     private Stage stage;
 
@@ -81,7 +71,6 @@ public class ClientChooseController {
 
     @FXML
     void onExitButtonClick(ActionEvent event) {
-        confirmed = false;
         stage.close();
     }
 }

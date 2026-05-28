@@ -14,41 +14,42 @@ import java.util.Optional;
 
 public class ClientDaoImpl implements ClientDao {
     private static final String INSERT =
-            "INSERT INTO my_schema.client (natural_person_id, legal_person_id, status) VALUES (?, ?, ?)";
+            "INSERT INTO my_schema.client (natural_person_id, legal_person_id) VALUES (?, ?)";
 
     private static final String SELECT_BY_ID =
-            "SELECT client_id, natural_person_id, legal_person_id, status FROM my_schema.client WHERE client_id = ?";
+            "SELECT client_id, natural_person_id, legal_person_id FROM my_schema.client WHERE client_id = ?";
 
     private static final String SELECT =
-            "SELECT client_id, natural_person_id, legal_person_id, status FROM my_schema.client";
+            "SELECT client_id, natural_person_id, legal_person_id FROM my_schema.client";
 
     private static final String UPDATE =
             "UPDATE my_schema.client " +
-                    "SET natural_person_id = ?, legal_person_id = ?, status = ? " +
+                    "SET natural_person_id = ?, legal_person_id = ? " +
                     "WHERE client_id = ?";
 
     private static final String DELETE =
             "DELETE FROM my_schema.client WHERE client_id = ?";
 
     private static final String SELECT_VIEWS =
-            "SELECT c.client_id, " +
+            "SELECT " +
+                    "c.client_id, " +
+                    "c.natural_person_id, " +
+                    "c.legal_person_id, " +
                     "CASE " +
-                    "WHEN c.natural_person_id IS NOT NULL " +
-                    "THEN 'Физическое лицо' " +
-                    "ELSE 'Юридическое лицо' " +
+                    "    WHEN c.natural_person_id IS NOT NULL THEN 'Физическое лицо' " +
+                    "    ELSE 'Юридическое лицо' " +
                     "END AS client_type, " +
                     "CASE " +
-                    "WHEN c.natural_person_id IS NOT NULL " +
-                    "THEN CONCAT_WS(np.surname, ' ', np.name, ' ', np.patronymic) " +
-                    "ELSE lp.company_name" +
-                    "END AS display_name, " +
-                    "COALESCE(np.phone, lp.phone AS phone, " +
-                    "COALESCE(np.email, lp.email) AS email, " +
-                    "CONCAT_WS(', ', a.country, a.region, a.city, a.street, a.house, a.apartment) AS address " +
+                    "    WHEN c.natural_person_id IS NOT NULL THEN CONCAT_WS(' ', np.surname, np.name, np.patronymic) " +
+                    "    ELSE lp.company_name " +
+                    "END AS client_name, " +
+                    "COALESCE(np.phone, lp.phone) AS client_phone, " +
+                    "COALESCE(np.email, lp.email) AS client_email, " +
+                    "CONCAT_WS(', ', a.country, a.region, a.city, a.street, a.house, a.apartment) AS client_address " +
                     "FROM my_schema.client c " +
                     "LEFT JOIN my_schema.natural_person np ON c.natural_person_id = np.natural_person_id " +
-                    "LEFT JOIN LEFT JOIN my_schema.legal_person lp ON c.legal_person_id = lp.legal_person_id " +
-                    "LEFT JOIN my_schema.address a ON a_address_id = COALESCE(np.address_id, lp.address_id);";
+                    "LEFT JOIN my_schema.legal_person lp ON c.legal_person_id = lp.legal_person_id " +
+                    "LEFT JOIN my_schema.address a ON a.address_id = COALESCE(np.address_id, lp.address_id)";
 
     protected List<Client> mapper(ResultSet rs){
         List<Client> list = new ArrayList<>();
@@ -56,8 +57,7 @@ public class ClientDaoImpl implements ClientDao {
             while (rs.next()) {
                 list.add(new Client(rs.getLong("client_id"),
                         rs.getObject("natural_person_id", Long.class),
-                        rs.getObject("legal_person_id", Long.class),
-                        rs.getString("status")));
+                        rs.getObject("legal_person_id", Long.class)));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -69,9 +69,17 @@ public class ClientDaoImpl implements ClientDao {
     public void add(Client client) {
         try(PreparedStatement statement =
                     DbUtils.getConnection().prepareStatement(INSERT)){
-            statement.setLong(1, client.getNaturalPersonId());
-            statement.setLong(2, client.getLegalPersonId());
-            statement.setString(3, client.getStatus());
+            if (client.getNaturalPersonId() != null) {
+                statement.setObject(1, client.getNaturalPersonId());
+            } else {
+                statement.setNull(1, java.sql.Types.BIGINT);
+            }
+
+            if (client.getLegalPersonId() != null) {
+                statement.setObject(2, client.getLegalPersonId());
+            } else {
+                statement.setNull(2, java.sql.Types.BIGINT);
+            }
             statement.executeUpdate();
         } catch (SQLException e){
             System.out.println(e.getMessage());
@@ -86,8 +94,7 @@ public class ClientDaoImpl implements ClientDao {
                 if (rs.next()) {
                     return Optional.of(new Client(rs.getLong("client_id"),
                             rs.getObject("natural_person_id", Long.class),
-                            rs.getObject("legal_person_id", Long.class),
-                            rs.getString("status")));
+                            rs.getObject("legal_person_id", Long.class)));
                 }
             }
         } catch (SQLException e) {
@@ -118,11 +125,13 @@ public class ClientDaoImpl implements ClientDao {
             while (rs.next()) {
                 list.add(new ClientView(
                         rs.getLong("client_id"),
+                        rs.getObject("natural_person_id", Long.class),
+                        rs.getObject("legal_person_id", Long.class),
                         rs.getString("client_type"),
-                        rs.getString("display_name"),
-                        rs.getString("phone"),
-                        rs.getString("email"),
-                        rs.getString("address")
+                        rs.getString("client_name"),
+                        rs.getString("client_phone"),
+                        rs.getString("client_email"),
+                        rs.getString("client_address")
                 ));
             }
         } catch (SQLException e) {
@@ -136,9 +145,17 @@ public class ClientDaoImpl implements ClientDao {
     public void update(Client client) {
         try(PreparedStatement statement =
                     DbUtils.getConnection().prepareStatement(UPDATE)){
-            statement.setLong(1, client.getNaturalPersonId());
-            statement.setLong(2, client.getLegalPersonId());
-            statement.setString(3, client.getStatus());
+            if (client.getNaturalPersonId() != null) {
+                statement.setObject(1, client.getNaturalPersonId());
+            } else {
+                statement.setNull(1, java.sql.Types.BIGINT);
+            }
+
+            if (client.getLegalPersonId() != null) {
+                statement.setObject(2, client.getLegalPersonId());
+            } else {
+                statement.setNull(2, java.sql.Types.BIGINT);
+            }
             statement.executeUpdate();
         } catch (SQLException e){
             System.out.println(e.getMessage());

@@ -3,6 +3,7 @@ package ru.coursework.managerARM.dao;
 
 import ru.coursework.managerARM.model.LegalPerson;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 

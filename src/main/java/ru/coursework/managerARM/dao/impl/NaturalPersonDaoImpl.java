@@ -3,6 +3,7 @@ package ru.coursework.managerARM.dao.impl;
 import ru.coursework.managerARM.dao.NaturalPersonDao;
 import ru.coursework.managerARM.dto.AddressView;
 import ru.coursework.managerARM.dto.NaturalPersonView;
+import ru.coursework.managerARM.model.LegalPerson;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.NaturalPerson;
 
@@ -11,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -112,6 +114,7 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
         }
         return Optional.empty();
     }
+
 
     @Override
     public List<NaturalPerson> getAll() {

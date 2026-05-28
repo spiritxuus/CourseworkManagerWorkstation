@@ -13,5 +13,4 @@ public class Client {
     private Long clientId;
     private Long naturalPersonId;
     private Long legalPersonId;
-    private String status;
 }
