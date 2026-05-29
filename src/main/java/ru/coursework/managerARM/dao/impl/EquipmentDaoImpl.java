@@ -2,6 +2,7 @@ package ru.coursework.managerARM.dao.impl;
 
 
 import ru.coursework.managerARM.dao.EquipmentDao;
+import ru.coursework.managerARM.dto.EquipmentCategoryView;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.Equipment;
 
@@ -17,13 +18,18 @@ public class EquipmentDaoImpl implements EquipmentDao {
             "INSERT INTO my_schema.equipment (category, name, manufacturer, model, " +
                     "inventory_number, serial_number, rental_price_per_day, " +
                     "deposit_amount, condition_status, requires_repair, photo, description) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     private static final String SELECT_BY_ID =
             "SELECT equipment_id, category, name, manufacturer, " +
                     "model, inventory_number, serial_number, rental_price_per_day, " +
                     "deposit_amount, condition_status, requires_repair, photo, description " +
                     "FROM my_schema.equipment WHERE equipment_id = ?";
+
+    private static final String SELECT_CATEGORY_VIEWS =
+            "SELECT category_id, category_name " +
+                    "FROM my_schema.equipment_category " +
+                    "ORDER BY category_name";
 
     private static final String SELECT =
             "SELECT equipment_id, category, name, manufacturer, " +
@@ -129,6 +135,25 @@ public class EquipmentDaoImpl implements EquipmentDao {
     }
 
     @Override
+    public List<EquipmentCategoryView> getCategory() {
+        List<EquipmentCategoryView> categories = new ArrayList<>();
+        try (PreparedStatement statement = DbUtils.getConnection().prepareStatement(SELECT_CATEGORY_VIEWS);
+             ResultSet rs = statement.executeQuery()) {
+
+            while (rs.next()) {
+                categories.add(new EquipmentCategoryView(
+                        rs.getLong("category_id"),
+                        rs.getString("category_name")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return categories;
+    }
+
+    @Override
     public void update(Equipment equipment) {
         try(PreparedStatement statement =
                     DbUtils.getConnection().prepareStatement(UPDATE)){
@@ -144,6 +169,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
             statement.setBoolean(10, equipment.getRequiresRepair());
             statement.setString(11, equipment.getPhoto());
             statement.setString(12, equipment.getDescription());
+            statement.setLong(13, equipment.getEquipmentId());
             statement.executeUpdate();
         } catch (SQLException e){
             System.out.println(e.getMessage());

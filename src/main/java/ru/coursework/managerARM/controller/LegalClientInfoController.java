@@ -75,10 +75,11 @@ public class LegalClientInfoController {
         this.naturalPersonDao = new NaturalPersonDaoImpl();
         this.addressDao = new AddressDaoImpl();
 
-        cbContactPerson.setItems(contactViews);
-        cbAddress.setItems(addressViews);
         contactViews.setAll(naturalPersonDao.getAllViews());
         addressViews.setAll(addressDao.getAllViews());
+        cbContactPerson.setItems(contactViews);
+        cbAddress.setItems(addressViews);
+
     }
 
 

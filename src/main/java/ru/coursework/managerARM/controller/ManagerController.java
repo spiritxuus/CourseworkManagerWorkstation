@@ -10,13 +10,16 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ru.coursework.managerARM.MainApplication;
 import ru.coursework.managerARM.dao.ClientDao;
+import ru.coursework.managerARM.dao.EquipmentDao;
 import ru.coursework.managerARM.dao.LegalPersonDao;
 import ru.coursework.managerARM.dao.NaturalPersonDao;
 import ru.coursework.managerARM.dao.impl.ClientDaoImpl;
+import ru.coursework.managerARM.dao.impl.EquipmentDaoImpl;
 import ru.coursework.managerARM.dao.impl.LegalPersonDaoImpl;
 import ru.coursework.managerARM.dao.impl.NaturalPersonDaoImpl;
 import ru.coursework.managerARM.dto.ClientView;
 import javafx.scene.Scene;
+import ru.coursework.managerARM.model.Equipment;
 import ru.coursework.managerARM.model.LegalPerson;
 import ru.coursework.managerARM.model.NaturalPerson;
 import java.io.IOException;
@@ -104,6 +107,9 @@ public class ManagerController {
 
     @FXML
     private TableColumn<?, ?> equipNameColumn;
+
+    @FXML
+    private TableColumn<?, ?> equipPhotoPathColumn;
 
     @FXML
     private TableColumn<?, ?> equipRentPriceColumn;
@@ -200,7 +206,11 @@ public class ManagerController {
 
     private ObservableList<ClientView> clientViews = FXCollections.observableArrayList();
 
+    private ObservableList<Equipment> equipViews = FXCollections.observableArrayList();
+
     private final ClientDao clientDao;
+
+    private final EquipmentDao equipmentDao;
 
     private final NaturalPersonDao naturalPersonDao;
 
@@ -210,6 +220,7 @@ public class ManagerController {
         this.clientDao = new ClientDaoImpl();
         this.naturalPersonDao = new NaturalPersonDaoImpl();
         this.legalPersonDao = new LegalPersonDaoImpl();
+        this.equipmentDao = new EquipmentDaoImpl();
     }
 
     @FXML
@@ -234,7 +245,10 @@ public class ManagerController {
 
     @FXML
     void onAddEquipButtonClick(ActionEvent event) {
+        Equipment equipment = new Equipment();
+        showEquipDialog(equipment);
 
+        //TODO ПРОВЕРКА НА КОРРЕКТНОСТЬ!
     }
 
     @FXML
@@ -370,7 +384,8 @@ public class ManagerController {
 
     @FXML
     void onResetEquipClientButtonClick(ActionEvent event) {
-
+        clientViews.setAll(clientDao.getAllViews());
+        equipViews.setAll(equipmentDao.getAll());//TODO ЭКИПИРОВКА ЧЕК
     }
 
     @FXML
@@ -515,6 +530,30 @@ public class ManagerController {
         LegalClientInfoController controller = fxmlLoader.getController();
         controller.setStage(stage);
         controller.setLegalPerson(legalPerson);
+
+        stage.showAndWait();
+        return controller.isConfirmed();
+    }
+
+    private boolean showEquipDialog(Equipment equipment){
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("equipment-info-view.fxml"));
+        Scene scene = null;
+        try{
+            scene = new Scene(fxmlLoader.load(), 600, 500);
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait(); //TODO логирование ClientDialog
+        }
+        Stage stage = new Stage();
+
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(MainApplication.getStage());
+
+        stage.setTitle("Редактирование клиента.");
+        stage.setScene(scene);
+
+        EquipmentInfoController controller = fxmlLoader.getController();
+        controller.setStage(stage);
+        controller.setEquipment(equipment);
 
         stage.showAndWait();
         return controller.isConfirmed();

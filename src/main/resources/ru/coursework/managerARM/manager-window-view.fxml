@@ -114,6 +114,7 @@
                                                       <TableColumn fx:id="equipDepositColumn" prefWidth="75.0" text="Стоимость залога" />
                                                       <TableColumn fx:id="equipStatusColumn" prefWidth="75.0" text="Состояние:" />
                                                       <TableColumn fx:id="equipRepairColumn" prefWidth="75.0" text="Требуется ли ремонт" />
+                                                      <TableColumn fx:id="equipPhotoPathColumn" prefWidth="75.0" text="Путь к фото" />
                                                       <TableColumn fx:id="equipDescColumn" prefWidth="75.0" text="Описание" />
                                                    </columns>
                                                    <columnResizePolicy>
