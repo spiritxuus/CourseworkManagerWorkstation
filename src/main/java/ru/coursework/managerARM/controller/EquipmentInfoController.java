@@ -126,7 +126,7 @@ public class EquipmentInfoController {
             alert.setHeaderText("Не все поля заполнены.");
             alert.showAndWait();
         }
-    } //TODO ПОДУМАТЬ, СМ. ЧАТЖПТ, ИСПРАВИТЬ ОСТАЛЬНЫЕ!
+    }
 
     @FXML
     void onOpenPhotoButtonClick(ActionEvent event) {

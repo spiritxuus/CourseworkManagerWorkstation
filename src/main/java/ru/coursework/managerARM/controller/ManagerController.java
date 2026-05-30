@@ -9,19 +9,15 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ru.coursework.managerARM.MainApplication;
-import ru.coursework.managerARM.dao.ClientDao;
-import ru.coursework.managerARM.dao.EquipmentDao;
-import ru.coursework.managerARM.dao.LegalPersonDao;
-import ru.coursework.managerARM.dao.NaturalPersonDao;
-import ru.coursework.managerARM.dao.impl.ClientDaoImpl;
-import ru.coursework.managerARM.dao.impl.EquipmentDaoImpl;
-import ru.coursework.managerARM.dao.impl.LegalPersonDaoImpl;
-import ru.coursework.managerARM.dao.impl.NaturalPersonDaoImpl;
+import ru.coursework.managerARM.dao.*;
+import ru.coursework.managerARM.dao.impl.*;
 import ru.coursework.managerARM.dto.ClientView;
 import javafx.scene.Scene;
 import ru.coursework.managerARM.model.Equipment;
 import ru.coursework.managerARM.model.LegalPerson;
 import ru.coursework.managerARM.model.NaturalPerson;
+import ru.coursework.managerARM.model.Reservation;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -154,9 +150,6 @@ public class ManagerController {
     private TableColumn<?, ?> reservEquipColumn;
 
     @FXML
-    private TableColumn<?, ?> reservIdColumn;
-
-    @FXML
     private TableColumn<?, ?> reservStartColumn;
 
     @FXML
@@ -208,9 +201,13 @@ public class ManagerController {
 
     private ObservableList<Equipment> equipViews = FXCollections.observableArrayList();
 
+    private ObservableList<Reservation> reservationsViews = FXCollections.observableArrayList();
+
     private final ClientDao clientDao;
 
     private final EquipmentDao equipmentDao;
+
+    private final ReservationDao reservationDao;
 
     private final NaturalPersonDao naturalPersonDao;
 
@@ -221,6 +218,7 @@ public class ManagerController {
         this.naturalPersonDao = new NaturalPersonDaoImpl();
         this.legalPersonDao = new LegalPersonDaoImpl();
         this.equipmentDao = new EquipmentDaoImpl();
+        this.reservationDao = new ReservationDaoImpl();
     }
 
     @FXML
@@ -273,7 +271,6 @@ public class ManagerController {
             equipmentDao.add(equipment);
             equipViews.setAll(equipmentDao.getAll());
         }
-        ///TODO нет окна при добавлении
     }
 
     @FXML
@@ -394,7 +391,12 @@ public class ManagerController {
 
     @FXML
     void onReserveButtonClick(ActionEvent event) {
+        Reservation reservation = new Reservation();
 
+        if (showReservController(reservation) && isValid(reservation)){
+            reservationDao.add(reservation);
+            reservationsViews.setAll(reservationDao.getAll());
+        }
     }
 
     @FXML
@@ -584,6 +586,30 @@ public class ManagerController {
         return controller.isConfirmed();
     }
 
+    private boolean showReservController(Reservation reservation){
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("reservation-info-view.fxml"));
+        Scene scene = null;
+        try{
+            scene = new Scene(fxmlLoader.load(), 600, 500);
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait(); //TODO логирование ClientDialog
+        }
+        Stage stage = new Stage();
+
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(MainApplication.getStage());
+
+        stage.setTitle("Редактирование брони.");
+        stage.setScene(scene);
+
+        ReservationInfoController controller = fxmlLoader.getController();
+        controller.setStage(stage);
+        controller.setReservation(reservation);
+
+        stage.showAndWait();
+        return controller.isConfirmed();
+    }
+
     private boolean isValid(NaturalPerson person){
         return person.getName() != null && !person.getName().isBlank()
                 && person.getSurname() != null && !person.getSurname().isBlank()
@@ -621,5 +647,13 @@ public class ManagerController {
                 && equipment.getPhoto() != null && !equipment.getPhoto().isBlank()
                 && equipment.getDescription() != null && !equipment.getDescription().isBlank();
 
+    }
+
+    private boolean isValid(Reservation reservation){
+        return reservation.getClient() != null
+                && reservation.getEquipment() != null
+                && reservation.getStartDate() != null
+                && reservation.getEndDate() != null
+                && reservation.getStatus() != null && !reservation.getStatus().isBlank();
     }
 }
