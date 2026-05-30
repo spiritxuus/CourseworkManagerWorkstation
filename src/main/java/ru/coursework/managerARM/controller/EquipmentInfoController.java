@@ -93,26 +93,39 @@ public class EquipmentInfoController {
     @FXML
     void onOkayButtonClick(ActionEvent event) {
         EquipmentCategoryView selectedCategory = cbCategory.getValue();
-        photoPath = equipment.getPhoto();
 
         if (selectedCategory != null) {
             equipment.setCategory(selectedCategory.getCategoryId());
         }
+        else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Выберите категорию.");
+            alert.showAndWait();
+            return;
+        }
 
-        equipment.setName(tfName.getText().trim());
-        equipment.setManufacturer(tfManufacturer.getText().trim());
-        equipment.setModel(tfModel.getText().trim());
-        equipment.setInventoryNumber(tfInvNumber.getText().trim());
-        equipment.setSerialNumber(tfSerialNumber.getText().trim());
-        equipment.setRentalPricePerDay(new BigDecimal(tfRentPerDay.getText().trim()));
-        equipment.setDepositAmount(new BigDecimal(tfDepositAmount.getText().trim()));
-        equipment.setConditionStatus(tfCondition.getText().trim());
-        equipment.setRequiresRepair("Да".equals(cbRepairReq.getValue()));
-        equipment.setPhoto(photoPath);
-        equipment.setDescription(tfDescription.getText().trim());
+        try{
+            equipment.setName(tfName.getText().trim());
+            equipment.setManufacturer(tfManufacturer.getText().trim());
+            equipment.setModel(tfModel.getText().trim());
+            equipment.setInventoryNumber(tfInvNumber.getText().trim());
+            equipment.setSerialNumber(tfSerialNumber.getText().trim());
+            equipment.setRentalPricePerDay(new BigDecimal(tfRentPerDay.getText().trim()));
+            equipment.setDepositAmount(new BigDecimal(tfDepositAmount.getText().trim()));
+            equipment.setConditionStatus(tfCondition.getText().trim());
+            equipment.setRequiresRepair("Да".equals(cbRepairReq.getValue()));
+            equipment.setPhoto(photoPath);
+            equipment.setDescription(tfDescription.getText().trim());
 
-        confirmed = true;
-        stage.close();
+            confirmed = true;
+            stage.close();
+        } catch (Exception exc){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Не все поля заполнены.");
+            alert.showAndWait();
+        }
     } //TODO ПОДУМАТЬ, СМ. ЧАТЖПТ, ИСПРАВИТЬ ОСТАЛЬНЫЕ!
 
     @FXML
@@ -149,14 +162,21 @@ public class EquipmentInfoController {
         tfRentPerDay.setText(String.valueOf(equipment.getRentalPricePerDay()));
         tfDepositAmount.setText(String.valueOf(equipment.getDepositAmount()));
         tfCondition.setText(equipment.getConditionStatus());
-        if (equipment.getRequiresRepair() == true) cbRepairReq.setValue("Да");
-        else cbRepairReq.setValue("Нет");
+
+        if (Boolean.TRUE.equals(equipment.getRequiresRepair())) {
+            cbRepairReq.setValue("Да");
+        } else {
+            cbRepairReq.setValue("Нет");
+        }
+
         if (equipment.getPhoto() != null && !equipment.getPhoto().isBlank()) {
             Image img = new Image(new File(equipment.getPhoto()).toURI().toString());
             mainImage.setImage(img);
             photoPath = equipment.getPhoto();
-        }
-        tfDescription.setText(equipment.getDescription());
+        } else {
+        photoPath = null;
     }
 
+        tfDescription.setText(equipment.getDescription());
+    }
 }

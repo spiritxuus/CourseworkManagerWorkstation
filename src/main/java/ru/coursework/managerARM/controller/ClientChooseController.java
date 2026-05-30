@@ -28,7 +28,6 @@ public class ClientChooseController {
     private ComboBox<String> cbChooseClientType;
 
 
-
     @FXML
     void onClientTypeSelected(ActionEvent event) {
         if (cbChooseClientType.getValue() == null) {

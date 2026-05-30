@@ -108,22 +108,36 @@ public class NaturalClientInfoController {
     void onOkayButtonClick(ActionEvent event) {
         AddressView selectedAddress = cbAddress.getValue();
 
-        naturalPerson.setName(tfName.getText().trim());
-        naturalPerson.setSurname(tfSurname.getText().trim());
-        naturalPerson.setPatronymic(tfPatronymic.getText());
-        naturalPerson.setBirthDate(LocalDate.parse(tfBirthdate.getText()));
-        naturalPerson.setGender(cbGender.getValue());
-        naturalPerson.setPassportSeries(tfPassportSeries.getText().trim());
-        naturalPerson.setPassportNumber(tfPassportNumber.getText().trim());
-        naturalPerson.setPhone(tfPhoneNumber.getText().trim());
-        naturalPerson.setEmail(ftEmail.getText());
+        try{
+            naturalPerson.setName(tfName.getText().trim());
+            naturalPerson.setSurname(tfSurname.getText().trim());
+            naturalPerson.setPatronymic(tfPatronymic.getText());
+            naturalPerson.setBirthDate(LocalDate.parse(tfBirthdate.getText()));
+            naturalPerson.setGender(cbGender.getValue());
+            naturalPerson.setPassportSeries(tfPassportSeries.getText().trim());
+            naturalPerson.setPassportNumber(tfPassportNumber.getText().trim());
+            naturalPerson.setPhone(tfPhoneNumber.getText().trim());
+            naturalPerson.setEmail(ftEmail.getText());
 
-        if (selectedAddress != null) {
-            naturalPerson.setAddress(selectedAddress.getAddressId());
+            if (selectedAddress != null) {
+                naturalPerson.setAddress(selectedAddress.getAddressId());
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Внимание.");
+                alert.setHeaderText("Выберите адрес.");
+                alert.showAndWait();
+                return;
+            }
+
+            confirmed = true;
+            stage.close();
+        } catch (Exception exc) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Не все поля заполнены.");
+            alert.showAndWait();
         }
-
-        confirmed = true;
-        stage.close();
     }
 
     private boolean showAddressDialog(Address address){

@@ -124,7 +124,7 @@ public class ManagerController {
     private TableColumn<?, ?> equipStatusColumn;
 
     @FXML
-    private TableView<?> equipmentTable;
+    private TableView<Equipment> equipmentTable;
 
     @FXML
     private TableColumn<?, ?> historyContractIdColumn;
@@ -230,7 +230,29 @@ public class ManagerController {
 
     @FXML
     void OnEditEquipButtonClick(ActionEvent event) {
-        //TODO НАЧАЛ ДЕЛАТЬ ОБОРУДОВАНИЕ
+        Equipment equipment = equipmentTable.getSelectionModel().getSelectedItem();
+
+        if (equipment == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Ничего не редактируется.");
+            alert.showAndWait();
+            return;
+        }
+
+        boolean confirmed = showEquipDialog(equipment);
+        if (!confirmed) return;
+
+        if (!isValid(equipment)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Введены некорректные данные.");
+            alert.showAndWait();
+            return;
+        }
+
+        equipViews.setAll(equipmentDao.getAll());
+        equipmentDao.update(equipment);
     }
 
     @FXML
@@ -246,9 +268,12 @@ public class ManagerController {
     @FXML
     void onAddEquipButtonClick(ActionEvent event) {
         Equipment equipment = new Equipment();
-        showEquipDialog(equipment);
 
-        //TODO ПРОВЕРКА НА КОРРЕКТНОСТЬ!
+        if (showEquipDialog(equipment) && isValid(equipment)){
+            equipmentDao.add(equipment);
+            equipViews.setAll(equipmentDao.getAll());
+        }
+        ///TODO нет окна при добавлении
     }
 
     @FXML
@@ -385,7 +410,7 @@ public class ManagerController {
     @FXML
     void onResetEquipClientButtonClick(ActionEvent event) {
         clientViews.setAll(clientDao.getAllViews());
-        equipViews.setAll(equipmentDao.getAll());//TODO ЭКИПИРОВКА ЧЕК
+        equipViews.setAll(equipmentDao.getAll());
     }
 
     @FXML
@@ -548,7 +573,7 @@ public class ManagerController {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
 
-        stage.setTitle("Редактирование клиента.");
+        stage.setTitle("Редактирование оборудования.");
         stage.setScene(scene);
 
         EquipmentInfoController controller = fxmlLoader.getController();
@@ -579,6 +604,22 @@ public class ManagerController {
                 && person.getPhone() != null && !person.getPhone().isBlank()
                 && person.getAddress() != null
                 && person.getContactPerson() != null;
+
+    }
+
+    private boolean isValid(Equipment equipment){
+        return equipment.getCategory() != null
+                && equipment.getName() != null && !equipment.getName().isBlank()
+                && equipment.getManufacturer() != null && !equipment.getManufacturer().isBlank()
+                && equipment.getModel() != null && !equipment.getModel().isBlank()
+                && equipment.getInventoryNumber() != null && !equipment.getInventoryNumber().isBlank()
+                && equipment.getSerialNumber() != null && !equipment.getSerialNumber().isBlank()
+                && equipment.getRentalPricePerDay() != null
+                && equipment.getDepositAmount() != null
+                && equipment.getConditionStatus() != null && !equipment.getConditionStatus().isBlank()
+                && equipment.getRequiresRepair() != null
+                && equipment.getPhoto() != null && !equipment.getPhoto().isBlank()
+                && equipment.getDescription() != null && !equipment.getDescription().isBlank();
 
     }
 }

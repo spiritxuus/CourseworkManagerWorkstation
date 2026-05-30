@@ -111,23 +111,44 @@ public class LegalClientInfoController {
         AddressView selectedAddress = cbAddress.getValue();
         NaturalPersonView selectedContact = cbContactPerson.getValue();
 
-        legalPerson.setCompanyName(tfCompanyName.getText().trim());
-        legalPerson.setInn(tfInn.getText().trim());
-        legalPerson.setKpp(tfKpp.getText().trim());
-        legalPerson.setOgrn(tfOgrn.getText().trim());
-        legalPerson.setPhone(tfPhoneNumber.getText().trim());
-        legalPerson.setEmail(ftEmail.getText());
+        try{
+            legalPerson.setCompanyName(tfCompanyName.getText().trim());
+            legalPerson.setInn(tfInn.getText().trim());
+            legalPerson.setKpp(tfKpp.getText().trim());
+            legalPerson.setOgrn(tfOgrn.getText().trim());
+            legalPerson.setPhone(tfPhoneNumber.getText().trim());
+            legalPerson.setEmail(ftEmail.getText());
 
-        if (selectedAddress != null) {
-            legalPerson.setAddress(selectedAddress.getAddressId());
+            if (selectedAddress != null) {
+                legalPerson.setAddress(selectedAddress.getAddressId());
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Внимание.");
+                alert.setHeaderText("Выберите адрес.");
+                alert.showAndWait();
+                return;
+            }
+
+            if (selectedContact != null) {
+                legalPerson.setContactPerson(selectedContact.getNaturalPersonId());
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Внимание.");
+                alert.setHeaderText("Выберите контактное лицо.");
+                alert.showAndWait();
+                return;
+            }
+
+            confirmed = true;
+            stage.close();
+        } catch (Exception exc) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Не все поля заполнены.");
+            alert.showAndWait();
         }
-
-        if (selectedContact != null) {
-            legalPerson.setContactPerson(selectedContact.getNaturalPersonId());
-        }
-
-        confirmed = true;
-        stage.close();
     }
 
     public void setLegalPerson(LegalPerson legalPerson){

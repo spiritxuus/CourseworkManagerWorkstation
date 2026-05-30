@@ -2,6 +2,7 @@ package ru.coursework.managerARM.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.Getter;
@@ -38,15 +39,22 @@ public class AddressInfoController {
 
     @FXML
     void onOkayButtonClick(ActionEvent event) {
-        address.setCountry(tfCountry.getText().trim());
-        address.setRegion(tfRegion.getText().trim());
-        address.setCity(tfCity.getText().trim());
-        address.setStreet(tfStreet.getText().trim());
-        address.setHouse(tfHouse.getText().trim());
-        address.setApartment(tfApartment.getText());
+        try{
+            address.setCountry(tfCountry.getText().trim());
+            address.setRegion(tfRegion.getText().trim());
+            address.setCity(tfCity.getText().trim());
+            address.setStreet(tfStreet.getText().trim());
+            address.setHouse(tfHouse.getText().trim());
+            address.setApartment(tfApartment.getText());
 
-        confirmed = true;
-        stage.close();
+            confirmed = true;
+            stage.close();
+        } catch (Exception exc) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Не все поля заполнены.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
