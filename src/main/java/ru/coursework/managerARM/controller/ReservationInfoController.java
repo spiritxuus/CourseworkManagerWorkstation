@@ -38,7 +38,7 @@ public class ReservationInfoController {
     @FXML
     private TextField tfStatus;
 
-    //TODO ДОДЕЛАТЬ БРОНИ
+    //TODO ДОДЕЛАТЬ БРОНИ!
 
     @FXML
     void onOkayButtonClick(ActionEvent event) {
