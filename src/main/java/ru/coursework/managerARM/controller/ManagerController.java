@@ -295,7 +295,17 @@ public class ManagerController {
 
     @FXML
     void onDeleteEquipButtonClick(ActionEvent event) {
+        Equipment equipmentToDelete = equipmentTable.getSelectionModel().getSelectedItem();
+        if (equipmentToDelete == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Оборудование не выбрано.");
+            alert.showAndWait();
+            return;
+        }
 
+        equipmentDao.delete(equipmentToDelete.getEquipmentId());
+        equipViews.setAll(equipmentDao.getAll());
     }
 
     @FXML
