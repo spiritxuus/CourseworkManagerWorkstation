@@ -6,10 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Getter;
@@ -46,7 +43,7 @@ public class NaturalClientInfoController {
     private TextField tfPassportNumber;
 
     @FXML
-    private TextField tfBirthdate;
+    private DatePicker dpBirthDate;
 
     @FXML
     private TextField tfName;
@@ -83,7 +80,7 @@ public class NaturalClientInfoController {
         tfName.setText(naturalPerson.getName());
         tfSurname.setText(naturalPerson.getSurname());
         tfPatronymic.setText(naturalPerson.getPatronymic());
-        tfBirthdate.setText(naturalPerson.getBirthDate() != null ? naturalPerson.getBirthDate().toString() : "");
+        dpBirthDate.setValue(naturalPerson.getBirthDate());
         cbGender.setValue(naturalPerson.getGender());
         tfPassportSeries.setText(naturalPerson.getPassportSeries());
         tfPassportNumber.setText(naturalPerson.getPassportNumber());
@@ -112,7 +109,7 @@ public class NaturalClientInfoController {
             naturalPerson.setName(tfName.getText().trim());
             naturalPerson.setSurname(tfSurname.getText().trim());
             naturalPerson.setPatronymic(tfPatronymic.getText());
-            naturalPerson.setBirthDate(LocalDate.parse(tfBirthdate.getText()));
+            naturalPerson.setBirthDate(dpBirthDate.getValue());
             naturalPerson.setGender(cbGender.getValue());
             naturalPerson.setPassportSeries(tfPassportSeries.getText().trim());
             naturalPerson.setPassportNumber(tfPassportNumber.getText().trim());

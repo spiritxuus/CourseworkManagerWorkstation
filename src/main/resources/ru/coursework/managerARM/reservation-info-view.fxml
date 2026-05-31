@@ -2,15 +2,15 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.coursework.managerARM.controller.ReservationInfoController">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
+      <VBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
          <children>
             <Label text="Клиент:">
                <VBox.margin>
@@ -32,14 +32,9 @@
                   <Insets bottom="13.0" />
                </VBox.margin>
             </Label>
-            <Label text="Статус:">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Label>
          </children>
       </VBox>
-      <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+      <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
          <children>
             <Label fx:id="lbClient" text="1">
                <VBox.margin>
@@ -51,21 +46,16 @@
                   <Insets top="7.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="tfStartDate" text="start date">
+            <DatePicker fx:id="dpStartDate">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
-            </TextField>
-            <TextField fx:id="tfEndDate" text="end date">
+            </DatePicker>
+            <DatePicker fx:id="dpEndDate">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
-            </TextField>
-            <TextField fx:id="tfStatus" text="status">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </TextField>
+            </DatePicker>
          </children>
       </VBox>
       <HBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="200.0">

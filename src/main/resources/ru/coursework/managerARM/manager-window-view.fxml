@@ -258,7 +258,6 @@
                                              <children>
                                                 <TableView fx:id="reservationsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
-                                                      <TableColumn fx:id="reservIdColumn" prefWidth="75.0" text="ID" />
                                                       <TableColumn fx:id="reservClientcolumn" prefWidth="75.0" text="Клиент" />
                                                       <TableColumn fx:id="reservEquipColumn" prefWidth="75.0" text="Оборудование" />
                                                       <TableColumn fx:id="reservStartColumn" prefWidth="75.0" text="Дата начала брони" />

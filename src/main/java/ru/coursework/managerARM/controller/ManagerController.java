@@ -13,10 +13,7 @@ import ru.coursework.managerARM.dao.*;
 import ru.coursework.managerARM.dao.impl.*;
 import ru.coursework.managerARM.dto.ClientView;
 import javafx.scene.Scene;
-import ru.coursework.managerARM.model.Equipment;
-import ru.coursework.managerARM.model.LegalPerson;
-import ru.coursework.managerARM.model.NaturalPerson;
-import ru.coursework.managerARM.model.Reservation;
+import ru.coursework.managerARM.model.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -213,12 +210,15 @@ public class ManagerController {
 
     private final LegalPersonDao legalPersonDao;
 
+    private final RepairDao repairDao;
+
     public ManagerController() {
         this.clientDao = new ClientDaoImpl();
         this.naturalPersonDao = new NaturalPersonDaoImpl();
         this.legalPersonDao = new LegalPersonDaoImpl();
         this.equipmentDao = new EquipmentDaoImpl();
         this.reservationDao = new ReservationDaoImpl();
+        this.repairDao = new RepairDaoImpl();
     }
 
     @FXML
@@ -386,14 +386,43 @@ public class ManagerController {
 
     @FXML
     void onRepairButtonClick(ActionEvent event) {
+        Equipment selectedEquipment = equipmentTable.getSelectionModel().getSelectedItem();
 
+        if (selectedEquipment == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Выберите оборудование.");
+            alert.showAndWait();
+            return;
+        }
+
+        Repair repair = new Repair();
+        repair.setEquipment(selectedEquipment.getEquipmentId());
+
+        if (showRepairDialog(repair, selectedEquipment) && isValid(repair)){
+            repairDao.add(repair);
+            equipViews.setAll(equipmentDao.getAll());
+        }
     }
 
     @FXML
     void onReserveButtonClick(ActionEvent event) {
-        Reservation reservation = new Reservation();
+        ClientView selectedClient = clientsTable.getSelectionModel().getSelectedItem();
+        Equipment selectedEquipment = equipmentTable.getSelectionModel().getSelectedItem();
 
-        if (showReservController(reservation) && isValid(reservation)){
+        if (selectedClient == null || selectedEquipment == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Выберите клиента и оборудование.");
+            alert.showAndWait();
+            return;
+        }
+
+        Reservation reservation = new Reservation();
+        reservation.setClient(selectedClient.getClientId());
+        reservation.setEquipment(selectedEquipment.getEquipmentId());
+
+        if (showReservDialog(reservation, selectedClient, selectedEquipment) && isValid(reservation)){
             reservationDao.add(reservation);
             reservationsViews.setAll(reservationDao.getAll());
         }
@@ -424,7 +453,6 @@ public class ManagerController {
     void onSearchClientButtonClick(ActionEvent event) {
        String companyText = tfSearchClientCompany.getText() == null ? "" : tfSearchClientCompany.getText().trim();
        String surnameText = tfSearchClientSurname.getText() == null ? "" : tfSearchClientSurname.getText().trim();
-
 
         if (companyText.isEmpty() && surnameText.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -520,7 +548,8 @@ public class ManagerController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait(); //TODO логирование ClientDialog
+            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            return false;//TODO логирование ClientDialog
         }
         Stage stage = new Stage();
 
@@ -544,7 +573,8 @@ public class ManagerController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait(); //TODO логирование ClientDialog
+            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            return false;//TODO логирование ClientDialog
         }
         Stage stage = new Stage();
 
@@ -568,7 +598,8 @@ public class ManagerController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait(); //TODO логирование ClientDialog
+            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            return false;//TODO логирование ClientDialog
         }
         Stage stage = new Stage();
 
@@ -586,13 +617,14 @@ public class ManagerController {
         return controller.isConfirmed();
     }
 
-    private boolean showReservController(Reservation reservation){
+    private boolean showReservDialog(Reservation reservation, ClientView client, Equipment equipment){
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("reservation-info-view.fxml"));
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait(); //TODO логирование ClientDialog
+            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            return false;//TODO логирование ClientDialog
         }
         Stage stage = new Stage();
 
@@ -604,7 +636,32 @@ public class ManagerController {
 
         ReservationInfoController controller = fxmlLoader.getController();
         controller.setStage(stage);
-        controller.setReservation(reservation);
+        controller.setReservation(reservation, client, equipment);
+
+        stage.showAndWait();
+        return controller.isConfirmed();
+    }
+
+    private boolean showRepairDialog(Repair repair, Equipment equipment){
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("repair-request-info-view.fxml"));
+        Scene scene = null;
+        try{
+            scene = new Scene(fxmlLoader.load(), 600, 500);
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            return false;//TODO логирование ClientDialog
+        }
+        Stage stage = new Stage();
+
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(MainApplication.getStage());
+
+        stage.setTitle("Создание запроса на ремонт.");
+        stage.setScene(scene);
+
+        RepairRequestController controller = fxmlLoader.getController();
+        controller.setStage(stage);
+        controller.setRepair(repair, equipment);
 
         stage.showAndWait();
         return controller.isConfirmed();
@@ -653,7 +710,12 @@ public class ManagerController {
         return reservation.getClient() != null
                 && reservation.getEquipment() != null
                 && reservation.getStartDate() != null
-                && reservation.getEndDate() != null
-                && reservation.getStatus() != null && !reservation.getStatus().isBlank();
+                && reservation.getEndDate() != null;
+    }
+
+    private boolean isValid(Repair repair){
+        return repair.getEquipment() != null
+                && repair.getRepairStatus() != null && !repair.getRepairStatus().isBlank()
+                && repair.getRepairCost() != null;
     }
 }

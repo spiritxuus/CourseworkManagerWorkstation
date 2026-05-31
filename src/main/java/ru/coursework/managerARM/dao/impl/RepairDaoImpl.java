@@ -3,8 +3,6 @@ package ru.coursework.managerARM.dao.impl;
 import ru.coursework.managerARM.dao.RepairDao;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.Repair;
-
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,17 +12,17 @@ import java.util.Optional;
 
 public class RepairDaoImpl implements RepairDao {
     private static final String INSERT =
-            "INSERT INTO my_schema.repair (equipment, contract, date_created, repair_reason, repair_status, repair_cost) VALUES (?, ?, ?, ?, ?, ?)";
+            "INSERT INTO my_schema.repair (equipment, repair_reason, repair_cost) VALUES (?, ?, ?)";
 
     private static final String SELECT_BY_ID =
-            "SELECT repair_id, equipment, contract, date_created, repair_reason, repair_status, repair_cost FROM my_schema.repair WHERE repair_id = ?";
+            "SELECT repair_id, equipment, date_created, repair_reason, repair_status, repair_cost FROM my_schema.repair WHERE repair_id = ?";
 
     private static final String SELECT =
-            "SELECT repair_id, equipment, contract, date_created, repair_reason, repair_status, repair_cost FROM my_schema.repair";
+            "SELECT repair_id, equipment, date_created, repair_reason, repair_status, repair_cost FROM my_schema.repair";
 
     private static final String UPDATE =
             "UPDATE my_schema.repair " +
-                    "SET equipment = ?, contract = ?, date_created = ?, repair_reason = ?, repair_status = ?, repair_cost = ? " +
+                    "SET equipment = ?, repair_reason = ?, repair_status = ?, repair_cost = ? " +
                     "WHERE repair_id = ?";
 
     private final static String DELETE =
@@ -36,7 +34,6 @@ public class RepairDaoImpl implements RepairDao {
             while (rs.next()) {
                 list.add(new Repair(rs.getLong("repair_id"),
                         rs.getLong("equipment"),
-                        rs.getLong("contract"),
                         rs.getDate("date_created").toLocalDate(),
                         rs.getString("repair_reason"),
                         rs.getString("repair_status"),
@@ -53,11 +50,8 @@ public class RepairDaoImpl implements RepairDao {
         try(PreparedStatement statement =
                     DbUtils.getConnection().prepareStatement(INSERT)){
             statement.setLong(1, repair.getEquipment());
-            statement.setLong(2, repair.getContract());
-            statement.setDate(3, Date.valueOf(repair.getDateCreated()));
-            statement.setString(4, repair.getRepairReason());
-            statement.setString(5, repair.getRepairStatus());
-            statement.setBigDecimal(6, repair.getRepairCost());
+            statement.setString(2, repair.getRepairReason());
+            statement.setBigDecimal(3, repair.getRepairCost());
             statement.executeUpdate();
         } catch (SQLException e){
             System.out.println(e.getMessage());
@@ -72,7 +66,6 @@ public class RepairDaoImpl implements RepairDao {
                 if (rs.next()) {
                     return Optional.of(new Repair(rs.getLong("repair_id"),
                             rs.getLong("equipment"),
-                            rs.getLong("contract"),
                             rs.getDate("date_created").toLocalDate(),
                             rs.getString("repair_reason"),
                             rs.getString("repair_status"),
@@ -104,11 +97,9 @@ public class RepairDaoImpl implements RepairDao {
         try(PreparedStatement statement =
                     DbUtils.getConnection().prepareStatement(UPDATE)){
             statement.setLong(1, repair.getEquipment());
-            statement.setLong(2, repair.getContract());
-            statement.setDate(3, Date.valueOf(repair.getDateCreated()));
-            statement.setString(4, repair.getRepairReason());
-            statement.setString(5, repair.getRepairStatus());
-            statement.setBigDecimal(6, repair.getRepairCost());
+            statement.setString(2, repair.getRepairReason());
+            statement.setString(3, repair.getRepairStatus());
+            statement.setBigDecimal(4, repair.getRepairCost());
             statement.executeUpdate();
         } catch (SQLException e){
             System.out.println(e.getMessage());

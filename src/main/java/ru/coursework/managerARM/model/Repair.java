@@ -14,7 +14,6 @@ import lombok.Setter;
 public class Repair {
     private Long repairId;
     private Long equipment;
-    private Long contract;
     private LocalDate dateCreated;
     private String repairReason;
     private String repairStatus;

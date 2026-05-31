@@ -14,17 +14,17 @@ import java.util.Optional;
 
 public class ReservationDaoImpl implements ReservationDao {
     private static final String INSERT =
-            "INSERT INTO my_schema.reservation (client, equipment, start_date, end_date, status) VALUES (?, ?, ?, ?, ?)";
+            "INSERT INTO my_schema.reservation (client, equipment, start_date, end_date) VALUES (?, ?, ?, ?)";
 
     private static final String SELECT_BY_ID =
-            "SELECT reservation_id, client, equipment, start_date, end_date, status FROM my_schema.reservation WHERE reservation_id = ?";
+            "SELECT reservation_id, client, equipment, start_date, end_date FROM my_schema.reservation WHERE reservation_id = ?";
 
     private static final String SELECT =
-            "SELECT reservation_id, client, equipment, start_date, end_date, status FROM my_schema.reservation";
+            "SELECT reservation_id, client, equipment, start_date, end_date FROM my_schema.reservation";
 
     private static final String UPDATE =
             "UPDATE my_schema.reservation " +
-                    "SET client = ?, equipment = ?, start_date = ?, end_date = ?, status = ? " +
+                    "SET client = ?, equipment = ?, start_date = ?, end_date = ? " +
                     "WHERE reservation_id = ?";
 
     private final static String DELETE =
@@ -38,8 +38,7 @@ public class ReservationDaoImpl implements ReservationDao {
                         rs.getLong("client"),
                         rs.getLong("equipment"),
                         rs.getDate("start_date").toLocalDate(),
-                        rs.getDate("end_date").toLocalDate(),
-                        rs.getString("status")));
+                        rs.getDate("end_date").toLocalDate()));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -55,7 +54,6 @@ public class ReservationDaoImpl implements ReservationDao {
             statement.setLong(2, reservation.getEquipment());
             statement.setDate(3, Date.valueOf(reservation.getStartDate()));
             statement.setDate(4, Date.valueOf(reservation.getEndDate()));
-            statement.setString(5, reservation.getStatus());
             statement.executeUpdate();
         } catch (SQLException e){
             System.out.println(e.getMessage());
@@ -72,8 +70,7 @@ public class ReservationDaoImpl implements ReservationDao {
                             rs.getLong("client"),
                             rs.getLong("equipment"),
                             rs.getDate("start_date").toLocalDate(),
-                            rs.getDate("end_date").toLocalDate(),
-                            rs.getString("status")));
+                            rs.getDate("end_date").toLocalDate()));
                 }
             }
         } catch (SQLException e) {
@@ -104,7 +101,6 @@ public class ReservationDaoImpl implements ReservationDao {
             statement.setLong(2, reservation.getEquipment());
             statement.setDate(3, Date.valueOf(reservation.getStartDate()));
             statement.setDate(4, Date.valueOf(reservation.getEndDate()));
-            statement.setString(5, reservation.getStatus());
             statement.executeUpdate();
         } catch (SQLException e){
             System.out.println(e.getMessage());

@@ -2,14 +2,13 @@ package ru.coursework.managerARM.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import ru.coursework.managerARM.dto.ClientView;
+import ru.coursework.managerARM.model.Equipment;
 import ru.coursework.managerARM.model.Reservation;
-import java.time.LocalDate;
 
 public class ReservationInfoController {
 
@@ -30,24 +29,32 @@ public class ReservationInfoController {
     private Label lbEquip;
 
     @FXML
-    private TextField tfEndDate;
+    private DatePicker dpEndDate;
 
     @FXML
-    private TextField tfStartDate;
-
-    @FXML
-    private TextField tfStatus;
-
-    //TODO ДОДЕЛАТЬ БРОНИ!
+    private DatePicker dpStartDate;
 
     @FXML
     void onOkayButtonClick(ActionEvent event) {
         try{
-            reservation.setClient(Long.valueOf(String.valueOf(lbClient)));
-            reservation.setEquipment(Long.valueOf(String.valueOf(lbEquip)));
-            reservation.setStartDate(LocalDate.parse(tfStartDate.getText().trim()));
-            reservation.setEndDate(LocalDate.parse(tfEndDate.getText().trim()));
-            reservation.setStatus(tfStatus.getText().trim());
+            if (dpStartDate.getValue() == null || dpEndDate.getValue() == null){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Внимание.");
+                alert.setHeaderText("Даты не заполнены.");
+                alert.showAndWait();
+                return;
+            }
+
+            if (dpStartDate.getValue().isAfter(dpEndDate.getValue())){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Внимание.");
+                alert.setHeaderText("Дата начала не может быть позже даты окончания.");
+                alert.showAndWait();
+                return;
+            }
+
+            reservation.setStartDate(dpStartDate.getValue());
+            reservation.setEndDate(dpEndDate.getValue());
 
             confirmed = true;
             stage.close();
@@ -59,14 +66,12 @@ public class ReservationInfoController {
         }
     }
 
-    public void setReservation(Reservation reservation){
+    public void setReservation(Reservation reservation, ClientView client, Equipment equipment){
         this.reservation = reservation;
 
-        lbClient.setText(String.valueOf(reservation.getClient()));
-        lbEquip.setText(String.valueOf(reservation.getEquipment()));
-        tfStartDate.setText(String.valueOf(reservation.getStartDate()));
-        tfEndDate.setText(String.valueOf(reservation.getEndDate()));
-        tfStatus.setText(reservation.getStatus());
+        lbClient.setText(client.getClientName());
+        lbEquip.setText(equipment.getName());
+        dpStartDate.setValue(reservation.getStartDate());
+        dpEndDate.setValue(reservation.getEndDate());
     }
-
 }
