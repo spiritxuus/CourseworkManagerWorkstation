@@ -13,6 +13,7 @@ import ru.coursework.managerARM.dao.*;
 import ru.coursework.managerARM.dao.impl.*;
 import ru.coursework.managerARM.dto.ClientView;
 import javafx.scene.Scene;
+import ru.coursework.managerARM.dto.EquipmentCategoryView;
 import ru.coursework.managerARM.model.*;
 
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class ManagerController {
     private ComboBox<?> cbSearchContract;
 
     @FXML
-    private ComboBox<?> cbSearchEquipCategory;
+    private ComboBox<EquipmentCategoryView> cbSearchEquipCategory;
 
     @FXML
     private ComboBox<?> cbSearchHistoryDate;
@@ -200,6 +201,8 @@ public class ManagerController {
 
     private ObservableList<Reservation> reservationsViews = FXCollections.observableArrayList();
 
+    private ObservableList<EquipmentCategoryView> categoriesView = FXCollections.observableArrayList();
+
     private final ClientDao clientDao;
 
     private final EquipmentDao equipmentDao;
@@ -219,6 +222,12 @@ public class ManagerController {
         this.equipmentDao = new EquipmentDaoImpl();
         this.reservationDao = new ReservationDaoImpl();
         this.repairDao = new RepairDaoImpl();
+    }
+
+    @FXML
+    void initialize(){
+        categoriesView.setAll(equipmentDao.getCategory());
+        cbSearchEquipCategory.setItems(categoriesView);
     }
 
     @FXML
@@ -512,7 +521,42 @@ public class ManagerController {
 
     @FXML
     void onSearchEquipButtonClick(ActionEvent event) {
+        EquipmentCategoryView selectedCategory = cbSearchEquipCategory.getValue();
+        String equipNameText = tfSearchEquipName.getText() == null ? "" : tfSearchEquipName.getText().trim();
 
+        if (selectedCategory == null && equipNameText.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Введите данные для поиска.");
+            alert.showAndWait();
+            return;
+        }
+
+        if (selectedCategory != null && !equipNameText.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Заполните только одно поле поиска.");
+            alert.showAndWait();
+            return;
+        }
+
+        List<Equipment> filtered = equipmentDao.getAll().stream()
+                .filter(equipment ->
+                        (selectedCategory == null || equipment.getCategory().equals(selectedCategory.getCategoryId())) &&
+                                (equipNameText.isEmpty() || (equipment.getName() != null) && equipment.getName().toLowerCase().contains(equipNameText)))
+                .toList();
+
+        equipViews.setAll(filtered);
+
+        cbSearchEquipCategory.setValue(null);
+        tfSearchEquipName.clear();
+
+        if (filtered.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Результат поиска");
+            alert.setHeaderText("Ничего не найдено.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
