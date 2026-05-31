@@ -532,14 +532,6 @@ public class ManagerController {
             return;
         }
 
-        if (selectedCategory != null && !equipNameText.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Заполните только одно поле поиска.");
-            alert.showAndWait();
-            return;
-        }
-
         List<Equipment> filtered = equipmentDao.getAll().stream()
                 .filter(equipment ->
                         (selectedCategory == null || equipment.getCategory().equals(selectedCategory.getCategoryId())) &&
