@@ -79,7 +79,7 @@ public class ManagerController {
     private TableColumn<?, ?> contractStatusColumn;
 
     @FXML
-    private TableView<?> contractsTable;
+    private TableView<RentalContractView> contractsTable;
 
     @FXML
     private TableColumn<?, ?> equipCategoryColumn;
@@ -151,7 +151,7 @@ public class ManagerController {
     private TableColumn<?, ?> reservStartColumn;
 
     @FXML
-    private TableView<?> reservationsTable;
+    private TableView<Reservation> reservationsTable;
 
     @FXML
     private TableColumn<?, ?> returnContractIdColumn;
@@ -203,6 +203,8 @@ public class ManagerController {
 
     private ObservableList<EquipmentCategoryView> categoriesView = FXCollections.observableArrayList();
 
+    private ObservableList<ContractView> contractViews = FXCollections.observableArrayList();
+
     private final ClientDao clientDao;
 
     private final EquipmentDao equipmentDao;
@@ -215,6 +217,8 @@ public class ManagerController {
 
     private final RepairDao repairDao;
 
+    private final RentalContractDao contractDao;
+
     public ManagerController() {
         this.clientDao = new ClientDaoImpl();
         this.naturalPersonDao = new NaturalPersonDaoImpl();
@@ -222,6 +226,7 @@ public class ManagerController {
         this.equipmentDao = new EquipmentDaoImpl();
         this.reservationDao = new ReservationDaoImpl();
         this.repairDao = new RepairDaoImpl();
+        this.contractDao = new RentalContractDaoImpl();
     }
 
     @FXML
@@ -269,7 +274,12 @@ public class ManagerController {
 
     @FXML
     void onAddContractClick(ActionEvent event) {
+        RentalContract contract = new RentalContract();
 
+        if (showContractDialog(contract) && isValid(contract)){
+            contractDao.add(equipment);
+            contractViews.setAll(contractDao.getAllViews());
+        }
     }
 
     @FXML
@@ -299,7 +309,20 @@ public class ManagerController {
 
     @FXML
     void onDeleteContractReservButtonClick(ActionEvent event) {
+        /*
+        RentalContractView contractToDelete = contractsTable.getSelectionModel().getSelectedItem();
+        if (contractToDelete == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Контракт не выбран.");
+            alert.showAndWait();
+            return;
+        }
 
+        contractDao.delete(contractToDelete.getContractId());
+        contractViews.setAll(contractDao.getAllViews());
+
+         */
     }
 
     @FXML
@@ -455,6 +478,7 @@ public class ManagerController {
     @FXML
     void onResetContractReservButtonClick(ActionEvent event) {
 
+        reservationsViews.setAll(reservationDao.getAll());
     }
 
     @FXML
@@ -708,6 +732,31 @@ public class ManagerController {
         RepairRequestController controller = fxmlLoader.getController();
         controller.setStage(stage);
         controller.setRepair(repair, equipment);
+
+        stage.showAndWait();
+        return controller.isConfirmed();
+    }
+
+    private boolean showContractDialog(RentalContract contract){
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("contract-info-view.fxml"));
+        Scene scene = null;
+        try{
+            scene = new Scene(fxmlLoader.load(), 600, 500);
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            return false;//TODO логирование ClientDialog
+        }
+        Stage stage = new Stage();
+
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(MainApplication.getStage());
+
+        stage.setTitle("Создание запроса на ремонт.");
+        stage.setScene(scene);
+
+        ContractInfoController controller = fxmlLoader.getController();
+        controller.setStage(stage);
+        controller.setRepair(repair);
 
         stage.showAndWait();
         return controller.isConfirmed();
