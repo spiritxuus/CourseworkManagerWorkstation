@@ -18,7 +18,6 @@ import ru.coursework.managerARM.dto.AddressView;
 import ru.coursework.managerARM.model.Address;
 import ru.coursework.managerARM.model.NaturalPerson;
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class NaturalClientInfoController {
 
@@ -81,9 +80,9 @@ public class NaturalClientInfoController {
         tfSurname.setText(naturalPerson.getSurname());
         tfPatronymic.setText(naturalPerson.getPatronymic());
         dpBirthDate.setValue(naturalPerson.getBirthDate());
+        tfPassportNumber.setText(naturalPerson.getPassportNumber());
         cbGender.setValue(naturalPerson.getGender());
         tfPassportSeries.setText(naturalPerson.getPassportSeries());
-        tfPassportNumber.setText(naturalPerson.getPassportNumber());
         tfPhoneNumber.setText(naturalPerson.getPhone());
         ftEmail.setText(naturalPerson.getEmail());
     }

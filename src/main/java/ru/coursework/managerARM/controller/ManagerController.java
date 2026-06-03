@@ -14,6 +14,8 @@ import ru.coursework.managerARM.dao.impl.*;
 import ru.coursework.managerARM.dto.ClientView;
 import javafx.scene.Scene;
 import ru.coursework.managerARM.dto.EquipmentCategoryView;
+import ru.coursework.managerARM.dto.RentalContractView;
+import ru.coursework.managerARM.dto.ReservationView;
 import ru.coursework.managerARM.model.*;
 
 import java.io.IOException;
@@ -151,7 +153,7 @@ public class ManagerController {
     private TableColumn<?, ?> reservStartColumn;
 
     @FXML
-    private TableView<Reservation> reservationsTable;
+    private TableView<ReservationView> reservationsTable;
 
     @FXML
     private TableColumn<?, ?> returnContractIdColumn;
@@ -199,11 +201,11 @@ public class ManagerController {
 
     private ObservableList<Equipment> equipViews = FXCollections.observableArrayList();
 
-    private ObservableList<Reservation> reservationsViews = FXCollections.observableArrayList();
+    private ObservableList<ReservationView> reservationsViews = FXCollections.observableArrayList();
 
     private ObservableList<EquipmentCategoryView> categoriesView = FXCollections.observableArrayList();
 
-    private ObservableList<ContractView> contractViews = FXCollections.observableArrayList();
+    private ObservableList<RentalContractView> contractViews = FXCollections.observableArrayList();
 
     private final ClientDao clientDao;
 
@@ -270,14 +272,19 @@ public class ManagerController {
     @FXML
     void onAddClientButtonClick(ActionEvent event) {
         showClientDialog();
+        clientViews.setAll(clientDao.getAllViews());
     }
 
     @FXML
     void onAddContractClick(ActionEvent event) {
-        RentalContract contract = new RentalContract();
+        ReservationView selectedReservation = reservationsTable.getSelectionModel().getSelectedItem();
 
-        if (showContractDialog(contract) && isValid(contract)){
-            contractDao.add(equipment);
+        RentalContract contract = new RentalContract();
+        contract.setReservationId(selectedReservation.getReservationId());
+        contract.setClientId(selectedReservation.getClientId());
+
+        if (showContractDialog(contract, selectedReservation) && isValid(contract)){
+            contractDao.add(contract);
             contractViews.setAll(contractDao.getAllViews());
         }
     }
@@ -466,7 +473,7 @@ public class ManagerController {
 
         if (showReservDialog(reservation, selectedClient, selectedEquipment) && isValid(reservation)){
             reservationDao.add(reservation);
-            reservationsViews.setAll(reservationDao.getAll());
+            reservationsViews.setAll(reservationDao.getAllViews());
         }
     }
 
@@ -478,7 +485,6 @@ public class ManagerController {
     @FXML
     void onResetContractReservButtonClick(ActionEvent event) {
 
-        reservationsViews.setAll(reservationDao.getAll());
     }
 
     @FXML
@@ -737,7 +743,7 @@ public class ManagerController {
         return controller.isConfirmed();
     }
 
-    private boolean showContractDialog(RentalContract contract){
+    private boolean showContractDialog(RentalContract contract, ReservationView reservation){
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("contract-info-view.fxml"));
         Scene scene = null;
         try{
@@ -756,7 +762,7 @@ public class ManagerController {
 
         ContractInfoController controller = fxmlLoader.getController();
         controller.setStage(stage);
-        controller.setRepair(repair);
+        controller.setContract(contract, reservation);
 
         stage.showAndWait();
         return controller.isConfirmed();
@@ -812,5 +818,19 @@ public class ManagerController {
         return repair.getEquipment() != null
                 && repair.getRepairStatus() != null && !repair.getRepairStatus().isBlank()
                 && repair.getRepairCost() != null;
+    }
+
+    private boolean isValid(RentalContract contract){
+        return contract.getReservationId() != null
+                && contract.getClientId() != null
+                && contract.getIssueDate() != null
+                && contract.getPlannedReturnDate() != null
+                && contract.getActualReturnDate() != null
+                && contract.getDepositAmount() != null
+                && contract.getTotalAmount() != null
+                && contract.getStatus() != null && !contract.getStatus().isBlank()
+                && contract.getIssueConditionDesc() != null && !contract.getIssueConditionDesc().isBlank()
+                && contract.getIssueConditionPhoto() != null && !contract.getIssueConditionPhoto().isBlank();
+
     }
 }

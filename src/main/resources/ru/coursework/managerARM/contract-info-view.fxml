@@ -2,112 +2,129 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.coursework.managerARM.controller.ContractInfoController">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
-         <children>
-            <Label text="Бронь:">
-               <VBox.margin>
-                  <Insets bottom="5.0" top="5.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Дата заключения:">
-               <VBox.margin>
-                  <Insets bottom="13.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Планируемая дата возврата:">
-               <VBox.margin>
-                  <Insets bottom="13.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Актуальная дата возврата:">
-               <VBox.margin>
-                  <Insets bottom="13.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Сумма депозита:">
-               <VBox.margin>
-                  <Insets bottom="13.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Общая цена:">
-               <VBox.margin>
-                  <Insets bottom="13.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Статус:">
-               <VBox.margin>
-                  <Insets bottom="13.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Описание состояния при выдаче:">
-               <VBox.margin>
-                  <Insets bottom="13.0" />
-               </VBox.margin>
-            </Label>
-            <Label text="Фото состояния при выдаче:">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Label>
-         </children>
-      </VBox>
-      <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
-         <children>
-            <Label fx:id="tfReservation" text="ID + date">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="tfIssueDate" text="issue date">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="tfPlannedReturn" text="planned return date">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="tfActualReturn" text="actual return date">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="tfDeposit" text="deposit amount">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="tfTotalAmount" text="total amount">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="tfStatus" text="status">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="tfIssueCondDesc" text="issue condition description">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="tfIssueCondPhoto" text="issue condition photo">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </TextField>
-         </children>
-      </VBox>
+      <SplitPane dividerPositions="0.5649752475247525" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+        <items>
+          <AnchorPane>
+               <children>
+                  <VBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
+                     <children>
+                        <Label text="Бронь:">
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Дата заключения:">
+                           <VBox.margin>
+                              <Insets bottom="13.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Планируемая дата возврата:">
+                           <VBox.margin>
+                              <Insets bottom="13.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Актуальная дата возврата:">
+                           <VBox.margin>
+                              <Insets bottom="13.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Сумма депозита:">
+                           <VBox.margin>
+                              <Insets bottom="13.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Общая цена:">
+                           <VBox.margin>
+                              <Insets bottom="13.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Статус:">
+                           <VBox.margin>
+                              <Insets bottom="13.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Описание состояния при выдаче:">
+                           <VBox.margin>
+                              <Insets bottom="13.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Фото состояния при выдаче:">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+                     <children>
+                        <Label fx:id="lbReservation" text="client + date">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <DatePicker fx:id="dpCurrentDate">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </DatePicker>
+                        <DatePicker fx:id="dpPlannedReturn">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </DatePicker>
+                        <DatePicker fx:id="dpActualReturn">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </DatePicker>
+                        <TextField fx:id="tfDeposit" text="deposit amount">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="tfTotalAmount" text="total amount">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <ComboBox fx:id="cbStatus" prefWidth="150.0">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </ComboBox>
+                        <TextField fx:id="tfIssueCondDesc" text="issue condition description">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Button mnemonicParsing="false" onAction="#onOpenPhotoButtonClick" text="Открыть ">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane>
+               <children>
+                  <ImageView fx:id="mainImage" fitHeight="152.0" fitWidth="228.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
       <HBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="500.0">
          <children>
             <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="Ок" />

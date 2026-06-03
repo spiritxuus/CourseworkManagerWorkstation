@@ -13,5 +13,4 @@ public interface LegalPersonDao {
     List<LegalPerson> getAll();
     void update(LegalPerson client);
     void delete(Long id);
-    // todo Дополнительные методы
 }
