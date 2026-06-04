@@ -1,6 +1,8 @@
 package ru.coursework.managerARM.dao.impl;
 
 import ru.coursework.managerARM.dao.RentalContractDao;
+import ru.coursework.managerARM.dto.ClientView;
+import ru.coursework.managerARM.dto.RentalContractView;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.RentalContract;
 
@@ -41,6 +43,31 @@ public class RentalContractDaoImpl implements RentalContractDao {
 
     private final static String DELETE =
             "DELETE FROM my_schema.rental_contract WHERE contract_id = ?";
+
+    private static final String SELECT_VIEWS =
+            "SELECT " +
+                    "contr.contract_id, " +
+                    "r.reservation_id, " +
+                    "r.client_id, " +
+                    "c.natural_person_id, " +
+                    "c.legal_person_id, " +
+                    "CASE " +
+                    "    WHEN c.natural_person_id IS NOT NULL THEN CONCAT_WS(' ', np.surname, np.name, np.patronymic) " +
+                    "    ELSE lp.company_name " +
+                    "END AS client_name, " +
+                    "contr.issue_date, " +
+                    "contr.planned_return_date, " +
+                    "contr.actual_return_date, " +
+                    "contr.deposit_amount, " +
+                    "contr.total_amount, " +
+                    "contr.status, " +
+                    "contr.issue_condition_desc, " +
+                    "contr.issue_condition_photo " +
+                    "FROM my_schema.rental_contract contr " +
+                    "LEFT JOIN my_schema.reservation r ON contr.reservation_id = r.reservation_id " +
+                    "LEFT JOIN my_schema.client c ON r.client_id = c.client_id " +
+                    "LEFT JOIN my_schema.natural_person np ON c.natural_person_id = np.natural_person_id " +
+                    "LEFT JOIN my_schema.legal_person lp ON c.legal_person_id = lp.legal_person_id ";
 
     protected List<RentalContract> mapper(ResultSet rs){
         List<RentalContract> list = new ArrayList<>();
@@ -134,6 +161,41 @@ public class RentalContractDaoImpl implements RentalContractDao {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return list;
+    }
+
+    @Override
+    public List<RentalContractView> getAllViews() {
+        List<RentalContractView> list = new ArrayList<>();
+        try (PreparedStatement statement = DbUtils.getConnection().prepareStatement(SELECT_VIEWS);
+             ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                Date actualReturnSqlDate = rs.getDate("actual_return_date");
+                LocalDate actualReturnDate = actualReturnSqlDate != null
+                        ? actualReturnSqlDate.toLocalDate()
+                        : null;
+
+                list.add(new RentalContractView(
+                        rs.getLong("contract_id"),
+                        rs.getLong("reservation_id"),
+                        rs.getLong("client_id"),
+                        rs.getLong("natural_person_id"),
+                        rs.getLong("legal_person_id"),
+                        rs.getString("client_name"),
+                        rs.getDate("issue_date").toLocalDate(),
+                        rs.getDate("planned_return_date").toLocalDate(),
+                        actualReturnDate,
+                        rs.getBigDecimal("deposit_amount"),
+                        rs.getBigDecimal("total_amount"),
+                        rs.getString("status"),
+                        rs.getString("issue_condition_desc"),
+                        rs.getString("issue_condition_photo")
+                        ));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
         return list;
     }
 

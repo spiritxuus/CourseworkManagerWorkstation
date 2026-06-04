@@ -279,11 +279,20 @@ public class ManagerController {
     void onAddContractClick(ActionEvent event) {
         ReservationView selectedReservation = reservationsTable.getSelectionModel().getSelectedItem();
 
+        if (selectedReservation == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Выберите бронь.");
+            alert.showAndWait();
+            return;
+        }
+
         RentalContract contract = new RentalContract();
         contract.setReservationId(selectedReservation.getReservationId());
         contract.setClientId(selectedReservation.getClientId());
+        contract.setPlannedReturnDate(selectedReservation.getEndDate());
 
-        if (showContractDialog(contract, selectedReservation) && isValid(contract)){
+        if (showContractDialog(contract, selectedReservation, false) && isValid(contract)){
             contractDao.add(contract);
             contractViews.setAll(contractDao.getAllViews());
         }
@@ -473,7 +482,7 @@ public class ManagerController {
 
         if (showReservDialog(reservation, selectedClient, selectedEquipment) && isValid(reservation)){
             reservationDao.add(reservation);
-            reservationsViews.setAll(reservationDao.getAllViews());
+            reservationsViews.setAll(reservationDao.getAllViews()); //TODO сделать вьюу у брони
         }
     }
 
@@ -743,7 +752,7 @@ public class ManagerController {
         return controller.isConfirmed();
     }
 
-    private boolean showContractDialog(RentalContract contract, ReservationView reservation){
+    private boolean showContractDialog(RentalContract contract, ReservationView reservation, Boolean editMode){
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("contract-info-view.fxml"));
         Scene scene = null;
         try{
@@ -763,6 +772,7 @@ public class ManagerController {
         ContractInfoController controller = fxmlLoader.getController();
         controller.setStage(stage);
         controller.setContract(contract, reservation);
+        controller.setEditMode(editMode);
 
         stage.showAndWait();
         return controller.isConfirmed();

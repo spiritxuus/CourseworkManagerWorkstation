@@ -13,10 +13,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RentalContractView {
-    private long contractId;
-    private long reservationId;
-    private String clientName;
+    private Long contractId;
+    private Long reservationId;
+    private Long clientId;
+    private Long naturalPersonId;
     private Long legalPersonId;
+    private String clientName;
     private LocalDate issueDate;
     private LocalDate plannedReturnDate;
     private LocalDate actualReturnDate;

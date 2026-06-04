@@ -59,9 +59,10 @@ public class ContractInfoController {
 
     private String photoPath;
 
+    private boolean editMode;
+
     @FXML
     void initialize(){
-
         cbStatus.setItems(FXCollections.observableArrayList(
                 "Действителен",
                 "Завершён"
@@ -81,18 +82,32 @@ public class ContractInfoController {
                 return;
             }
 
-            if (dpCurrentDate.getValue().isAfter(dpPlannedReturn.getValue()) ||
-                    dpCurrentDate.getValue().isAfter(dpActualReturn.getValue())){
+            if (dpCurrentDate.getValue().isAfter(dpPlannedReturn.getValue())){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Внимание.");
-                alert.setHeaderText("Дата заключения не может быть позже даты возвращения.");
+                alert.setHeaderText("Дата заключения не может быть позже даты возврата.");
+                alert.showAndWait();
+                return;
+            }
+
+            if (editMode && dpActualReturn.getValue() != null &&
+                    dpCurrentDate.getValue().isAfter(dpActualReturn.getValue())) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Внимание.");
+                alert.setHeaderText("Дата заключения не может быть позже фактической даты возврата.");
                 alert.showAndWait();
                 return;
             }
 
             contract.setIssueDate(dpCurrentDate.getValue());
             contract.setPlannedReturnDate(dpPlannedReturn.getValue());
-            contract.setActualReturnDate(dpActualReturn.getValue());
+
+            if (editMode) {
+                contract.setActualReturnDate(dpActualReturn.getValue());
+            } else {
+                contract.setActualReturnDate(null);
+            }
+
             contract.setDepositAmount(new BigDecimal(tfDeposit.getText().trim()));
             contract.setTotalAmount(new BigDecimal(tfTotalAmount.getText().trim()));
             contract.setStatus(cbStatus.getValue());
@@ -134,13 +149,15 @@ public class ContractInfoController {
     public void setContract(RentalContract contract, ReservationView reservation) {
         this.contract = contract;
 
-        lbReservation.setText(String.valueOf(reservation.getClientName()) + reservation.getStartDate());
+        lbReservation.setText(reservation.getClientName() + " | " +
+                reservation.getEquipmentName() + " | " +
+                reservation.getStartDate() + " - " + reservation.getEndDate());
         dpCurrentDate.setValue(LocalDate.now());
         dpPlannedReturn.setValue(contract.getPlannedReturnDate());
         dpActualReturn.setValue(contract.getActualReturnDate());
         tfDeposit.setText(String.valueOf(contract.getDepositAmount()));
         tfTotalAmount.setText(String.valueOf(contract.getTotalAmount()));
-        cbStatus.setValue(contract.getStatus());
+        cbStatus.setValue(contract.getStatus() != null ? contract.getStatus() : "Действителен");
         tfIssueCondDesc.setText(contract.getIssueConditionDesc());
 
         if (contract.getIssueConditionPhoto() != null && !contract.getIssueConditionPhoto().isBlank()) {
@@ -150,5 +167,11 @@ public class ContractInfoController {
         } else {
             photoPath = null;
         }
+    }
+
+    public void setEditMode(boolean editMode) {
+        this.editMode = editMode;
+        dpActualReturn.setVisible(editMode);
+        dpActualReturn.setManaged(editMode);
     }
 }
