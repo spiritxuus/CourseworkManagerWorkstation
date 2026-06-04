@@ -482,7 +482,7 @@ public class ManagerController {
 
         if (showReservDialog(reservation, selectedClient, selectedEquipment) && isValid(reservation)){
             reservationDao.add(reservation);
-            reservationsViews.setAll(reservationDao.getAllViews()); //TODO сделать вьюу у брони
+            reservationsViews.setAll(reservationDao.getAllViews());
         }
     }
 

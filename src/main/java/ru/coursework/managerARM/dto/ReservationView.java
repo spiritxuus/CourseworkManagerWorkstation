@@ -14,6 +14,8 @@ import java.time.LocalDate;
 public class ReservationView {
     private Long reservationId;
     private Long clientId;
+    private Long naturalPersonId;
+    private Long legalPersonId;
     private String clientName;
     private String equipmentName;
     private LocalDate startDate;

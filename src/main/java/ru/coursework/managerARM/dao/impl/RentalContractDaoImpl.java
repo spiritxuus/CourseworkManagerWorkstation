@@ -65,7 +65,7 @@ public class RentalContractDaoImpl implements RentalContractDao {
                     "contr.issue_condition_photo " +
                     "FROM my_schema.rental_contract contr " +
                     "LEFT JOIN my_schema.reservation r ON contr.reservation_id = r.reservation_id " +
-                    "LEFT JOIN my_schema.client c ON r.client_id = c.client_id " +
+                    "LEFT JOIN my_schema.client c ON r.client = c.client_id " +
                     "LEFT JOIN my_schema.natural_person np ON c.natural_person_id = np.natural_person_id " +
                     "LEFT JOIN my_schema.legal_person lp ON c.legal_person_id = lp.legal_person_id ";
 
