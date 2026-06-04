@@ -694,12 +694,21 @@ public class ManagerController {
     @FXML
     void onShowPaymentButtonClick(ActionEvent event) {
         //TODO ДОДЕЛАЬ ЭТО!
-        Payment payment = new Payment();
+        RentalContractView contract = contractsTable.getSelectionModel().getSelectedItem();
 
-        if (showPaymentDialog(payment) && isValid(payment)){
-            equipmentDao.add(equipment);
-            equipViews.setAll(equipmentDao.getAll());
+        if (contract == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Выберите контракт.");
+            alert.showAndWait();
+            return;
         }
+
+        boolean confirmed = showPaymentDialog(contract);
+        if (!confirmed) return;
+
+        equipViews.setAll(equipmentDao.getAll());
+        equipmentDao.update(equipment);
     }
 
     private ReservationView findReservationViewById(Long reservationId) {
