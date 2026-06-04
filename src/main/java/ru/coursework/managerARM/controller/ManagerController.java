@@ -276,7 +276,7 @@ public class ManagerController {
     }
 
     @FXML
-    void onAddContractClick(ActionEvent event) {
+    void onAddContractButtonClick(ActionEvent event) {
         ReservationView selectedReservation = reservationsTable.getSelectionModel().getSelectedItem();
 
         if (selectedReservation == null) {
@@ -325,20 +325,30 @@ public class ManagerController {
 
     @FXML
     void onDeleteContractReservButtonClick(ActionEvent event) {
-        /*
         RentalContractView contractToDelete = contractsTable.getSelectionModel().getSelectedItem();
-        if (contractToDelete == null) {
+        ReservationView reservationToDelete = reservationsTable.getSelectionModel().getSelectedItem();
+
+
+        boolean contractSelected = contractToDelete != null;
+        boolean reservationSelected = reservationToDelete != null;
+
+        if (contractSelected == reservationSelected) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
-            alert.setHeaderText("Контракт не выбран.");
+            alert.setHeaderText(contractSelected
+                    ? "Выберите только один объект."
+                    : "Выберите контракт или бронь.");
             alert.showAndWait();
             return;
         }
 
-        contractDao.delete(contractToDelete.getContractId());
-        contractViews.setAll(contractDao.getAllViews());
-
-         */
+        if (contractSelected) {
+            contractDao.delete(contractToDelete.getContractId());
+            contractViews.setAll(contractDao.getAllViews());
+        } else {
+            reservationDao.delete(reservationToDelete.getReservationId());
+            reservationsViews.setAll(reservationDao.getAllViews());
+        }
     }
 
     @FXML
@@ -433,8 +443,77 @@ public class ManagerController {
     }
 
     @FXML
-    void onEditContractClick(ActionEvent event) {
+    void onEditContractButtonClick(ActionEvent event) {
+        RentalContractView contractToEdit = contractsTable.getSelectionModel().getSelectedItem();
+        ReservationView reservationToEdit = reservationsTable.getSelectionModel().getSelectedItem();
 
+        if (contractToEdit == null && reservationToEdit == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Ничего не редактируется.");
+            alert.showAndWait();
+            return;
+        }
+
+        if (reservationToEdit != null && contractToEdit != null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Выберите только один объект.");
+            alert.showAndWait();
+            return;
+        }
+
+        if (contractToEdit != null) {
+            RentalContract contract = contractDao.getById(contractToEdit.getContractId()).orElse(null);
+            ReservationView reservationView = findReservationViewById(contractToEdit.getReservationId());
+
+            if (contract == null || reservationView == null) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Внимание.");
+                alert.setHeaderText("Контракт или бронь не найдены.");
+                alert.showAndWait();
+                return;
+            }
+
+            boolean confirmed = showContractDialog(contract, reservationView, true);
+            if (!confirmed) return;
+
+            if (!isValid(contract)) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Внимание.");
+                alert.setHeaderText("Введены некорректные данные.");
+                alert.showAndWait();
+                return;
+            }
+
+            contractDao.update(contract);
+            contractViews.setAll(contractDao.getAllViews());
+            return;
+        }
+
+        Reservation reservation = reservationDao.getById(reservationToEdit.getReservationId()).orElse(null);
+
+        if (reservation == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Бронь не найдена.");
+            alert.showAndWait();
+            return;
+        }
+
+        boolean confirmed = showReservDialog(reservation, reservationToEdit, true);
+        if (!confirmed) return;
+
+        if (!isValid(reservation)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Введены некорректные данные.");
+            alert.showAndWait();
+            return;
+        }
+
+        reservationDao.update(reservation);
+        reservationsViews.setAll(reservationDao.getAllViews());
     }
 
     @FXML
@@ -480,7 +559,19 @@ public class ManagerController {
         reservation.setClient(selectedClient.getClientId());
         reservation.setEquipment(selectedEquipment.getEquipmentId());
 
-        if (showReservDialog(reservation, selectedClient, selectedEquipment) && isValid(reservation)){
+
+        ReservationView reservationView = new ReservationView(
+                null,
+                selectedClient.getClientId(),
+                selectedClient.getNaturalPersonId(),
+                selectedClient.getLegalPersonId(),
+                selectedClient.getClientName(),
+                selectedEquipment.getName(),
+                null,
+                null
+        );
+
+        if (showReservDialog(reservation, reservationView, false) && isValid(reservation)){
             reservationDao.add(reservation);
             reservationsViews.setAll(reservationDao.getAllViews());
         }
@@ -602,7 +693,20 @@ public class ManagerController {
 
     @FXML
     void onShowPaymentButtonClick(ActionEvent event) {
+        //TODO ДОДЕЛАЬ ЭТО!
+        Payment payment = new Payment();
 
+        if (showPaymentDialog(payment) && isValid(payment)){
+            equipmentDao.add(equipment);
+            equipViews.setAll(equipmentDao.getAll());
+        }
+    }
+
+    private ReservationView findReservationViewById(Long reservationId) {
+        return reservationsViews.stream()
+                .filter(r -> r.getReservationId().equals(reservationId))
+                .findFirst()
+                .orElse(null);
     }
 
     private void showClientDialog(){
@@ -702,7 +806,7 @@ public class ManagerController {
         return controller.isConfirmed();
     }
 
-    private boolean showReservDialog(Reservation reservation, ClientView client, Equipment equipment){
+    private boolean showReservDialog(Reservation reservation, ReservationView reservationView, boolean editMode){
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("reservation-info-view.fxml"));
         Scene scene = null;
         try{
@@ -715,13 +819,12 @@ public class ManagerController {
 
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
-
-        stage.setTitle("Редактирование брони.");
+        stage.setTitle(editMode ? "Редактирование брони." : "Создание брони."); //TODO ДОБАВИТЬ ТАКОЕ В ДРУгИЕ
         stage.setScene(scene);
 
         ReservationInfoController controller = fxmlLoader.getController();
         controller.setStage(stage);
-        controller.setReservation(reservation, client, equipment);
+        controller.setReservation(reservation, reservationView);
 
         stage.showAndWait();
         return controller.isConfirmed();

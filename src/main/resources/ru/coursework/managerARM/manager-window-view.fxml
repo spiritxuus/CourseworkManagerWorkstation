@@ -278,8 +278,8 @@
                                  <children>
                                     <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#onAddContractClick" text="Создать контракт" />
-                                          <Button mnemonicParsing="false" onAction="#onEditContractClick" text="Редактировать" />
+                                          <Button mnemonicParsing="false" onAction="#onAddContractButtonClick" text="Создать контракт" />
+                                          <Button mnemonicParsing="false" onAction="#onEditContractButtonClick" text="Редактировать" />
                                           <Button mnemonicParsing="false" onAction="#onShowPaymentButtonClick" text="Показать платеж" />
                                           <Button mnemonicParsing="false" onAction="#onDeleteContractReservButtonClick" text="Удалить" />
                                           <Button mnemonicParsing="false" onAction="#onResetContractReservButtonClick" text="Сброс" />

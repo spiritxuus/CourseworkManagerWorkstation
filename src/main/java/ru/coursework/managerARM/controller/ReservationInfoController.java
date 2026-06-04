@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import ru.coursework.managerARM.dto.ClientView;
+import ru.coursework.managerARM.dto.ReservationView;
 import ru.coursework.managerARM.model.Equipment;
 import ru.coursework.managerARM.model.Reservation;
 
@@ -66,11 +67,11 @@ public class ReservationInfoController {
         }
     }
 
-    public void setReservation(Reservation reservation, ClientView client, Equipment equipment){
+    public void setReservation(Reservation reservation, ReservationView reservationView){
         this.reservation = reservation;
 
-        lbClient.setText(client.getClientName());
-        lbEquip.setText(equipment.getName());
+        lbClient.setText(reservationView.getClientName());
+        lbEquip.setText(reservationView.getEquipmentName());
         dpStartDate.setValue(reservation.getStartDate());
         dpEndDate.setValue(reservation.getEndDate());
     }
