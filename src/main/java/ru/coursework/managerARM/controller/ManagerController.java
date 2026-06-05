@@ -221,6 +221,8 @@ public class ManagerController {
 
     private final RentalContractDao contractDao;
 
+    private final PaymentDao paymentDao;
+
     public ManagerController() {
         this.clientDao = new ClientDaoImpl();
         this.naturalPersonDao = new NaturalPersonDaoImpl();
@@ -229,6 +231,7 @@ public class ManagerController {
         this.reservationDao = new ReservationDaoImpl();
         this.repairDao = new RepairDaoImpl();
         this.contractDao = new RentalContractDaoImpl();
+        this.paymentDao = new PaymentDaoImpl();
     }
 
     @FXML
@@ -646,7 +649,52 @@ public class ManagerController {
 
     @FXML
     void onSearchContractButtonClick(ActionEvent event) {
+        //TODO ПРОВЕРИТЬ
+        String contractReservSurnameText = tfSearchContractReservClient.getText() == null ? "" : tfSearchContractReservClient.getText().trim();
 
+        if (contractReservSurnameText.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Введите данные для поиска.");
+            alert.showAndWait();
+            return;
+        }
+
+        List<RentalContractView> filteredContracts = contractDao.getAllViews().stream()
+                .filter(contract ->
+                        (contract.getClientName() != null && contract.getClientName().toLowerCase().contains(contractReservSurnameText))
+                )
+                .toList();
+
+        List<ReservationView> filteredReserv = reservationDao.getAllViews().stream()
+                .filter(reservation ->
+                        (reservation.getClientName() != null && reservation.getClientName().toLowerCase().contains(contractReservSurnameText))
+                )
+                .toList();
+
+        contractViews.setAll(filteredContracts);
+        reservationsViews.setAll(filteredReserv);
+
+        tfSearchContractReservClient.clear();
+
+        if (filteredContracts.isEmpty() && filteredReserv.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Результат поиска");
+            alert.setHeaderText("Ничего не найдено.");
+            alert.showAndWait();
+        }
+        else if (filteredContracts.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Результат поиска");
+            alert.setHeaderText("Контрактов не найдено.");
+            alert.showAndWait();
+        }
+        else if (filteredReserv.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Результат поиска");
+            alert.setHeaderText("Брони не найдено.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -693,8 +741,9 @@ public class ManagerController {
 
     @FXML
     void onShowPaymentButtonClick(ActionEvent event) {
-        //TODO ДОДЕЛАЬ ЭТО!
+        //TODO ПРОВЕРИMM
         RentalContractView contract = contractsTable.getSelectionModel().getSelectedItem();
+        Payment payment = paymentDao.getByContract(contract.getContractId()).orElse(null);
 
         if (contract == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -704,11 +753,8 @@ public class ManagerController {
             return;
         }
 
-        boolean confirmed = showPaymentDialog(contract);
+        boolean confirmed = showPaymentDialog(payment);
         if (!confirmed) return;
-
-        equipViews.setAll(equipmentDao.getAll());
-        equipmentDao.update(equipment);
     }
 
     private ReservationView findReservationViewById(Long reservationId) {
@@ -885,6 +931,31 @@ public class ManagerController {
         controller.setStage(stage);
         controller.setContract(contract, reservation);
         controller.setEditMode(editMode);
+
+        stage.showAndWait();
+        return controller.isConfirmed();
+    }
+
+    private boolean showPaymentDialog(Payment payment){
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("payment-info-view.fxml"));
+        Scene scene = null;
+        try{
+            scene = new Scene(fxmlLoader.load(), 600, 500);
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            return false;//TODO логирование ClientDialog
+        }
+        Stage stage = new Stage();
+
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(MainApplication.getStage());
+
+        stage.setTitle("Редактирование оборудования.");
+        stage.setScene(scene);
+
+        PaymentInfoController controller = fxmlLoader.getController();
+        controller.setStage(stage);
+        controller.setPayment(payment);
 
         stage.showAndWait();
         return controller.isConfirmed();

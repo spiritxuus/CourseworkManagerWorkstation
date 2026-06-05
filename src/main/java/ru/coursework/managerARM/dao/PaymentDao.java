@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface PaymentDao {
     void add(Payment payment);
     Optional<Payment> getById(Long id);
+    Optional<Payment> getByContract(Long id);
     List<Payment> getAll();
     void update(Payment payment);
     void delete(Long id);

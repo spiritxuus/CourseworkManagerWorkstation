@@ -19,6 +19,15 @@ public class PaymentDaoImpl implements PaymentDao {
     private static final String SELECT_BY_ID =
             "SELECT payment_id, contract, payment_date, amount, payment_method FROM my_schema.payment WHERE payment_id = ?";
 
+    private static final String SELECT_BY_CONTRACT =
+            "SELECT p.payment_id, " +
+                    "p.contract, " +
+                    "p.payment_date, " +
+                    "p.amount, " +
+                    "p.payment_method " +
+                    "FROM my_schema.payment p " +
+                    "WHERE p.contract = ?";
+
     private static final String SELECT =
             "SELECT payment_id, contract, payment_date, amount, payment_method FROM my_schema.payment";
 
@@ -63,6 +72,25 @@ public class PaymentDaoImpl implements PaymentDao {
     @Override
     public Optional<Payment> getById(Long id) {
         try (PreparedStatement statement = DbUtils.getConnection().prepareStatement(SELECT_BY_ID)) {
+            statement.setLong(1, id);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return Optional.of(new Payment(rs.getLong("payment_id"),
+                            rs.getLong("contract"),
+                            rs.getDate("payment_date").toLocalDate(),
+                            rs.getBigDecimal("amount"),
+                            rs.getString("payment_method")));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Payment> getByContract(Long id) {
+        try (PreparedStatement statement = DbUtils.getConnection().prepareStatement(SELECT_BY_CONTRACT)) {
             statement.setLong(1, id);
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
