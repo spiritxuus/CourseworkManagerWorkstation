@@ -11,11 +11,8 @@ import javafx.stage.Stage;
 import ru.coursework.managerARM.MainApplication;
 import ru.coursework.managerARM.dao.*;
 import ru.coursework.managerARM.dao.impl.*;
-import ru.coursework.managerARM.dto.ClientView;
+import ru.coursework.managerARM.dto.*;
 import javafx.scene.Scene;
-import ru.coursework.managerARM.dto.EquipmentCategoryView;
-import ru.coursework.managerARM.dto.RentalContractView;
-import ru.coursework.managerARM.dto.ReservationView;
 import ru.coursework.managerARM.model.*;
 
 import java.io.IOException;
@@ -24,13 +21,7 @@ import java.util.List;
 public class ManagerController {
 
     @FXML
-    private ComboBox<?> cbSearchContract;
-
-    @FXML
     private ComboBox<EquipmentCategoryView> cbSearchEquipCategory;
-
-    @FXML
-    private ComboBox<?> cbSearchHistoryDate;
 
     @FXML
     private TableColumn<ClientView, String> clientAddressColumn;
@@ -135,7 +126,7 @@ public class ManagerController {
     private TableColumn<?, ?> historyTypeColumn;
 
     @FXML
-    private TableView<?> historyTable;
+    private TableView<RentalHistory> historyTable;
 
     @FXML
     private TableColumn<?, ?> reservClientcolumn;
@@ -209,6 +200,9 @@ public class ManagerController {
 
     private ObservableList<ReturnOfEquipment> returnViews = FXCollections.observableArrayList();
 
+    private ObservableList<RentalHistory> historyViews = FXCollections.observableArrayList();
+
+
     private final ClientDao clientDao;
 
     private final EquipmentDao equipmentDao;
@@ -227,6 +221,8 @@ public class ManagerController {
 
     private final ReturnOfEquipmentDao returnDao;
 
+    private final RentalHistoryDao historyDao;
+
     public ManagerController() {
         this.clientDao = new ClientDaoImpl();
         this.naturalPersonDao = new NaturalPersonDaoImpl();
@@ -237,6 +233,7 @@ public class ManagerController {
         this.contractDao = new RentalContractDaoImpl();
         this.paymentDao = new PaymentDaoImpl();
         this.returnDao = new ReturnOfEquipmentDaoImpl();
+        this.historyDao = new RentalHistoryDaoImpl();
     }
 
     @FXML
@@ -381,7 +378,18 @@ public class ManagerController {
 
     @FXML
     void onDeleteHistoryButtonClick(ActionEvent event) {
-        //started
+        RentalHistory historyToDelete = historyTable.getSelectionModel().getSelectedItem();
+
+        if (historyToDelete == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("История не выбрана.");
+            alert.showAndWait();
+            return;
+        }
+
+        historyDao.delete(historyToDelete.getHistoryId());
+        historyViews.setAll(historyDao.getAll());
     }
 
     @FXML
@@ -771,10 +779,6 @@ public class ManagerController {
         }
     }
 
-    @FXML
-    void onSearchHistoryButton(ActionEvent event) {
-
-    }
 
     @FXML
     void onShowContractButtonClick(ActionEvent event) {

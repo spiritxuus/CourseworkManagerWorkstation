@@ -388,32 +388,14 @@
                                     </HBox>
                                     <VBox AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <Label text="Поиск по контракту:" />
-                                          <Label text="Поиск по дате:">
-                                             <VBox.margin>
-                                                <Insets top="10.0" />
-                                             </VBox.margin>
-                                          </Label>
                                           <HBox spacing="5.0">
-                                             <children>
-                                                <Button mnemonicParsing="false" onAction="#onSearchHistoryButton" text="Поиск" />
-                                             </children>
                                              <VBox.margin>
                                                 <Insets top="10.0" />
                                              </VBox.margin>
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <VBox AnchorPane.leftAnchor="120.0">
-                                       <children>
-                                          <ComboBox fx:id="cbSearchContract" />
-                                          <ComboBox fx:id="cbSearchHistoryDate">
-                                             <VBox.margin>
-                                                <Insets top="5.0" />
-                                             </VBox.margin>
-                                          </ComboBox>
-                                       </children>
-                                    </VBox>
+                                    <VBox AnchorPane.leftAnchor="100.0" />
                                  </children>
                               </AnchorPane>
                            </items>
