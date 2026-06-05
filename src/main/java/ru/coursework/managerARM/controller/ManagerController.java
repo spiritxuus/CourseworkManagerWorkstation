@@ -381,7 +381,7 @@ public class ManagerController {
 
     @FXML
     void onDeleteHistoryButtonClick(ActionEvent event) {
-
+        //started
     }
 
     @FXML
