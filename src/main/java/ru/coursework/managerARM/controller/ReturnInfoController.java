@@ -13,13 +13,12 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.coursework.managerARM.MainApplication;
 import ru.coursework.managerARM.dao.ReturnOfEquipmentDao;
-import ru.coursework.managerARM.dao.impl.EquipmentDaoImpl;
 import ru.coursework.managerARM.dao.impl.ReturnOfEquipmentDaoImpl;
-import ru.coursework.managerARM.dto.RentalContractView;
 import ru.coursework.managerARM.dto.RentalContractViewCb;
 import ru.coursework.managerARM.model.ReturnOfEquipment;
 
 import java.io.File;
+import java.math.BigDecimal;
 
 public class ReturnInfoController {
 
@@ -52,7 +51,7 @@ public class ReturnInfoController {
     private TextField tfDamage;
 
     @FXML
-    private TextField tfRepair;
+    private TextField tfDeduction;
 
     private ObservableList<RentalContractViewCb> contractsView = FXCollections.observableArrayList();
 
@@ -76,7 +75,35 @@ public class ReturnInfoController {
 
     @FXML
     void onOkayButtonClick(ActionEvent event) {
+        RentalContractViewCb selectedContract = cbContract.getValue();
 
+        if (selectedContract != null){
+            returnOfEquipment.setContract(selectedContract.getContractId());
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Выберите контракт.");
+            alert.showAndWait();
+            return;
+        }
+
+        try{
+            returnOfEquipment.setReturnDate(dpReturnDate.getValue());
+            returnOfEquipment.setConditionDesc(tfConditionDesc.getText().trim());
+            returnOfEquipment.setConditionPhoto(photoPath);
+            returnOfEquipment.setDamageAmount (new BigDecimal(tfDamage.getText().trim()));
+            returnOfEquipment.setDeductionAmount(new BigDecimal(tfDeduction.getText().trim()));
+            returnOfEquipment.setRepairRequired("Да".equals(cbRepairReq.getValue()));
+
+            confirmed = true;
+            stage.close();
+        } catch (Exception exc){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Не все поля заполнены.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -101,4 +128,34 @@ public class ReturnInfoController {
         }
     }
 
+    public void setReturnOfEquipment(ReturnOfEquipment returnOfEquipment){
+        this.returnOfEquipment = returnOfEquipment;
+
+        cbContract.setItems(contractsView);
+        cbContract.setValue(
+                contractsView.stream()
+                        .filter(c -> c.getContractId().equals(returnOfEquipment.getContract()))
+                        .findFirst()
+                        .orElse(null));
+
+        dpReturnDate.setValue(returnOfEquipment.getReturnDate());
+        tfConditionDesc.setText(returnOfEquipment.getConditionDesc());
+
+        if (returnOfEquipment.getConditionPhoto() != null && !returnOfEquipment.getConditionPhoto().isBlank()) {
+            Image img = new Image(new File(returnOfEquipment.getConditionPhoto()).toURI().toString());
+            mainImage.setImage(img);
+            photoPath = returnOfEquipment.getConditionPhoto();
+        } else {
+            photoPath = null;
+        }
+
+        tfDamage.setText(String.valueOf(returnOfEquipment.getDamageAmount()));
+        tfDeduction.setText(String.valueOf(returnOfEquipment.getDeductionAmount()));
+
+        if (Boolean.TRUE.equals(returnOfEquipment.getRepairRequired())) {
+            cbRepairReq.setValue("Да");
+        } else {
+            cbRepairReq.setValue("Нет");
+        }
+    }
 }

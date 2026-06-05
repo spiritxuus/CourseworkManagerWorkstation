@@ -1,7 +1,6 @@
 package ru.coursework.managerARM.dao.impl;
 
 import ru.coursework.managerARM.dao.ReturnOfEquipmentDao;
-import ru.coursework.managerARM.dto.EquipmentCategoryView;
 import ru.coursework.managerARM.dto.RentalContractViewCb;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.ReturnOfEquipment;
@@ -20,6 +19,21 @@ public class ReturnOfEquipmentDaoImpl implements ReturnOfEquipmentDao {
 
     private static final String SELECT_BY_ID =
             "SELECT return_id, contract, return_date, condition_desc, condition_photo, damage_amount, deduction_amount, repair_required FROM my_schema.return_of_equipment WHERE return_id = ?";
+
+    private static final String SELECT_CONTRACT_VIEWS =
+            "SELECT " +
+                    "contract.contract_id AS contract_id, " +
+                    "contract.reservation_id AS reservation_id, " +
+                    "CASE " +
+                    "    WHEN client.natural_person_id IS NOT NULL THEN CONCAT_WS(' ', np.surname, np.name) " +
+                    "    ELSE lp.company_name " +
+                    "END AS client_name, " +
+                    "contract.issue_date AS issue_date " +
+                    "FROM my_schema.rental_contract contract " +
+                    "LEFT JOIN my_schema.reservation r ON contract.reservation_id = r.reservation_id " +
+                    "LEFT JOIN my_schema.client client ON r.client = client.client_id " +
+                    "LEFT JOIN my_schema.natural_person np ON client.natural_person_id = np.natural_person_id " +
+                    "LEFT JOIN my_schema.legal_person lp ON client.legal_person_id = lp.legal_person_id";
 
     private static final String SELECT =
             "SELECT return_id, contract, return_date, condition_desc, condition_photo, damage_amount, deduction_amount, repair_required FROM my_schema.return_of_equipment";
@@ -111,9 +125,13 @@ public class ReturnOfEquipmentDaoImpl implements ReturnOfEquipmentDao {
              ResultSet rs = statement.executeQuery()) {
 
             while (rs.next()) {
+                Date issueDateSql = rs.getDate("issue_date");
+
                 contracts.add(new RentalContractViewCb(
+                        rs.getLong("contract_id"),
+                        rs.getLong("reservation_id"),
                         rs.getString("client_name"),
-                        rs.getString("issue_date")
+                        issueDateSql != null ? issueDateSql.toLocalDate() : null
                 ));
             }
         } catch (SQLException e) {

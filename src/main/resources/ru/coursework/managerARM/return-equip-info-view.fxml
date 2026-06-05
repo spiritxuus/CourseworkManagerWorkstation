@@ -14,18 +14,13 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.coursework.managerARM.controller.ReturnInfoController">
    <children>
-      <HBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="250.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="Ок" />
-         </children>
-      </HBox>
-      <SplitPane dividerPositions="0.29797979797979796" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+      <SplitPane dividerPositions="0.5013192612137203" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
         <items>
           <AnchorPane>
                <children>
                   <VBox AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
                      <children>
-                        <ComboBox fx:id="cbContract" prefWidth="150.0" promptText="contract">
+                        <ComboBox fx:id="cbContract" prefWidth="150.0">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
@@ -35,7 +30,7 @@
                               <Insets top="5.0" />
                            </VBox.margin>
                         </DatePicker>
-                        <TextField fx:id="tfConditionDesc" text="condition desc">
+                        <TextField fx:id="tfConditionDesc">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
@@ -45,17 +40,17 @@
                               <Insets top="5.0" />
                            </VBox.margin>
                         </Button>
-                        <TextField fx:id="tfDamage" text="damage amount">
+                        <TextField fx:id="tfDamage">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField fx:id="tfRepair" text="deduction amount">
+                        <TextField fx:id="tfDeduction">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
                         </TextField>
-                        <ComboBox fx:id="cbRepairReq" prefWidth="150.0" promptText="Yes/no">
+                        <ComboBox fx:id="cbRepairReq" prefWidth="150.0">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
@@ -110,5 +105,10 @@
             </AnchorPane>
         </items>
       </SplitPane>
+      <HBox AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="Ок" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

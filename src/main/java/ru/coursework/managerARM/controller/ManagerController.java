@@ -177,7 +177,7 @@ public class ManagerController {
     private TableColumn<?, ?> returnRepairColumn;
 
     @FXML
-    private TableView<?> returnsTable;
+    private TableView<ReturnOfEquipment> returnsTable;
 
     @FXML
     private TextField tfSearchClientCompEquip;
@@ -207,6 +207,8 @@ public class ManagerController {
 
     private ObservableList<RentalContractView> contractViews = FXCollections.observableArrayList();
 
+    private ObservableList<ReturnOfEquipment> returnViews = FXCollections.observableArrayList();
+
     private final ClientDao clientDao;
 
     private final EquipmentDao equipmentDao;
@@ -223,6 +225,8 @@ public class ManagerController {
 
     private final PaymentDao paymentDao;
 
+    private final ReturnOfEquipmentDao returnDao;
+
     public ManagerController() {
         this.clientDao = new ClientDaoImpl();
         this.naturalPersonDao = new NaturalPersonDaoImpl();
@@ -232,6 +236,7 @@ public class ManagerController {
         this.repairDao = new RepairDaoImpl();
         this.contractDao = new RentalContractDaoImpl();
         this.paymentDao = new PaymentDaoImpl();
+        this.returnDao = new ReturnOfEquipmentDaoImpl();
     }
 
     @FXML
@@ -242,7 +247,12 @@ public class ManagerController {
 
     @FXML
     void OnAddReturnButtonClick(ActionEvent event) {
+        ReturnOfEquipment returnOfEquipment = new ReturnOfEquipment();
 
+        if (showReturnDialog(returnOfEquipment) && isValid(returnOfEquipment)){
+            returnDao.add(returnOfEquipment);
+            returnViews.setAll(returnDao.getAll());
+        }
     }
 
     @FXML
@@ -268,8 +278,8 @@ public class ManagerController {
             return;
         }
 
-        equipViews.setAll(equipmentDao.getAll());
         equipmentDao.update(equipment);
+        equipViews.setAll(equipmentDao.getAll());
     }
 
     @FXML
@@ -376,7 +386,18 @@ public class ManagerController {
 
     @FXML
     void onDeleteReturnButotnClick(ActionEvent event) {
+        ReturnOfEquipment returnOfEquipmentToDelete = returnsTable.getSelectionModel().getSelectedItem();
 
+        if (returnOfEquipmentToDelete == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Возврат оборудования не выбран.");
+            alert.showAndWait();
+            return;
+        }
+
+        returnDao.delete(returnOfEquipmentToDelete.getReturnId());
+        returnViews.setAll(returnDao.getAll());
     }
 
     @FXML
@@ -521,7 +542,29 @@ public class ManagerController {
 
     @FXML
     void onEditReturnButtonClick(ActionEvent event) {
+        ReturnOfEquipment returnOfEquipment = returnsTable.getSelectionModel().getSelectedItem();
 
+        if (returnOfEquipment == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Ничего не редактируется.");
+            alert.showAndWait();
+            return;
+        }
+
+        boolean confirmed = showReturnDialog(returnOfEquipment);
+        if (!confirmed) return;
+
+        if (!isValid(returnOfEquipment)) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Введены некорректные данные.");
+            alert.showAndWait();
+            return;
+        }
+
+        returnDao.update(returnOfEquipment);
+        returnViews.setAll(returnDao.getAll());
     }
 
     @FXML
@@ -649,8 +692,7 @@ public class ManagerController {
 
     @FXML
     void onSearchContractButtonClick(ActionEvent event) {
-        //TODO ПРОВЕРИТЬ
-        String contractReservSurnameText = tfSearchContractReservClient.getText() == null ? "" : tfSearchContractReservClient.getText().trim();
+        String contractReservSurnameText = tfSearchContractReservClient.getText() == null ? "" : tfSearchContractReservClient.getText().trim().toLowerCase();
 
         if (contractReservSurnameText.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -686,13 +728,13 @@ public class ManagerController {
         else if (filteredContracts.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Результат поиска");
-            alert.setHeaderText("Контрактов не найдено.");
+            alert.setHeaderText("Контракты не найдены.");
             alert.showAndWait();
         }
         else if (filteredReserv.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Результат поиска");
-            alert.setHeaderText("Брони не найдено.");
+            alert.setHeaderText("Брони не найдены.");
             alert.showAndWait();
         }
     }
@@ -736,19 +778,56 @@ public class ManagerController {
 
     @FXML
     void onShowContractButtonClick(ActionEvent event) {
+        ReturnOfEquipment returnOfEquipment = returnsTable.getSelectionModel().getSelectedItem();
 
+        if (returnOfEquipment == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Выберите возврат оборудования.");
+            alert.showAndWait();
+            return;
+        }
+
+        RentalContract contract = contractDao.getById(returnOfEquipment.getContract()).orElse(null);
+        if (contract == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Контракт по этому возврату не найден.");
+            alert.showAndWait();
+            return;
+        }
+
+        ReservationView reservationView = findReservationViewById(contract.getReservationId());
+        if (reservationView == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Бронь по этому контракту не найдена.");
+            alert.showAndWait();
+            return;
+        }
+
+        boolean confirmed = showContractDialog(contract, reservationView, false);
+        if (!confirmed) return;
     }
 
     @FXML
     void onShowPaymentButtonClick(ActionEvent event) {
-        //TODO ПРОВЕРИMM
         RentalContractView contract = contractsTable.getSelectionModel().getSelectedItem();
-        Payment payment = paymentDao.getByContract(contract.getContractId()).orElse(null);
 
         if (contract == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Выберите контракт.");
+            alert.showAndWait();
+            return;
+        }
+
+        Payment payment = paymentDao.getByContract(contract.getContractId()).orElse(null);
+
+        if (payment == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Платёж по этому контракту не найден.");
             alert.showAndWait();
             return;
         }
@@ -924,7 +1003,7 @@ public class ManagerController {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
 
-        stage.setTitle("Создание запроса на ремонт.");
+        stage.setTitle("Редактирование контракта.");
         stage.setScene(scene);
 
         ContractInfoController controller = fxmlLoader.getController();
@@ -950,12 +1029,37 @@ public class ManagerController {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
 
-        stage.setTitle("Редактирование оборудования.");
+        stage.setTitle("Информация о платеже.");
         stage.setScene(scene);
 
         PaymentInfoController controller = fxmlLoader.getController();
         controller.setStage(stage);
         controller.setPayment(payment);
+
+        stage.showAndWait();
+        return controller.isConfirmed();
+    }
+
+    private boolean showReturnDialog(ReturnOfEquipment returnOfEquipment){
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("return-equip-info-view.fxml"));
+        Scene scene = null;
+        try{
+            scene = new Scene(fxmlLoader.load(), 600, 500);
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            return false;//TODO логирование ClientDialog
+        }
+        Stage stage = new Stage();
+
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(MainApplication.getStage());
+
+        stage.setTitle("Редактирование возврата.");
+        stage.setScene(scene);
+
+        ReturnInfoController controller = fxmlLoader.getController();
+        controller.setStage(stage);
+        controller.setReturnOfEquipment(returnOfEquipment);
 
         stage.showAndWait();
         return controller.isConfirmed();
@@ -1024,6 +1128,17 @@ public class ManagerController {
                 && contract.getStatus() != null && !contract.getStatus().isBlank()
                 && contract.getIssueConditionDesc() != null && !contract.getIssueConditionDesc().isBlank()
                 && contract.getIssueConditionPhoto() != null && !contract.getIssueConditionPhoto().isBlank();
+
+    }
+
+    private boolean isValid(ReturnOfEquipment returnOfEquipment){
+        return returnOfEquipment.getContract() != null
+                && returnOfEquipment.getReturnDate() != null
+                && returnOfEquipment.getConditionDesc() != null && !returnOfEquipment.getConditionDesc().isBlank()
+                && returnOfEquipment.getConditionPhoto() != null && !returnOfEquipment.getConditionPhoto().isBlank()
+                && returnOfEquipment.getDamageAmount() != null
+                && returnOfEquipment.getDeductionAmount() != null
+                && returnOfEquipment.getRepairRequired() != null;
 
     }
 }

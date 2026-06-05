@@ -154,6 +154,11 @@ public class EquipmentInfoController {
         this.equipment = equipment;
 
         cbCategory.setItems(categoriesView);
+        cbCategory.setValue(
+                categoriesView.stream()
+                        .filter(c -> c.getCategoryId().equals(equipment.getCategory()))
+                        .findFirst()
+                        .orElse(null));
         tfName.setText(equipment.getName());
         tfManufacturer.setText(equipment.getManufacturer());
         tfModel.setText(equipment.getModel());
