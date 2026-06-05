@@ -1,6 +1,8 @@
 package ru.coursework.managerARM.dao.impl;
 
 import ru.coursework.managerARM.dao.ReturnOfEquipmentDao;
+import ru.coursework.managerARM.dto.EquipmentCategoryView;
+import ru.coursework.managerARM.dto.RentalContractViewCb;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.ReturnOfEquipment;
 
@@ -100,6 +102,25 @@ public class ReturnOfEquipmentDaoImpl implements ReturnOfEquipmentDao {
             System.out.println(e.getMessage());
         }
         return list;
+    }
+
+    @Override
+    public List<RentalContractViewCb> getContract(){
+        List<RentalContractViewCb> contracts = new ArrayList<>();
+        try (PreparedStatement statement = DbUtils.getConnection().prepareStatement(SELECT_CONTRACT_VIEWS);
+             ResultSet rs = statement.executeQuery()) {
+
+            while (rs.next()) {
+                contracts.add(new RentalContractViewCb(
+                        rs.getString("client_name"),
+                        rs.getString("issue_date")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return contracts;
     }
 
     @Override
