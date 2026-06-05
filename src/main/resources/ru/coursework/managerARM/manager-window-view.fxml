@@ -382,6 +382,7 @@
                                  <children>
                                     <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                        <children>
+                                          <Button mnemonicParsing="false" onAction="#onCreateReportButtonClick" text="Создать отчет" />
                                           <Button mnemonicParsing="false" onAction="#onDeleteHistoryButtonClick" text="Удалить" />
                                           <Button mnemonicParsing="false" onAction="#onResetHistoryButtonClick" text="Сброс" />
                                        </children>

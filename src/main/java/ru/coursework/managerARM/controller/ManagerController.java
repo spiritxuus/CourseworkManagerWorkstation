@@ -14,8 +14,10 @@ import ru.coursework.managerARM.dao.impl.*;
 import ru.coursework.managerARM.dto.*;
 import javafx.scene.Scene;
 import ru.coursework.managerARM.model.*;
+import ru.coursework.managerARM.util.ReportService;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class ManagerController {
@@ -838,6 +840,31 @@ public class ManagerController {
 
         boolean confirmed = showPaymentDialog(payment);
         if (!confirmed) return;
+    }
+
+    @FXML
+    void onCreateReportButtonClick(ActionEvent event) {
+        //TODO доделать
+        ReportService service = new ReportService();
+        // Например, отчёт за текущий месяц
+        LocalDate now = LocalDate.now();
+        int year = now.getYear();
+        int month = now.getMonthValue();
+
+        // Путь для сохранения (можно через FileChooser)
+        String filePath = "report_" + year + "_" + month + ".txt";
+        try {
+            service.generateReportToFile(year, month, filePath);
+            // Показать сообщение об успехе
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Отчёт сохранён в " + filePath);
+            alert.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Ошибка записи файла: " + e.getMessage());
+            alert.showAndWait();
+        }
     }
 
     private ReservationView findReservationViewById(Long reservationId) {

@@ -102,7 +102,7 @@ public class PaymentDaoImpl implements PaymentDao {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage()); //TODO ЛОГИРОВАНИЕ ВО ВСЕХ DAO
         }
         return Optional.empty();
     }
