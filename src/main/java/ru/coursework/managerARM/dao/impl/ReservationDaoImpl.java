@@ -16,7 +16,7 @@ import java.util.Optional;
 
 public class ReservationDaoImpl implements ReservationDao {
     private static final String INSERT =
-            "INSERT INTO my_schema.reservation (client, equipment, start_date, end_date) VALUES (?, ?, ?, ?)";
+            "SELECT my_schema.f_create_reservation(?, ?, ?, ?)";
 
     private static final String SELECT_BY_ID =
             "SELECT reservation_id, client, equipment, start_date, end_date FROM my_schema.reservation WHERE reservation_id = ?";
@@ -75,7 +75,7 @@ public class ReservationDaoImpl implements ReservationDao {
             statement.setLong(2, reservation.getEquipment());
             statement.setDate(3, Date.valueOf(reservation.getStartDate()));
             statement.setDate(4, Date.valueOf(reservation.getEndDate()));
-            statement.executeUpdate();
+            statement.execute();
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }

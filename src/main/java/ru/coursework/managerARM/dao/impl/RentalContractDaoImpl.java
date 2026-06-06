@@ -17,10 +17,7 @@ import java.util.Optional;
 
 public class RentalContractDaoImpl implements RentalContractDao {
     private static final String INSERT =
-            "INSERT INTO my_schema.rental_contract (reservation_id, client_id, issue_date, planned_return_date, " +
-                    "actual_return_date, deposit_amount, total_amount, " +
-                    "status, issue_condition_desc, issue_condition_photo) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            "SELECT my_schema.f_create_rental_contract(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     private static final String SELECT_BY_ID =
             "SELECT contract_id, reservation_id, client_id, issue_date, " +
@@ -101,20 +98,19 @@ public class RentalContractDaoImpl implements RentalContractDao {
         try(PreparedStatement statement =
                     DbUtils.getConnection().prepareStatement(INSERT)){
             statement.setLong(1, contract.getReservationId());
-            statement.setLong(2, contract.getClientId());
-            statement.setDate(3, Date.valueOf(contract.getIssueDate()));
-            statement.setDate(4, Date.valueOf(contract.getPlannedReturnDate()));
+            statement.setDate(2, Date.valueOf(contract.getIssueDate()));
+            statement.setDate(3, Date.valueOf(contract.getPlannedReturnDate()));
             if (contract.getActualReturnDate() != null) {
-                statement.setDate(5, Date.valueOf(contract.getActualReturnDate()));
+                statement.setDate(4, Date.valueOf(contract.getActualReturnDate()));
             } else {
-                statement.setNull(5, java.sql.Types.DATE);
+                statement.setNull(4, java.sql.Types.DATE);
             }
-            statement.setBigDecimal(6, contract.getDepositAmount());
-            statement.setBigDecimal(7, contract.getTotalAmount());
-            statement.setString(8, contract.getStatus());
-            statement.setString(9, contract.getIssueConditionDesc());
-            statement.setString(10, contract.getIssueConditionPhoto());
-            statement.executeUpdate();
+            statement.setBigDecimal(5, contract.getDepositAmount());
+            statement.setBigDecimal(6, contract.getTotalAmount());
+            statement.setString(7, contract.getStatus());
+            statement.setString(8, contract.getIssueConditionDesc());
+            statement.setString(9, contract.getIssueConditionPhoto());
+            statement.execute();
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }
