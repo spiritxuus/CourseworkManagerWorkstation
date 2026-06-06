@@ -128,7 +128,8 @@ public class NaturalClientInfoController {
 
             confirmed = true;
             stage.close();
-        } catch (Exception exc) {
+        } catch (Exception e) {
+            e.printStackTrace(); //TODO log
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Не все поля заполнены.");
@@ -142,6 +143,7 @@ public class NaturalClientInfoController {
         try{
             scene = new Scene(fxmlLoader.load(), 340, 300);
         } catch (IOException e) {
+            e.printStackTrace(); //TODO log
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
             return false;
         }

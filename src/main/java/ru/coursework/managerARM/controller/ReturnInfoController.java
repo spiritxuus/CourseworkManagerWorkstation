@@ -98,7 +98,8 @@ public class ReturnInfoController {
 
             confirmed = true;
             stage.close();
-        } catch (Exception exc){
+        } catch (Exception e){
+            e.printStackTrace(); //TODO log
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Не все поля заполнены.");
@@ -122,9 +123,9 @@ public class ReturnInfoController {
                 mainImage.setImage(img);
                 photoPath = file.getAbsolutePath();
             }
-        } catch (Exception exc) {
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки изображения.", ButtonType.OK).showAndWait(); //TODO логирование ClientChoose
-
+        } catch (Exception e) {
+            e.printStackTrace(); //TODO log
+            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки изображения.", ButtonType.OK).showAndWait();
         }
     }
 

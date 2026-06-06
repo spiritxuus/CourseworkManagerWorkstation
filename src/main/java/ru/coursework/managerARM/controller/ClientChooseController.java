@@ -53,7 +53,8 @@ public class ClientChooseController {
             }
 
         } catch (IOException e) {
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait(); //TODO логирование ClientChoose
+            e.printStackTrace(); //TODO log
+            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
         }
     }
 

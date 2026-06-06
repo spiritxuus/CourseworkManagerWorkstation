@@ -143,7 +143,8 @@ public class LegalClientInfoController {
 
             confirmed = true;
             stage.close();
-        } catch (Exception exc) {
+        } catch (Exception e) {
+            e.printStackTrace(); //TODO log
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Не все поля заполнены.");
@@ -189,6 +190,7 @@ public class LegalClientInfoController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
+            e.printStackTrace(); //TODO log
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
             return false;
         }
@@ -213,6 +215,7 @@ public class LegalClientInfoController {
         try{
             scene = new Scene(fxmlLoader.load(), 340, 300);
         } catch (IOException e) {
+            e.printStackTrace(); //TODO log
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
             return false;
         }

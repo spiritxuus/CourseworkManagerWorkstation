@@ -49,7 +49,8 @@ public class RepairRequestController {
 
             confirmed = true;
             stage.close();
-        } catch (Exception exc){
+        } catch (Exception e){
+            e.printStackTrace(); //TODO log
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Не все поля заполнены.");
