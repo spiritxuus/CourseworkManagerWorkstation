@@ -25,6 +25,7 @@ public class ReportService {
         private final LocalDate plannedReturnDate;
         private final String clientName;
 
+
         public OverdueEquipment(int id, String name, LocalDate date, String client) {
             this.equipmentId = id;
             this.equipmentName = name;
@@ -77,22 +78,26 @@ public class ReportService {
         return list;
     }
 
-    public List<PopularCategory> getPopularCategories() {
+    public List<PopularCategory> getPopularCategories(int year, int month) {
         List<PopularCategory> list = new ArrayList<>();
-        String sql = "SELECT * FROM get_popular_categories()";
+        String sql = "SELECT * FROM my_schema.get_popular_categories(?, ?)";
 
-        try (PreparedStatement statement = DbUtils.getConnection().prepareStatement(sql);
-             ResultSet rs = statement.executeQuery()) {
+        try (PreparedStatement statement = DbUtils.getConnection().prepareStatement(sql)) {
+            statement.setInt(1, year);
+            statement.setInt(2, month);
 
-            while (rs.next()) {
-                list.add(new PopularCategory(
-                        rs.getString("category_name"),
-                        rs.getLong("rental_count")
-                ));
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new PopularCategory(
+                            rs.getString("category_name"),
+                            rs.getLong("rental_count")
+                    ));
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO log
+            e.printStackTrace(); //TODO log позже лучше logger.error(...)
         }
+
         return list;
     }
 
@@ -115,7 +120,7 @@ public class ReportService {
 
     public void generateReportToFile(int year, int month, String filePath) throws IOException {
         List<OverdueEquipment> overdue = getOverdueEquipment();
-        List<PopularCategory> popular = getPopularCategories();
+        List<PopularCategory> popular = getPopularCategories(year, month);
         BigDecimal revenue = getMonthlyRevenue(year, month);
 
         StringBuilder sb = new StringBuilder();
