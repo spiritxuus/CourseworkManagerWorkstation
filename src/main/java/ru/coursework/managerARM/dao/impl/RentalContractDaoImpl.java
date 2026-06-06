@@ -48,7 +48,7 @@ public class RentalContractDaoImpl implements RentalContractDao {
             "SELECT " +
                     "contr.contract_id, " +
                     "r.reservation_id, " +
-                    "r.client_id, " +
+                    "r.client, " +
                     "c.natural_person_id, " +
                     "c.legal_person_id, " +
                     "CASE " +
@@ -178,7 +178,7 @@ public class RentalContractDaoImpl implements RentalContractDao {
                 list.add(new RentalContractView(
                         rs.getLong("contract_id"),
                         rs.getLong("reservation_id"),
-                        rs.getLong("client_id"),
+                        rs.getLong("client"),
                         rs.getLong("natural_person_id"),
                         rs.getLong("legal_person_id"),
                         rs.getString("client_name"),

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ru.coursework.managerARM.MainApplication;
@@ -44,133 +45,124 @@ public class ManagerController {
     private TableView<ClientView> clientsTable;
 
     @FXML
-    private TableColumn<?, ?> contractDescColumn;
+    private TableColumn<RentalContractView, String> contractDescColumn;
 
     @FXML
-    private TableColumn<?, ?> contractActualDateColumn;
+    private TableColumn<RentalContractView, String> contractActualDateColumn;
 
     @FXML
-    private TableColumn<?, ?> contractClientColumn;
+    private TableColumn<RentalContractView, String> contractClientColumn;
 
     @FXML
-    private TableColumn<?, ?> contractCreateDateColumn;
+    private TableColumn<RentalContractView, String> contractCreateDateColumn;
 
     @FXML
-    private TableColumn<?, ?> contractDepositColumn;
+    private TableColumn<RentalContractView, String> contractDepositColumn;
 
     @FXML
-    private TableColumn<?, ?> contractFinalPriceColumn;
+    private TableColumn<RentalContractView, String> contractFinalPriceColumn;
 
     @FXML
-    private TableColumn<?, ?> contractPhotoColumn;
+    private TableColumn<RentalContractView, String> contractPhotoColumn;
 
     @FXML
-    private TableColumn<?, ?> contractPlannedDateColumn;
+    private TableColumn<RentalContractView, String> contractPlannedDateColumn;
 
     @FXML
-    private TableColumn<?, ?> contractReservIdColumn;
-
-    @FXML
-    private TableColumn<?, ?> contractStatusColumn;
+    private TableColumn<RentalContractView, String> contractStatusColumn;
 
     @FXML
     private TableView<RentalContractView> contractsTable;
 
     @FXML
-    private TableColumn<?, ?> equipCategoryColumn;
+    private TableColumn<Equipment, String> equipDepositColumn;
 
     @FXML
-    private TableColumn<?, ?> equipDepositColumn;
+    private TableColumn<Equipment, String> equipDescColumn;
 
     @FXML
-    private TableColumn<?, ?> equipDescColumn;
+    private TableColumn<Equipment, String> equipInvNumColumn;
 
     @FXML
-    private TableColumn<?, ?> equipInvNumColumn;
+    private TableColumn<Equipment, String> equipManufacturerColumn;
 
     @FXML
-    private TableColumn<?, ?> equipManufacturerColumn;
+    private TableColumn<Equipment, String> equipModelColumn;
 
     @FXML
-    private TableColumn<?, ?> equipModelColumn;
+    private TableColumn<Equipment, String> equipNameColumn;
 
     @FXML
-    private TableColumn<?, ?> equipNameColumn;
+    private TableColumn<Equipment, String> equipPhotoPathColumn;
 
     @FXML
-    private TableColumn<?, ?> equipPhotoPathColumn;
+    private TableColumn<Equipment, String> equipRentPriceColumn;
 
     @FXML
-    private TableColumn<?, ?> equipRentPriceColumn;
+    private TableColumn<Equipment, String> equipRepairColumn;
 
     @FXML
-    private TableColumn<?, ?> equipRepairColumn;
+    private TableColumn<Equipment, String> equipSerialColumn;
 
     @FXML
-    private TableColumn<?, ?> equipSerialColumn;
-
-    @FXML
-    private TableColumn<?, ?> equipStatusColumn;
+    private TableColumn<Equipment, String> equipStatusColumn;
 
     @FXML
     private TableView<Equipment> equipmentTable;
 
     @FXML
-    private TableColumn<?, ?> historyContractIdColumn;
+    private TableColumn<RentalHistory, String> historyDateColumn;
 
     @FXML
-    private TableColumn<?, ?> historyDateColumn;
+    private TableColumn<RentalHistory, String> historyDescColumn;
 
     @FXML
-    private TableColumn<?, ?> historyDescColumn;
-
-    @FXML
-    private TableColumn<?, ?> historyTypeColumn;
+    private TableColumn<RentalHistory, String> historyTypeColumn;
 
     @FXML
     private TableView<RentalHistory> historyTable;
 
     @FXML
-    private TableColumn<?, ?> reservClientcolumn;
+    private TableColumn<ReservationView, String> reservClientColumn;
 
     @FXML
-    private TableColumn<?, ?> reservDescColumn;
+    private TableColumn<ReservationView, String> reservEndColumn;
 
     @FXML
-    private TableColumn<?, ?> reservEndColumn;
+    private TableColumn<ReservationView, String> reservEquipColumn;
 
     @FXML
-    private TableColumn<?, ?> reservEquipColumn;
-
-    @FXML
-    private TableColumn<?, ?> reservStartColumn;
+    private TableColumn<ReservationView, String> reservStartColumn;
 
     @FXML
     private TableView<ReservationView> reservationsTable;
 
     @FXML
-    private TableColumn<?, ?> returnContractIdColumn;
+    private TableColumn<ReturnView, String> returnClientNameColumn;
 
     @FXML
-    private TableColumn<?, ?> returnDamageColumn;
+    private TableColumn<ReturnView, String> returnEquipNameColumn;
 
     @FXML
-    private TableColumn<?, ?> returnDateColumn;
+    private TableColumn<ReturnView, String> returnDamageColumn;
 
     @FXML
-    private TableColumn<?, ?> returnDeductionColumn;
+    private TableColumn<ReturnView, String> returnDateColumn;
 
     @FXML
-    private TableColumn<?, ?> returnDescColumn;
+    private TableColumn<ReturnView, String> returnDeductionColumn;
 
     @FXML
-    private TableColumn<?, ?> returnPhotoColumn;
+    private TableColumn<ReturnView, String> returnDescColumn;
 
     @FXML
-    private TableColumn<?, ?> returnRepairColumn;
+    private TableColumn<ReturnView, String> returnPhotoColumn;
 
     @FXML
-    private TableView<ReturnOfEquipment> returnsTable;
+    private TableColumn<ReturnView, String> returnRepairColumn;
+
+    @FXML
+    private TableView<ReturnView> returnsTable;
 
     @FXML
     private TextField tfSearchClientCompEquip;
@@ -200,10 +192,9 @@ public class ManagerController {
 
     private ObservableList<RentalContractView> contractViews = FXCollections.observableArrayList();
 
-    private ObservableList<ReturnOfEquipment> returnViews = FXCollections.observableArrayList();
+    private ObservableList<ReturnView> returnViews = FXCollections.observableArrayList();
 
     private ObservableList<RentalHistory> historyViews = FXCollections.observableArrayList();
-
 
     private final ClientDao clientDao;
 
@@ -240,6 +231,66 @@ public class ManagerController {
 
     @FXML
     void initialize(){
+        clientTypeColumn.setCellValueFactory(new PropertyValueFactory<>("clientType"));
+        clientNameColumn.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+        clientPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("clientPhone"));
+        clientEmailColumn.setCellValueFactory(new PropertyValueFactory<>("clientEmail"));
+        clientAddressColumn.setCellValueFactory(new PropertyValueFactory<>("clientAddress"));
+
+        equipNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        equipManufacturerColumn.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
+        equipModelColumn.setCellValueFactory(new PropertyValueFactory<>("model"));
+        equipInvNumColumn.setCellValueFactory(new PropertyValueFactory<>("inventoryNumber"));
+        equipSerialColumn.setCellValueFactory(new PropertyValueFactory<>("serialNumber"));
+        equipRentPriceColumn.setCellValueFactory(new PropertyValueFactory<>("rentalPricePerDay"));
+        equipDepositColumn.setCellValueFactory(new PropertyValueFactory<>("depositAmount"));
+        equipStatusColumn.setCellValueFactory(new PropertyValueFactory<>("conditionStatus"));
+        equipRepairColumn.setCellValueFactory(new PropertyValueFactory<>("requiresRepair"));
+        equipPhotoPathColumn.setCellValueFactory(new PropertyValueFactory<>("photo"));
+        equipDescColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+        contractClientColumn.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+        contractCreateDateColumn.setCellValueFactory(new PropertyValueFactory<>("issueDate"));
+        contractPlannedDateColumn.setCellValueFactory(new PropertyValueFactory<>("plannedReturnDate"));
+        contractActualDateColumn.setCellValueFactory(new PropertyValueFactory<>("actualReturnDate"));
+        contractDepositColumn.setCellValueFactory(new PropertyValueFactory<>("depositAmount"));
+        contractFinalPriceColumn.setCellValueFactory(new PropertyValueFactory<>("totalAmount"));
+        contractStatusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        contractDescColumn.setCellValueFactory(new PropertyValueFactory<>("issueConditionDesc"));
+        contractPhotoColumn.setCellValueFactory(new PropertyValueFactory<>("issueConditionPhoto"));
+
+        reservClientColumn.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+        reservEquipColumn.setCellValueFactory(new PropertyValueFactory<>("equipmentName"));
+        reservStartColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        reservEndColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+
+        returnClientNameColumn.setCellValueFactory(new PropertyValueFactory<>("contractClientName"));
+        returnEquipNameColumn.setCellValueFactory(new PropertyValueFactory<>("contractEquipmentName"));
+        returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
+        returnDescColumn.setCellValueFactory(new PropertyValueFactory<>("conditionDesc"));
+        returnPhotoColumn.setCellValueFactory(new PropertyValueFactory<>("conditionPhoto"));
+        returnDamageColumn.setCellValueFactory(new PropertyValueFactory<>("damageAmount"));
+        returnDeductionColumn.setCellValueFactory(new PropertyValueFactory<>("deductionAmount"));
+        returnRepairColumn.setCellValueFactory(new PropertyValueFactory<>("repairRequired"));
+
+        historyDateColumn.setCellValueFactory(new PropertyValueFactory<>("eventDate"));
+        historyTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
+        historyDescColumn.setCellValueFactory(new PropertyValueFactory<>("details"));
+
+        clientViews.setAll(clientDao.getAllViews());
+        equipViews.setAll(equipmentDao.getAll());
+        reservationsViews.setAll(reservationDao.getAllViews());
+        contractViews.setAll(contractDao.getAllViews());
+        returnViews.setAll(returnDao.getAllViews());
+        historyViews.setAll(historyDao.getAll());
+
+        clientsTable.setItems(clientViews);
+        equipmentTable.setItems(equipViews);
+        reservationsTable.setItems(reservationsViews);
+        contractsTable.setItems(contractViews);
+        returnsTable.setItems(returnViews);
+        historyTable.setItems(historyViews);
+
         categoriesView.setAll(equipmentDao.getCategory());
         cbSearchEquipCategory.setItems(categoriesView);
     }
@@ -248,9 +299,9 @@ public class ManagerController {
     void OnAddReturnButtonClick(ActionEvent event) {
         ReturnOfEquipment returnOfEquipment = new ReturnOfEquipment();
 
-        if (showReturnDialog(returnOfEquipment) && isValid(returnOfEquipment)){
+        if (showReturnDialog(returnOfEquipment, false) && isValid(returnOfEquipment)){
             returnDao.add(returnOfEquipment);
-            returnViews.setAll(returnDao.getAll());
+            returnViews.setAll(returnDao.getAllViews());
         }
     }
 
@@ -266,7 +317,7 @@ public class ManagerController {
             return;
         }
 
-        boolean confirmed = showEquipDialog(equipment);
+        boolean confirmed = showEquipDialog(equipment, true);
         if (!confirmed) return;
 
         if (!isValid(equipment)) {
@@ -314,7 +365,7 @@ public class ManagerController {
     void onAddEquipButtonClick(ActionEvent event) {
         Equipment equipment = new Equipment();
 
-        if (showEquipDialog(equipment) && isValid(equipment)){
+        if (showEquipDialog(equipment, false) && isValid(equipment)){
             equipmentDao.add(equipment);
             equipViews.setAll(equipmentDao.getAll());
         }
@@ -396,7 +447,7 @@ public class ManagerController {
 
     @FXML
     void onDeleteReturnButotnClick(ActionEvent event) {
-        ReturnOfEquipment returnOfEquipmentToDelete = returnsTable.getSelectionModel().getSelectedItem();
+        ReturnView returnOfEquipmentToDelete = returnsTable.getSelectionModel().getSelectedItem();
 
         if (returnOfEquipmentToDelete == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -407,7 +458,7 @@ public class ManagerController {
         }
 
         returnDao.delete(returnOfEquipmentToDelete.getReturnId());
-        returnViews.setAll(returnDao.getAll());
+        returnViews.setAll(returnDao.getAllViews());
     }
 
     @FXML
@@ -433,7 +484,7 @@ public class ManagerController {
                 return;
             }
 
-            boolean confirmed = showNaturalPersonDialog(naturalPerson);
+            boolean confirmed = showNaturalPersonDialog(naturalPerson, true);
             if(!confirmed) return;
 
             if (!isValid(naturalPerson)){
@@ -458,7 +509,7 @@ public class ManagerController {
                 return;
             }
 
-            boolean confirmed = showLegalPersonDialog(legalPerson);
+            boolean confirmed = showLegalPersonDialog(legalPerson, true);
             if (!confirmed) {
                 return;
             }
@@ -552,9 +603,9 @@ public class ManagerController {
 
     @FXML
     void onEditReturnButtonClick(ActionEvent event) {
-        ReturnOfEquipment returnOfEquipment = returnsTable.getSelectionModel().getSelectedItem();
+        ReturnView returnOfEquipmentSelected = returnsTable.getSelectionModel().getSelectedItem();
 
-        if (returnOfEquipment == null) {
+        if (returnOfEquipmentSelected == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Ничего не редактируется.");
@@ -562,7 +613,17 @@ public class ManagerController {
             return;
         }
 
-        boolean confirmed = showReturnDialog(returnOfEquipment);
+        ReturnOfEquipment returnOfEquipment = returnDao.getById(returnOfEquipmentSelected.getReturnId()).orElse(null);
+
+        if (returnOfEquipment == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
+            alert.setHeaderText("Возврат не найден.");
+            alert.showAndWait();
+            return;
+        }
+
+        boolean confirmed = showReturnDialog(returnOfEquipment, true);
         if (!confirmed) return;
 
         if (!isValid(returnOfEquipment)) {
@@ -574,7 +635,7 @@ public class ManagerController {
         }
 
         returnDao.update(returnOfEquipment);
-        returnViews.setAll(returnDao.getAll());
+        returnViews.setAll(returnDao.getAllViews());
     }
 
     @FXML
@@ -592,7 +653,7 @@ public class ManagerController {
         Repair repair = new Repair();
         repair.setEquipment(selectedEquipment.getEquipmentId());
 
-        if (showRepairDialog(repair, selectedEquipment) && isValid(repair)){
+        if (showRepairDialog(repair, selectedEquipment, false) && isValid(repair)){
             repairDao.add(repair);
             equipViews.setAll(equipmentDao.getAll());
         }
@@ -784,7 +845,9 @@ public class ManagerController {
 
     @FXML
     void onShowContractButtonClick(ActionEvent event) {
-        ReturnOfEquipment returnOfEquipment = returnsTable.getSelectionModel().getSelectedItem();
+
+        //TODO РОВЕРИТЬ
+        ReturnView returnOfEquipment = returnsTable.getSelectionModel().getSelectedItem();
 
         if (returnOfEquipment == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -794,7 +857,7 @@ public class ManagerController {
             return;
         }
 
-        RentalContract contract = contractDao.getById(returnOfEquipment.getContract()).orElse(null);
+        RentalContract contract = contractDao.getById(returnOfEquipment.getContractId()).orElse(null);
         if (contract == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
@@ -844,23 +907,20 @@ public class ManagerController {
 
     @FXML
     void onCreateReportButtonClick(ActionEvent event) {
-        //TODO доделать
         ReportService service = new ReportService();
-        // Например, отчёт за текущий месяц
         LocalDate now = LocalDate.now();
         int year = now.getYear();
         int month = now.getMonthValue();
 
-        // Путь для сохранения (можно через FileChooser)
         String filePath = "report_" + year + "_" + month + ".txt";
         try {
             service.generateReportToFile(year, month, filePath);
-            // Показать сообщение об успехе
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Внимание.");
             alert.setContentText("Отчёт сохранён в " + filePath);
             alert.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //TODO log
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Ошибка записи файла: " + e.getMessage());
             alert.showAndWait();
@@ -896,21 +956,22 @@ public class ManagerController {
         stage.showAndWait();
     }
 
-    private boolean showNaturalPersonDialog(NaturalPerson naturalPerson){
+    private boolean showNaturalPersonDialog(NaturalPerson naturalPerson, boolean editMode){
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("natural-client-info-view.fxml"));
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
+            e.printStackTrace(); //TODO log
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
-            return false;//TODO логирование ClientDialog
+            return false;
         }
         Stage stage = new Stage();
 
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
 
-        stage.setTitle("Редактирование клиента.");
+        stage.setTitle(editMode ? "Редактирование клиента." : "Добавление клиента.");
         stage.setScene(scene);
 
         NaturalClientInfoController controller = fxmlLoader.getController();
@@ -921,21 +982,22 @@ public class ManagerController {
         return controller.isConfirmed();
     }
 
-    private boolean showLegalPersonDialog(LegalPerson legalPerson){
+    private boolean showLegalPersonDialog(LegalPerson legalPerson, boolean editMode){
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("legal-client-info-view.fxml"));
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
+            e.printStackTrace(); //TODO log
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
-            return false;//TODO логирование ClientDialog
+            return false;
         }
         Stage stage = new Stage();
 
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
 
-        stage.setTitle("Редактирование клиента.");
+        stage.setTitle(editMode ? "Редактирование клиента." : "Добавление клиента.");
         stage.setScene(scene);
 
         LegalClientInfoController controller = fxmlLoader.getController();
@@ -946,21 +1008,22 @@ public class ManagerController {
         return controller.isConfirmed();
     }
 
-    private boolean showEquipDialog(Equipment equipment){
+    private boolean showEquipDialog(Equipment equipment, boolean editMode){
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("equipment-info-view.fxml"));
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
+            e.printStackTrace(); //TODO log
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
-            return false;//TODO логирование ClientDialog
+            return false;
         }
         Stage stage = new Stage();
 
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
 
-        stage.setTitle("Редактирование оборудования.");
+        stage.setTitle(editMode ? "Редактирование оборудование." : "Добавление оборудования.");
         stage.setScene(scene);
 
         EquipmentInfoController controller = fxmlLoader.getController();
@@ -977,14 +1040,15 @@ public class ManagerController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
+            e.printStackTrace(); //TODO log
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
-            return false;//TODO логирование ClientDialog
+            return false;
         }
         Stage stage = new Stage();
 
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
-        stage.setTitle(editMode ? "Редактирование брони." : "Создание брони."); //TODO ДОБАВИТЬ ТАКОЕ В ДРУгИЕ
+        stage.setTitle(editMode ? "Редактирование брони." : "Создание брони.");
         stage.setScene(scene);
 
         ReservationInfoController controller = fxmlLoader.getController();
@@ -995,21 +1059,22 @@ public class ManagerController {
         return controller.isConfirmed();
     }
 
-    private boolean showRepairDialog(Repair repair, Equipment equipment){
+    private boolean showRepairDialog(Repair repair, Equipment equipment, boolean editMode){
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("repair-request-info-view.fxml"));
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
+            e.printStackTrace(); //TODO log
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
-            return false;//TODO логирование ClientDialog
+            return false;
         }
         Stage stage = new Stage();
 
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
 
-        stage.setTitle("Создание запроса на ремонт.");
+        stage.setTitle(editMode ? "Редактирование запроса на ремонт." : "Создание запроса на ремонт.");
         stage.setScene(scene);
 
         RepairRequestController controller = fxmlLoader.getController();
@@ -1026,15 +1091,16 @@ public class ManagerController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
+            e.printStackTrace(); //TODO log
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
-            return false;//TODO логирование ClientDialog
+            return false;
         }
         Stage stage = new Stage();
 
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
 
-        stage.setTitle("Редактирование контракта.");
+        stage.setTitle(editMode ? "Редактирование контракта." : "Создание контракта.");
         stage.setScene(scene);
 
         ContractInfoController controller = fxmlLoader.getController();
@@ -1052,8 +1118,9 @@ public class ManagerController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
+            e.printStackTrace(); //TODO log
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
-            return false;//TODO логирование ClientDialog
+            return false;
         }
         Stage stage = new Stage();
 
@@ -1071,21 +1138,22 @@ public class ManagerController {
         return controller.isConfirmed();
     }
 
-    private boolean showReturnDialog(ReturnOfEquipment returnOfEquipment){
+    private boolean showReturnDialog(ReturnOfEquipment returnOfEquipment, boolean editMode){
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("return-equip-info-view.fxml"));
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
+            e.printStackTrace(); //TODO log
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
-            return false;//TODO логирование ClientDialog
+            return false;
         }
         Stage stage = new Stage();
 
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
 
-        stage.setTitle("Редактирование возврата.");
+        stage.setTitle(editMode ? "Редактирование возврата." : "Добавление возврата.");
         stage.setScene(scene);
 
         ReturnInfoController controller = fxmlLoader.getController();

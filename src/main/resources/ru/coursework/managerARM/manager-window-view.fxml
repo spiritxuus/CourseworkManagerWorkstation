@@ -104,7 +104,6 @@
                                              <children>
                                                 <TableView fx:id="equipmentTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
-                                                      <TableColumn fx:id="equipCategoryColumn" prefWidth="75.0" text="Категория" />
                                                       <TableColumn fx:id="equipNameColumn" prefWidth="75.0" text="Наименование" />
                                                       <TableColumn fx:id="equipManufacturerColumn" prefWidth="75.0" text="Производитель" />
                                                       <TableColumn fx:id="equipModelColumn" prefWidth="75.0" text="Модель" />
@@ -237,7 +236,6 @@
                                              <children>
                                                 <TableView fx:id="contractsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
-                                                      <TableColumn fx:id="contractReservIdColumn" prefWidth="75.0" text="ID брони" />
                                                       <TableColumn fx:id="contractClientColumn" prefWidth="75.0" text="Клиент" />
                                                       <TableColumn fx:id="contractCreateDateColumn" prefWidth="75.0" text="Дата создания" />
                                                       <TableColumn fx:id="contractPlannedDateColumn" prefWidth="75.0" text="Планируемая дата возврата" />
@@ -258,11 +256,10 @@
                                              <children>
                                                 <TableView fx:id="reservationsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
-                                                      <TableColumn fx:id="reservClientcolumn" prefWidth="75.0" text="Клиент" />
+                                                      <TableColumn fx:id="reservClientColumn" prefWidth="75.0" text="Клиент" />
                                                       <TableColumn fx:id="reservEquipColumn" prefWidth="75.0" text="Оборудование" />
                                                       <TableColumn fx:id="reservStartColumn" prefWidth="75.0" text="Дата начала брони" />
                                                       <TableColumn fx:id="reservEndColumn" prefWidth="75.0" text="Дата окончания брони" />
-                                                      <TableColumn fx:id="reservDescColumn" prefWidth="75.0" text="Описание" />
                                                    </columns>
                                                    <columnResizePolicy>
                                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -325,7 +322,8 @@
                                  <children>
                                     <TableView fx:id="returnsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <columns>
-                                          <TableColumn fx:id="returnContractIdColumn" prefWidth="75.0" text="ID контракта" />
+                                          <TableColumn fx:id="returnClientNameColumn" prefWidth="75.0" text="Имя клиента" />
+                                          <TableColumn fx:id="returnEquipNameColumn" prefWidth="75.0" text="Название оборудования" />
                                           <TableColumn fx:id="returnDateColumn" prefWidth="75.0" text="Дата возврата" />
                                           <TableColumn fx:id="returnDescColumn" prefWidth="75.0" text="Описание состояния" />
                                           <TableColumn fx:id="returnPhotoColumn" prefWidth="75.0" text="Фото " />
@@ -367,7 +365,6 @@
                                  <children>
                                     <TableView fx:id="historyTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <columns>
-                                          <TableColumn fx:id="historyContractIdColumn" prefWidth="75.0" text="ID контракта" />
                                           <TableColumn fx:id="historyDateColumn" prefWidth="75.0" text="Дата события" />
                                           <TableColumn fx:id="historyTypeColumn" prefWidth="75.0" text="Тип события" />
                                           <TableColumn fx:id="historyDescColumn" prefWidth="75.0" text="Описание" />

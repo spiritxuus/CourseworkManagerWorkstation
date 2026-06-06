@@ -10,11 +10,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import ru.coursework.managerARM.util.DbUtils;
 
 
 public class ReportService {
-    // DTO для просроченного оборудования
+    //просроченное
     public static class OverdueEquipment {
         public int equipmentId;
         public String equipmentName;
@@ -35,7 +34,7 @@ public class ReportService {
         }
     }
 
-    // DTO для категории
+    //категории
     public static class PopularCategory {
         public String categoryName;
         public long rentalCount;
@@ -51,7 +50,6 @@ public class ReportService {
         }
     }
 
-    // Получение списка просроченного оборудования
     public List<OverdueEquipment> getOverdueEquipment() {
         List<OverdueEquipment> list = new ArrayList<>();
         String sql = "SELECT * FROM get_overdue_equipment()";
@@ -68,12 +66,11 @@ public class ReportService {
                 ));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage()); //TODO ЛОГИРОВАНИЕ ВО ВСЕХ DAO
+            e.printStackTrace(); //TODO ЛОГИРОВАНИЕ ВО ВСЕХ DAO
         }
         return list;
     }
 
-    // Получение востребованных категорий
     public List<PopularCategory> getPopularCategories() {
         List<PopularCategory> list = new ArrayList<>();
         String sql = "SELECT * FROM get_popular_categories()";
@@ -93,7 +90,6 @@ public class ReportService {
         return list;
     }
 
-    // Получение выручки за указанный месяц
     public double getMonthlyRevenue(int year, int month) {
         String sql = "SELECT get_monthly_revenue(?, ?)";
         try (PreparedStatement statement = DbUtils.getConnection().prepareStatement(sql)) {
@@ -106,19 +102,16 @@ public class ReportService {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage()); //TODO ЛОГИРОВАНИЕ ВО ВСЕХ DAO
+            e.printStackTrace(); //TODO ЛОГИРОВАНИЕ ВО ВСЕХ DAO
         }
         return 0.0;
     }
 
-    // Генерация отчёта и запись в файл
     public void generateReportToFile(int year, int month, String filePath) throws IOException {
-        // Получаем данные
         List<OverdueEquipment> overdue = getOverdueEquipment();
         List<PopularCategory> popular = getPopularCategories();
         double revenue = getMonthlyRevenue(year, month);
 
-        // Формируем содержимое
         StringBuilder sb = new StringBuilder();
         sb.append("Отчёт за ").append(month).append(".").append(year).append("\n\n");
 
@@ -142,7 +135,6 @@ public class ReportService {
 
         sb.append("\nВыручка за месяц - ").append(String.format("%.2f руб.", revenue)).append("\n");
 
-        // Запись в файл
         Path path = Paths.get(filePath);
         Files.writeString(path, sb.toString());
     }

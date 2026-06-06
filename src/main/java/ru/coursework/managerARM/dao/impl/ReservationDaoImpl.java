@@ -35,7 +35,7 @@ public class ReservationDaoImpl implements ReservationDao {
     private static final String SELECT_VIEWS =
             "SELECT " +
                     "r.reservation_id, " +
-                    "r.client_id, " +
+                    "r.client, " +
                     "c.natural_person_id, " +
                     "c.legal_person_id, " +
                     "CASE " +
@@ -122,7 +122,7 @@ public class ReservationDaoImpl implements ReservationDao {
             while (rs.next()) {
                 list.add(new ReservationView(
                         rs.getLong("reservation_id"),
-                        rs.getLong("client_id"),
+                        rs.getLong("client"),
                         rs.getLong("natural_person_id"),
                         rs.getLong("legal_person_id"),
                         rs.getString("client_name"),
