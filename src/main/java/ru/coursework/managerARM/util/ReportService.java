@@ -1,6 +1,10 @@
 package ru.coursework.managerARM.util;
 
+import lombok.Getter;
+
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,11 +18,12 @@ import java.util.List;
 
 public class ReportService {
     //просроченное
+    @Getter
     public static class OverdueEquipment {
-        public int equipmentId;
-        public String equipmentName;
-        public LocalDate plannedReturnDate;
-        public String clientName;
+        private final int equipmentId;
+        private final String equipmentName;
+        private final LocalDate plannedReturnDate;
+        private final String clientName;
 
         public OverdueEquipment(int id, String name, LocalDate date, String client) {
             this.equipmentId = id;
@@ -29,15 +34,16 @@ public class ReportService {
 
         @Override
         public String toString() {
-            return String.format("%s (ID: %d) - должен быть возвращён %s клиентом %s",
+            return String.format("%s (ID: %d) — должен быть возвращён %s клиентом %s",
                     equipmentName, equipmentId, plannedReturnDate, clientName);
         }
     }
 
     //категории
+    @Getter
     public static class PopularCategory {
-        public String categoryName;
-        public long rentalCount;
+        private final String categoryName;
+        private final long rentalCount;
 
         public PopularCategory(String name, long count) {
             this.categoryName = name;
@@ -66,7 +72,7 @@ public class ReportService {
                 ));
             }
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO ЛОГИРОВАНИЕ ВО ВСЕХ DAO
+            e.printStackTrace(); //TODO log
         }
         return list;
     }
@@ -85,55 +91,55 @@ public class ReportService {
                 ));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //TODO log
         }
         return list;
     }
 
-    public double getMonthlyRevenue(int year, int month) {
-        String sql = "SELECT get_monthly_revenue(?, ?)";
+    public BigDecimal getMonthlyRevenue(int year, int month) {
+        String sql = "SELECT my_schema.get_monthly_revenue(?, ?)";
         try (PreparedStatement statement = DbUtils.getConnection().prepareStatement(sql)) {
-
             statement.setInt(1, year);
             statement.setInt(2, month);
+
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getDouble(1);
+                    return rs.getBigDecimal(1);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO ЛОГИРОВАНИЕ ВО ВСЕХ DAO
+            e.printStackTrace(); //TODO позже лучше logger.error(...)
         }
-        return 0.0;
+        return BigDecimal.ZERO;
     }
 
     public void generateReportToFile(int year, int month, String filePath) throws IOException {
         List<OverdueEquipment> overdue = getOverdueEquipment();
         List<PopularCategory> popular = getPopularCategories();
-        double revenue = getMonthlyRevenue(year, month);
+        BigDecimal revenue = getMonthlyRevenue(year, month);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Отчёт за ").append(month).append(".").append(year).append("\n\n");
+        sb.append("Report ").append(month).append(".").append(year).append("\n\n");
 
-        sb.append("Просроченное оборудование - \n");
+        sb.append("Overdue equipment - \n");
         if (overdue.isEmpty()) {
-            sb.append("  Нет просроченного оборудования.\n");
+            sb.append("  There is no overdue equipment.\n");
         } else {
             for (OverdueEquipment eq : overdue) {
                 sb.append("  - ").append(eq.toString()).append("\n");
             }
         }
 
-        sb.append("\nВостребованные категории - \n");
+        sb.append("\nPopular categories - \n");
         if (popular.isEmpty()) {
-            sb.append("  Нет данных.\n");
+            sb.append("  No data.\n");
         } else {
             for (PopularCategory cat : popular) {
                 sb.append("  - ").append(cat.toString()).append("\n");
             }
         }
 
-        sb.append("\nВыручка за месяц - ").append(String.format("%.2f руб.", revenue)).append("\n");
+        sb.append("\nMonthly revenue - ").append(revenue.setScale(2, RoundingMode.HALF_UP)).append(" rub.\n");
 
         Path path = Paths.get(filePath);
         Files.writeString(path, sb.toString());
