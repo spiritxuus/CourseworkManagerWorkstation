@@ -1,5 +1,7 @@
 package ru.coursework.managerARM.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.dao.LegalPersonDao;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.LegalPerson;
@@ -37,6 +39,8 @@ public class LegalPersonDaoImpl implements LegalPersonDao {
     private final static String DELETE =
             "DELETE FROM my_schema.legal_person WHERE legal_person_id = ?";
 
+    private static final Logger logger = LoggerFactory.getLogger(LegalPersonDaoImpl.class);
+
     protected List<LegalPerson> mapper(ResultSet rs){
         List<LegalPerson> list = new ArrayList<>();
         try {
@@ -71,7 +75,7 @@ public class LegalPersonDaoImpl implements LegalPersonDao {
             statement.setLong(8, legalPerson.getContactPerson());
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -93,7 +97,7 @@ public class LegalPersonDaoImpl implements LegalPersonDao {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return Optional.empty();
     }
@@ -107,7 +111,7 @@ public class LegalPersonDaoImpl implements LegalPersonDao {
             rs = statement.executeQuery();
             list = mapper(rs);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -126,7 +130,7 @@ public class LegalPersonDaoImpl implements LegalPersonDao {
             statement.setLong(8, legalPerson.getContactPerson());
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -137,7 +141,7 @@ public class LegalPersonDaoImpl implements LegalPersonDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 }

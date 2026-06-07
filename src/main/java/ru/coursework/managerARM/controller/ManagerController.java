@@ -9,6 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.MainApplication;
 import ru.coursework.managerARM.dao.*;
 import ru.coursework.managerARM.dao.impl.*;
@@ -216,6 +218,8 @@ public class ManagerController {
 
     private final RentalHistoryDao historyDao;
 
+    private static final Logger logger = LoggerFactory.getLogger(ManagerController.class);
+
     public ManagerController() {
         this.clientDao = new ClientDaoImpl();
         this.naturalPersonDao = new NaturalPersonDaoImpl();
@@ -310,6 +314,7 @@ public class ManagerController {
         Equipment equipment = equipmentTable.getSelectionModel().getSelectedItem();
 
         if (equipment == null) {
+            logger.info("OnEditEquipButtonClick() nothing is redacted");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Ничего не редактируется.");
@@ -321,6 +326,7 @@ public class ManagerController {
         if (!confirmed) return;
 
         if (!isValid(equipment)) {
+            logger.info("OnEditEquipButtonClick() incorrect data");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Введены некорректные данные.");
@@ -343,6 +349,7 @@ public class ManagerController {
         ReservationView selectedReservation = reservationsTable.getSelectionModel().getSelectedItem();
 
         if (selectedReservation == null) {
+            logger.info("onAddContractButtonClick() reservation is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Выберите бронь.");
@@ -375,6 +382,7 @@ public class ManagerController {
     void onDeleteClientButtonClick(ActionEvent event) {
         ClientView clientToDelete = clientsTable.getSelectionModel().getSelectedItem();
         if (clientToDelete == null) {
+            logger.info("onDeleteClientButtonClick() client is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Клиент не выбран.");
@@ -396,6 +404,7 @@ public class ManagerController {
         boolean reservationSelected = reservationToDelete != null;
 
         if (contractSelected == reservationSelected) {
+            logger.info("onDeleteContractReservButtonClick() both objects are choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText(contractSelected
@@ -418,6 +427,7 @@ public class ManagerController {
     void onDeleteEquipButtonClick(ActionEvent event) {
         Equipment equipmentToDelete = equipmentTable.getSelectionModel().getSelectedItem();
         if (equipmentToDelete == null) {
+            logger.info("onDeleteEquipButtonClick() equipment is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Оборудование не выбрано.");
@@ -434,6 +444,7 @@ public class ManagerController {
         RentalHistory historyToDelete = historyTable.getSelectionModel().getSelectedItem();
 
         if (historyToDelete == null) {
+            logger.info("onDeleteHistoryButtonClick() history is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("История не выбрана.");
@@ -450,6 +461,7 @@ public class ManagerController {
         ReturnView returnOfEquipmentToDelete = returnsTable.getSelectionModel().getSelectedItem();
 
         if (returnOfEquipmentToDelete == null) {
+            logger.info("onDeleteReturnButotnClick() returnOfEquipment is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Возврат оборудования не выбран.");
@@ -466,6 +478,7 @@ public class ManagerController {
         ClientView client = clientsTable.getSelectionModel().getSelectedItem();
 
         if(client == null) {
+            logger.info("onEditClientButtonClick() client is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Ничего не редактируется.");
@@ -477,6 +490,7 @@ public class ManagerController {
             NaturalPerson naturalPerson = naturalPersonDao.getById(client.getNaturalPersonId()).orElse(null);
 
             if (naturalPerson == null){
+                logger.info("onEditClientButtonClick() natural person not found");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Физическое лицо не найдено.");
@@ -488,6 +502,7 @@ public class ManagerController {
             if(!confirmed) return;
 
             if (!isValid(naturalPerson)){
+                logger.info("onEditClientButtonClick() incorrect data");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Введены некорректные данные.");
@@ -502,6 +517,7 @@ public class ManagerController {
             LegalPerson legalPerson = legalPersonDao.getById(client.getLegalPersonId()).orElse(null);
 
             if (legalPerson == null) {
+                logger.info("onEditClientButtonClick() legal person not found");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Юридическое лицо не найдено.");
@@ -515,6 +531,7 @@ public class ManagerController {
             }
 
             if (!isValid(legalPerson)) {
+                logger.info("onEditClientButtonClick() incorrect data");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Введены некорректные данные.");
@@ -533,6 +550,7 @@ public class ManagerController {
         ReservationView reservationToEdit = reservationsTable.getSelectionModel().getSelectedItem();
 
         if (contractToEdit == null && reservationToEdit == null) {
+            logger.info("onEditContractButtonClick() contract or reservation not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Ничего не редактируется.");
@@ -541,6 +559,7 @@ public class ManagerController {
         }
 
         if (reservationToEdit != null && contractToEdit != null) {
+            logger.info("onEditContractButtonClick() both objects are choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Выберите только один объект.");
@@ -553,6 +572,7 @@ public class ManagerController {
             ReservationView reservationView = findReservationViewById(contractToEdit.getReservationId());
 
             if (contract == null || reservationView == null) {
+                logger.info("onEditContractButtonClick() objects are not found");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Контракт или бронь не найдены.");
@@ -564,6 +584,7 @@ public class ManagerController {
             if (!confirmed) return;
 
             if (!isValid(contract)) {
+                logger.info("onEditContractButtonClick() incorrect data");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Введены некорректные данные.");
@@ -579,6 +600,7 @@ public class ManagerController {
         Reservation reservation = reservationDao.getById(reservationToEdit.getReservationId()).orElse(null);
 
         if (reservation == null) {
+            logger.info("onEditContractButtonClick() reservation not found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Бронь не найдена.");
@@ -590,6 +612,7 @@ public class ManagerController {
         if (!confirmed) return;
 
         if (!isValid(reservation)) {
+            logger.info("onEditContractButtonClick() incorrect data");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Введены некорректные данные.");
@@ -606,6 +629,7 @@ public class ManagerController {
         ReturnView returnOfEquipmentSelected = returnsTable.getSelectionModel().getSelectedItem();
 
         if (returnOfEquipmentSelected == null) {
+            logger.info("onEditReturnButtonClick() returnOfEquipment is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Ничего не редактируется.");
@@ -616,6 +640,7 @@ public class ManagerController {
         ReturnOfEquipment returnOfEquipment = returnDao.getById(returnOfEquipmentSelected.getReturnId()).orElse(null);
 
         if (returnOfEquipment == null) {
+            logger.info("onEditReturnButtonClick() returnOfEquipment is not found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Возврат не найден.");
@@ -627,6 +652,7 @@ public class ManagerController {
         if (!confirmed) return;
 
         if (!isValid(returnOfEquipment)) {
+            logger.info("onEditReturnButtonClick() incorrect data");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Введены некорректные данные.");
@@ -643,6 +669,7 @@ public class ManagerController {
         Equipment selectedEquipment = equipmentTable.getSelectionModel().getSelectedItem();
 
         if (selectedEquipment == null) {
+            logger.info("onEditReturnButtonClick() selectedEquipment is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Выберите оборудование.");
@@ -665,6 +692,7 @@ public class ManagerController {
         Equipment selectedEquipment = equipmentTable.getSelectionModel().getSelectedItem();
 
         if (selectedClient == null || selectedEquipment == null) {
+            logger.info("onReserveButtonClick() selectedEquipment or selectedClient is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Выберите клиента и оборудование.");
@@ -701,7 +729,7 @@ public class ManagerController {
 
     @FXML
     void onResetContractReservButtonClick(ActionEvent event) {
-
+        contractViews.setAll(contractDao.getAllViews());
     }
 
     @FXML
@@ -712,7 +740,13 @@ public class ManagerController {
 
     @FXML
     void onResetHistoryButtonClick(ActionEvent event) {
+        historyViews.setAll(historyDao.getAll());
+    }
 
+
+    @FXML
+    void onResetReturnButtonClick(ActionEvent event) {
+        returnViews.setAll(returnDao.getAllViews());
     }
 
     @FXML
@@ -721,6 +755,7 @@ public class ManagerController {
        String surnameText = tfSearchClientSurname.getText() == null ? "" : tfSearchClientSurname.getText().trim();
 
         if (companyText.isEmpty() && surnameText.isEmpty()) {
+            logger.info("onSearchClientButtonClick() no data for search");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Введите данные для поиска.");
@@ -729,6 +764,7 @@ public class ManagerController {
         }
 
         if (!companyText.isEmpty() && !surnameText.isEmpty()) {
+            logger.info("onSearchClientButtonClick() both fields contains text");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Заполните только одно поле поиска.");
@@ -754,6 +790,7 @@ public class ManagerController {
         tfSearchClientSurname.clear();
 
         if (filtered.isEmpty()) {
+            logger.info("onSearchClientButtonClick() no data found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Результат поиска");
             alert.setHeaderText("Ничего не найдено.");
@@ -766,6 +803,7 @@ public class ManagerController {
         String contractReservSurnameText = tfSearchContractReservClient.getText() == null ? "" : tfSearchContractReservClient.getText().trim().toLowerCase();
 
         if (contractReservSurnameText.isEmpty()) {
+            logger.info("onSearchContractButtonClick() no data for search");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Введите данные для поиска.");
@@ -791,18 +829,21 @@ public class ManagerController {
         tfSearchContractReservClient.clear();
 
         if (filteredContracts.isEmpty() && filteredReserv.isEmpty()) {
+            logger.info("onSearchContractButtonClick() no data found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Результат поиска");
             alert.setHeaderText("Ничего не найдено.");
             alert.showAndWait();
         }
         else if (filteredContracts.isEmpty()){
+            logger.info("onSearchContractButtonClick() no contract found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Результат поиска");
             alert.setHeaderText("Контракты не найдены.");
             alert.showAndWait();
         }
         else if (filteredReserv.isEmpty()){
+            logger.info("onSearchContractButtonClick() no reservation found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Результат поиска");
             alert.setHeaderText("Брони не найдены.");
@@ -816,6 +857,7 @@ public class ManagerController {
         String equipNameText = tfSearchEquipName.getText() == null ? "" : tfSearchEquipName.getText().trim();
 
         if (selectedCategory == null && equipNameText.isEmpty()) {
+            logger.info("onSearchEquipButtonClick() no data for search");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Введите данные для поиска.");
@@ -835,6 +877,7 @@ public class ManagerController {
         tfSearchEquipName.clear();
 
         if (filtered.isEmpty()) {
+            logger.info("onSearchEquipButtonClick() no data found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Результат поиска");
             alert.setHeaderText("Ничего не найдено.");
@@ -845,11 +888,10 @@ public class ManagerController {
 
     @FXML
     void onShowContractButtonClick(ActionEvent event) {
-
-        //TODO РОВЕРИТЬ
         ReturnView returnOfEquipment = returnsTable.getSelectionModel().getSelectedItem();
 
         if (returnOfEquipment == null) {
+            logger.info("onShowContractButtonClick() returnOfEquipment is not selected");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Выберите возврат оборудования.");
@@ -859,6 +901,7 @@ public class ManagerController {
 
         RentalContract contract = contractDao.getById(returnOfEquipment.getContractId()).orElse(null);
         if (contract == null) {
+            logger.info("onShowContractButtonClick() contract is not found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Контракт по этому возврату не найден.");
@@ -868,6 +911,7 @@ public class ManagerController {
 
         ReservationView reservationView = findReservationViewById(contract.getReservationId());
         if (reservationView == null) {
+            logger.info("onShowContractButtonClick() reservation not found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Бронь по этому контракту не найдена.");
@@ -884,6 +928,7 @@ public class ManagerController {
         RentalContractView contract = contractsTable.getSelectionModel().getSelectedItem();
 
         if (contract == null) {
+            logger.info("onShowPaymentButtonClick() reservation not found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Выберите контракт.");
@@ -894,6 +939,7 @@ public class ManagerController {
         Payment payment = paymentDao.getByContract(contract.getContractId()).orElse(null);
 
         if (payment == null) {
+            logger.info("onShowContractButtonClick() payment not found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Платёж по этому контракту не найден.");
@@ -914,13 +960,14 @@ public class ManagerController {
 
         String filePath = "report_" + year + "_" + month + ".txt";
         try {
+            logger.info("onCreateReportButtonClick() report saved");
             service.generateReportToFile(year, month, filePath);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setContentText("Отчёт сохранён в " + filePath);
             alert.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace(); //TODO log
+            logger.error("Error while writing report", e);
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Ошибка записи файла: " + e.getMessage());
             alert.showAndWait();
@@ -940,7 +987,8 @@ public class ManagerController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait(); //TODO логирование ClientDialog
+            logger.error("Error while opening client window", e);
+            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
         }
         Stage stage = new Stage();
 
@@ -962,7 +1010,7 @@ public class ManagerController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
-            e.printStackTrace(); //TODO log
+            logger.error("Error while opening natural person window", e);
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
             return false;
         }
@@ -988,7 +1036,7 @@ public class ManagerController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
-            e.printStackTrace(); //TODO log
+            logger.error("Error while opening legal person window", e);
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
             return false;
         }
@@ -1014,7 +1062,7 @@ public class ManagerController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
-            e.printStackTrace(); //TODO log
+            logger.error("Error while opening equipment window", e);
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
             return false;
         }
@@ -1040,7 +1088,7 @@ public class ManagerController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
-            e.printStackTrace(); //TODO log
+            logger.error("Error while opening reservation window", e);
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
             return false;
         }
@@ -1065,7 +1113,7 @@ public class ManagerController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
-            e.printStackTrace(); //TODO log
+            logger.error("Error while opening repair window", e);
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
             return false;
         }
@@ -1091,7 +1139,7 @@ public class ManagerController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
-            e.printStackTrace(); //TODO log
+            logger.error("Error while opening contract window", e);
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
             return false;
         }
@@ -1118,7 +1166,7 @@ public class ManagerController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
-            e.printStackTrace(); //TODO log
+            logger.error("Error while opening payment window", e);
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
             return false;
         }
@@ -1144,7 +1192,7 @@ public class ManagerController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
-            e.printStackTrace(); //TODO log
+            logger.error("Error while opening return window", e);
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
             return false;
         }

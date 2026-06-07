@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.model.Address;
 
 public class AddressInfoController {
@@ -37,6 +39,9 @@ public class AddressInfoController {
     @FXML
     private TextField tfStreet;
 
+    private static final Logger logger = LoggerFactory.getLogger(AddressInfoController.class);
+
+
     @FXML
     void onOkayButtonClick(ActionEvent event) {
         try{
@@ -50,7 +55,7 @@ public class AddressInfoController {
             confirmed = true;
             stage.close();
         } catch (Exception e) {
-            e.printStackTrace(); //TODO log
+            logger.info("address onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Не все поля заполнены.");

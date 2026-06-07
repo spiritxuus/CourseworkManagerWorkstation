@@ -1,5 +1,7 @@
 package ru.coursework.managerARM.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.dao.RepairDao;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.Repair;
@@ -28,6 +30,9 @@ public class RepairDaoImpl implements RepairDao {
     private final static String DELETE =
             "DELETE FROM my_schema.repair WHERE repair_id = ?";
 
+    private static final Logger logger = LoggerFactory.getLogger(RepairDaoImpl.class);
+
+
     protected List<Repair> mapper(ResultSet rs){
         List<Repair> list = new ArrayList<>();
         try {
@@ -54,7 +59,7 @@ public class RepairDaoImpl implements RepairDao {
             statement.setBigDecimal(3, repair.getRepairCost());
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -73,7 +78,7 @@ public class RepairDaoImpl implements RepairDao {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return Optional.empty();
     }
@@ -87,7 +92,7 @@ public class RepairDaoImpl implements RepairDao {
             rs = statement.executeQuery();
             list = mapper(rs);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -102,7 +107,7 @@ public class RepairDaoImpl implements RepairDao {
             statement.setBigDecimal(4, repair.getRepairCost());
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -113,7 +118,7 @@ public class RepairDaoImpl implements RepairDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 }

@@ -1,5 +1,7 @@
 package ru.coursework.managerARM.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.dao.ReservationDao;
 import ru.coursework.managerARM.dto.ReservationView;
 import ru.coursework.managerARM.util.DbUtils;
@@ -51,6 +53,9 @@ public class ReservationDaoImpl implements ReservationDao {
                     "LEFT JOIN my_schema.natural_person np ON c.natural_person_id = np.natural_person_id " +
                     "LEFT JOIN my_schema.legal_person lp ON c.legal_person_id = lp.legal_person_id";
 
+    private static final Logger logger = LoggerFactory.getLogger(ReservationDaoImpl.class);
+
+
     protected List<Reservation> mapper(ResultSet rs){
         List<Reservation> list = new ArrayList<>();
         try {
@@ -77,7 +82,7 @@ public class ReservationDaoImpl implements ReservationDao {
             statement.setDate(4, Date.valueOf(reservation.getEndDate()));
             statement.execute();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -95,7 +100,7 @@ public class ReservationDaoImpl implements ReservationDao {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return Optional.empty();
     }
@@ -109,7 +114,7 @@ public class ReservationDaoImpl implements ReservationDao {
             rs = statement.executeQuery();
             list = mapper(rs);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -132,7 +137,7 @@ public class ReservationDaoImpl implements ReservationDao {
                 ));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
 
         return list;
@@ -148,7 +153,7 @@ public class ReservationDaoImpl implements ReservationDao {
             statement.setDate(4, Date.valueOf(reservation.getEndDate()));
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -159,7 +164,7 @@ public class ReservationDaoImpl implements ReservationDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 }

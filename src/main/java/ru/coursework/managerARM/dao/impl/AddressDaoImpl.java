@@ -1,5 +1,7 @@
 package ru.coursework.managerARM.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.dao.AddressDao;
 import ru.coursework.managerARM.dto.AddressView;
 import ru.coursework.managerARM.model.Address;
@@ -35,6 +37,8 @@ public class AddressDaoImpl implements AddressDao {
                     "FROM my_schema.address " +
                     "ORDER BY country, region, city, street, house, apartment";
 
+    private static final Logger logger = LoggerFactory.getLogger(AddressDaoImpl.class);
+
     protected List<Address> mapper(ResultSet rs){
         List<Address> list = new ArrayList<>();
         try {
@@ -48,7 +52,7 @@ public class AddressDaoImpl implements AddressDao {
                         rs.getString("apartment")));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -65,7 +69,7 @@ public class AddressDaoImpl implements AddressDao {
             statement.setString(6, address.getApartment());
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -85,7 +89,7 @@ public class AddressDaoImpl implements AddressDao {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return Optional.empty();
     }
@@ -99,7 +103,7 @@ public class AddressDaoImpl implements AddressDao {
             rs = statement.executeQuery();
             list = mapper(rs);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -121,7 +125,7 @@ public class AddressDaoImpl implements AddressDao {
                 ));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
 
         return list;
@@ -140,7 +144,7 @@ public class AddressDaoImpl implements AddressDao {
             statement.setLong(7, address.getAddressId());
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -151,7 +155,7 @@ public class AddressDaoImpl implements AddressDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 }

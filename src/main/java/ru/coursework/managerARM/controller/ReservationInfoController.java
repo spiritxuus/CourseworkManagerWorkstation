@@ -6,6 +6,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.dto.ClientView;
 import ru.coursework.managerARM.dto.ReservationView;
 import ru.coursework.managerARM.model.Equipment;
@@ -35,10 +37,13 @@ public class ReservationInfoController {
     @FXML
     private DatePicker dpStartDate;
 
+    private static final Logger logger = LoggerFactory.getLogger(ReservationInfoController.class);
+
     @FXML
     void onOkayButtonClick(ActionEvent event) {
         try{
             if (dpStartDate.getValue() == null || dpEndDate.getValue() == null){
+                logger.info("reservation onOkayButtonClick() dates are empty");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Даты не заполнены.");
@@ -47,6 +52,7 @@ public class ReservationInfoController {
             }
 
             if (dpStartDate.getValue().isAfter(dpEndDate.getValue())){
+                logger.info("reservation onOkayButtonClick() data error");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Дата начала не может быть позже даты окончания.");
@@ -60,7 +66,7 @@ public class ReservationInfoController {
             confirmed = true;
             stage.close();
         } catch (Exception e){
-            e.printStackTrace(); //TODO log
+            logger.info("reservation onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Не все поля заполнены.");

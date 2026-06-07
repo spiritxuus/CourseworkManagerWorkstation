@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.model.Equipment;
 import ru.coursework.managerARM.model.Repair;
 
@@ -41,6 +43,8 @@ public class RepairRequestController {
     @FXML
     private TextField tfRepairReason;
 
+    private static final Logger logger = LoggerFactory.getLogger(RepairRequestController.class);
+
     @FXML
     void onOkayButtonClick(ActionEvent event) {
         try{
@@ -50,7 +54,7 @@ public class RepairRequestController {
             confirmed = true;
             stage.close();
         } catch (Exception e){
-            e.printStackTrace(); //TODO log
+            logger.info("repair onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Не все поля заполнены.");

@@ -1,6 +1,8 @@
 package ru.coursework.managerARM.util;
 
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -17,6 +19,8 @@ import java.util.List;
 
 
 public class ReportService {
+    private static final Logger logger = LoggerFactory.getLogger(ReportService.class);
+
     //просроченное
     @Getter
     public static class OverdueEquipment {
@@ -35,7 +39,7 @@ public class ReportService {
 
         @Override
         public String toString() {
-            return String.format("%s (ID: %d) — должен быть возвращён %s клиентом %s",
+            return String.format("%s (ID: %d) — must be returned %s by the client %s",
                     equipmentName, equipmentId, plannedReturnDate, clientName);
         }
     }
@@ -53,11 +57,12 @@ public class ReportService {
 
         @Override
         public String toString() {
-            return String.format("%s: %d аренд", categoryName, rentalCount);
+            return String.format("%s: %d rents", categoryName, rentalCount);
         }
     }
 
     public List<OverdueEquipment> getOverdueEquipment() {
+        logger.debug("getOverdueEquipment() is performed");
         List<OverdueEquipment> list = new ArrayList<>();
         String sql = "SELECT * FROM get_overdue_equipment()";
 
@@ -73,12 +78,13 @@ public class ReportService {
                 ));
             }
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO log
+            logger.error("Error while getting overdue equipment", e);
         }
         return list;
     }
 
     public List<PopularCategory> getPopularCategories(int year, int month) {
+        logger.debug("getPopularCategories() is performed");
         List<PopularCategory> list = new ArrayList<>();
         String sql = "SELECT * FROM my_schema.get_popular_categories(?, ?)";
 
@@ -95,13 +101,14 @@ public class ReportService {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO log позже лучше logger.error(...)
+            logger.error("Error while getting popular categories", e);
         }
 
         return list;
     }
 
     public BigDecimal getMonthlyRevenue(int year, int month) {
+        logger.debug("getMonthlyRevenue() is performed");
         String sql = "SELECT my_schema.get_monthly_revenue(?, ?)";
         try (PreparedStatement statement = DbUtils.getConnection().prepareStatement(sql)) {
             statement.setInt(1, year);
@@ -113,12 +120,13 @@ public class ReportService {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); //TODO позже лучше logger.error(...)
+            logger.error("Error while getting monthly revenue", e);
         }
         return BigDecimal.ZERO;
     }
 
     public void generateReportToFile(int year, int month, String filePath) throws IOException {
+        logger.debug("generateReportToFile() is performed");
         List<OverdueEquipment> overdue = getOverdueEquipment();
         List<PopularCategory> popular = getPopularCategories(year, month);
         BigDecimal revenue = getMonthlyRevenue(year, month);

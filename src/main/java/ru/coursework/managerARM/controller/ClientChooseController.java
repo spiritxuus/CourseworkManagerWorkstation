@@ -10,6 +10,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.MainApplication;
 import ru.coursework.managerARM.model.LegalPerson;
 import ru.coursework.managerARM.model.NaturalPerson;
@@ -26,6 +28,8 @@ public class ClientChooseController {
 
     @FXML
     private ComboBox<String> cbChooseClientType;
+
+    private static final Logger logger = LoggerFactory.getLogger(ClientChooseController.class);
 
 
     @FXML
@@ -53,7 +57,7 @@ public class ClientChooseController {
             }
 
         } catch (IOException e) {
-            e.printStackTrace(); //TODO log
+            logger.error("Error while opening onClientTypeSelected window", e);
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
         }
     }

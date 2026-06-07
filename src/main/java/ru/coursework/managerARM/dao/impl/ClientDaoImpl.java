@@ -1,5 +1,7 @@
 package ru.coursework.managerARM.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.dao.ClientDao;
 import ru.coursework.managerARM.dto.ClientView;
 import ru.coursework.managerARM.model.Client;
@@ -51,6 +53,8 @@ public class ClientDaoImpl implements ClientDao {
                     "LEFT JOIN my_schema.legal_person lp ON c.legal_person_id = lp.legal_person_id " +
                     "LEFT JOIN my_schema.address a ON a.address_id = COALESCE(np.address, lp.address)";
 
+    private static final Logger logger = LoggerFactory.getLogger(ClientDaoImpl.class);
+
     protected List<Client> mapper(ResultSet rs){
         List<Client> list = new ArrayList<>();
         try {
@@ -60,7 +64,7 @@ public class ClientDaoImpl implements ClientDao {
                         rs.getObject("legal_person_id", Long.class)));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -82,7 +86,7 @@ public class ClientDaoImpl implements ClientDao {
             }
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -98,7 +102,7 @@ public class ClientDaoImpl implements ClientDao {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return Optional.empty();
     }
@@ -112,7 +116,7 @@ public class ClientDaoImpl implements ClientDao {
             rs = statement.executeQuery();
             list = mapper(rs);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -135,7 +139,7 @@ public class ClientDaoImpl implements ClientDao {
                 ));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
 
         return list;
@@ -158,7 +162,7 @@ public class ClientDaoImpl implements ClientDao {
             }
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -169,7 +173,7 @@ public class ClientDaoImpl implements ClientDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 }

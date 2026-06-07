@@ -1,5 +1,7 @@
 package ru.coursework.managerARM.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.dao.RentalHistoryDao;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.RentalHistory;
@@ -30,6 +32,9 @@ public class RentalHistoryDaoImpl implements RentalHistoryDao {
     private final static String DELETE =
             "DELETE FROM my_schema.rental_history WHERE history_id = ?";
 
+    private static final Logger logger = LoggerFactory.getLogger(RentalHistoryDaoImpl.class);
+
+
     protected List<RentalHistory> mapper(ResultSet rs){
         List<RentalHistory> list = new ArrayList<>();
         try {
@@ -41,7 +46,7 @@ public class RentalHistoryDaoImpl implements RentalHistoryDao {
                         rs.getString("details")));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -56,7 +61,7 @@ public class RentalHistoryDaoImpl implements RentalHistoryDao {
             statement.setString(4, history.getDetails());
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -74,7 +79,7 @@ public class RentalHistoryDaoImpl implements RentalHistoryDao {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return Optional.empty();
     }
@@ -88,7 +93,7 @@ public class RentalHistoryDaoImpl implements RentalHistoryDao {
             rs = statement.executeQuery();
             list = mapper(rs);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -103,7 +108,7 @@ public class RentalHistoryDaoImpl implements RentalHistoryDao {
             statement.setString(4, history.getDetails());
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -114,7 +119,7 @@ public class RentalHistoryDaoImpl implements RentalHistoryDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 }

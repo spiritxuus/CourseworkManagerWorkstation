@@ -1,5 +1,7 @@
 package ru.coursework.managerARM.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.dao.ReturnOfEquipmentDao;
 import ru.coursework.managerARM.dto.RentalContractView;
 import ru.coursework.managerARM.dto.RentalContractViewCb;
@@ -72,6 +74,8 @@ public class ReturnOfEquipmentDaoImpl implements ReturnOfEquipmentDao {
     private final static String DELETE =
             "DELETE FROM my_schema.return_of_equipment WHERE return_id = ?";
 
+    private static final Logger logger = LoggerFactory.getLogger(ReturnOfEquipmentDaoImpl.class);
+
     protected List<ReturnOfEquipment> mapper(ResultSet rs){
         List<ReturnOfEquipment> list = new ArrayList<>();
         try {
@@ -86,7 +90,7 @@ public class ReturnOfEquipmentDaoImpl implements ReturnOfEquipmentDao {
                         rs.getBoolean("repair_required")));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -104,7 +108,7 @@ public class ReturnOfEquipmentDaoImpl implements ReturnOfEquipmentDao {
             statement.setBoolean(7, returnOfEquipment.getRepairRequired());
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -125,7 +129,7 @@ public class ReturnOfEquipmentDaoImpl implements ReturnOfEquipmentDao {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return Optional.empty();
     }
@@ -139,7 +143,7 @@ public class ReturnOfEquipmentDaoImpl implements ReturnOfEquipmentDao {
             rs = statement.executeQuery();
             list = mapper(rs);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -161,7 +165,7 @@ public class ReturnOfEquipmentDaoImpl implements ReturnOfEquipmentDao {
                 ));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
 
         return contracts;
@@ -190,7 +194,7 @@ public class ReturnOfEquipmentDaoImpl implements ReturnOfEquipmentDao {
                 ));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
 
         return list;
@@ -209,7 +213,7 @@ public class ReturnOfEquipmentDaoImpl implements ReturnOfEquipmentDao {
             statement.setBoolean(7, returnOfEquipment.getRepairRequired());
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -220,7 +224,7 @@ public class ReturnOfEquipmentDaoImpl implements ReturnOfEquipmentDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 }

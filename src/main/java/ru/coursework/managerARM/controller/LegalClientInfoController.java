@@ -14,6 +14,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.MainApplication;
 import ru.coursework.managerARM.dao.AddressDao;
 import ru.coursework.managerARM.dao.NaturalPersonDao;
@@ -70,6 +72,9 @@ public class LegalClientInfoController {
 
     private AddressDao addressDao;
 
+    private static final Logger logger = LoggerFactory.getLogger(LegalClientInfoController.class);
+
+
     @FXML
     void initialize(){
         this.naturalPersonDao = new NaturalPersonDaoImpl();
@@ -123,6 +128,7 @@ public class LegalClientInfoController {
                 legalPerson.setAddress(selectedAddress.getAddressId());
             }
             else{
+                logger.info("legal client onOkayButtonClick() address is not choosed");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Выберите адрес.");
@@ -134,6 +140,7 @@ public class LegalClientInfoController {
                 legalPerson.setContactPerson(selectedContact.getNaturalPersonId());
             }
             else{
+                logger.info("legal client onOkayButtonClick() contact person is not choosed");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Выберите контактное лицо.");
@@ -144,7 +151,7 @@ public class LegalClientInfoController {
             confirmed = true;
             stage.close();
         } catch (Exception e) {
-            e.printStackTrace(); //TODO log
+            logger.info("legal client onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Не все поля заполнены.");
@@ -190,7 +197,7 @@ public class LegalClientInfoController {
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
-            e.printStackTrace(); //TODO log
+            logger.error("Error while opening contract window", e);
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
             return false;
         }
@@ -215,7 +222,7 @@ public class LegalClientInfoController {
         try{
             scene = new Scene(fxmlLoader.load(), 340, 300);
         } catch (IOException e) {
-            e.printStackTrace(); //TODO log
+            logger.error("Error while opening address window", e);
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
             return false;
         }

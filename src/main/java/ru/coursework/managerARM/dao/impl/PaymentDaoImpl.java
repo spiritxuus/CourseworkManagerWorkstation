@@ -1,5 +1,8 @@
 package ru.coursework.managerARM.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.coursework.managerARM.controller.ManagerController;
 import ru.coursework.managerARM.dao.PaymentDao;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.Payment;
@@ -39,6 +42,9 @@ public class PaymentDaoImpl implements PaymentDao {
     private final static String DELETE =
             "DELETE FROM my_schema.payment WHERE payment_id = ?";
 
+    private static final Logger logger = LoggerFactory.getLogger(PaymentDaoImpl.class);
+
+
     protected List<Payment> mapper(ResultSet rs){
         List<Payment> list = new ArrayList<>();
         try {
@@ -50,7 +56,7 @@ public class PaymentDaoImpl implements PaymentDao {
                         rs.getString("payment_method")));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -65,7 +71,7 @@ public class PaymentDaoImpl implements PaymentDao {
             statement.setString(4, payment.getPaymentMethod());
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -83,7 +89,7 @@ public class PaymentDaoImpl implements PaymentDao {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return Optional.empty();
     }
@@ -102,7 +108,7 @@ public class PaymentDaoImpl implements PaymentDao {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage()); //TODO ЛОГИРОВАНИЕ ВО ВСЕХ DAO
+            logger.error("SQL error", e);
         }
         return Optional.empty();
     }
@@ -116,7 +122,7 @@ public class PaymentDaoImpl implements PaymentDao {
             rs = statement.executeQuery();
             list = mapper(rs);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -131,7 +137,7 @@ public class PaymentDaoImpl implements PaymentDao {
             statement.setString(4, payment.getPaymentMethod());
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -142,7 +148,7 @@ public class PaymentDaoImpl implements PaymentDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 }

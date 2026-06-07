@@ -14,6 +14,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.MainApplication;
 import ru.coursework.managerARM.dao.EquipmentDao;
 import ru.coursework.managerARM.dao.impl.EquipmentDaoImpl;
@@ -77,6 +79,9 @@ public class EquipmentInfoController {
 
     private String photoPath;
 
+    private static final Logger logger = LoggerFactory.getLogger(EquipmentInfoController.class);
+
+
     @FXML
     void initialize(){
         this.equipmentDao = new EquipmentDaoImpl();
@@ -98,6 +103,7 @@ public class EquipmentInfoController {
             equipment.setCategory(selectedCategory.getCategoryId());
         }
         else{
+            logger.info("equipment onOkayButtonClick() category is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Выберите категорию.");
@@ -121,7 +127,7 @@ public class EquipmentInfoController {
             confirmed = true;
             stage.close();
         } catch (Exception e){
-            e.printStackTrace(); //TODO log
+            logger.info("equipment onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Не все поля заполнены.");
@@ -146,7 +152,7 @@ public class EquipmentInfoController {
                 photoPath = file.getAbsolutePath();
             }
         } catch (Exception e) {
-            e.printStackTrace(); //TODO log
+            logger.error("Error while opening photo", e);
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки изображения.", ButtonType.OK).showAndWait();
 
         }

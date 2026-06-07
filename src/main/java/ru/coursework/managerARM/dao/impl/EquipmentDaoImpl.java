@@ -1,6 +1,8 @@
 package ru.coursework.managerARM.dao.impl;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.dao.EquipmentDao;
 import ru.coursework.managerARM.dto.EquipmentCategoryView;
 import ru.coursework.managerARM.util.DbUtils;
@@ -47,6 +49,8 @@ public class EquipmentDaoImpl implements EquipmentDao {
     private final static String DELETE =
             "DELETE FROM my_schema.equipment WHERE equipment_id = ?";
 
+    private static final Logger logger = LoggerFactory.getLogger(EquipmentDaoImpl.class);
+
     protected List<Equipment> mapper(ResultSet rs){
         List<Equipment> list = new ArrayList<>();
         try {
@@ -66,7 +70,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
                         rs.getString("description")));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -89,7 +93,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
             statement.setString(12, equipment.getDescription());
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -115,7 +119,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return Optional.empty();
     }
@@ -129,7 +133,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
             rs = statement.executeQuery();
             list = mapper(rs);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -147,7 +151,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
                 ));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
 
         return categories;
@@ -172,7 +176,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
             statement.setLong(13, equipment.getEquipmentId());
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -183,7 +187,7 @@ public class EquipmentDaoImpl implements EquipmentDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 }

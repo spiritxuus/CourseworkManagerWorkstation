@@ -1,5 +1,7 @@
 package ru.coursework.managerARM.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.dao.RentalContractDao;
 import ru.coursework.managerARM.dto.ClientView;
 import ru.coursework.managerARM.dto.RentalContractView;
@@ -66,6 +68,9 @@ public class RentalContractDaoImpl implements RentalContractDao {
                     "LEFT JOIN my_schema.natural_person np ON c.natural_person_id = np.natural_person_id " +
                     "LEFT JOIN my_schema.legal_person lp ON c.legal_person_id = lp.legal_person_id ";
 
+    private static final Logger logger = LoggerFactory.getLogger(RentalContractDaoImpl.class);
+
+
     protected List<RentalContract> mapper(ResultSet rs){
         List<RentalContract> list = new ArrayList<>();
         try {
@@ -88,7 +93,7 @@ public class RentalContractDaoImpl implements RentalContractDao {
                         rs.getString("issue_condition_photo")));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -112,7 +117,7 @@ public class RentalContractDaoImpl implements RentalContractDao {
             statement.setString(9, contract.getIssueConditionPhoto());
             statement.execute();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -141,7 +146,7 @@ public class RentalContractDaoImpl implements RentalContractDao {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return Optional.empty();
     }
@@ -155,7 +160,7 @@ public class RentalContractDaoImpl implements RentalContractDao {
             rs = statement.executeQuery();
             list = mapper(rs);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -189,7 +194,7 @@ public class RentalContractDaoImpl implements RentalContractDao {
                         ));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
 
         return list;
@@ -216,7 +221,7 @@ public class RentalContractDaoImpl implements RentalContractDao {
             statement.executeUpdate();
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -227,7 +232,7 @@ public class RentalContractDaoImpl implements RentalContractDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 }

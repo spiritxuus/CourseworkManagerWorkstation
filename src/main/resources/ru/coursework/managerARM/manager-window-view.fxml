@@ -345,6 +345,7 @@
                                           <Button mnemonicParsing="false" onAction="#onEditReturnButtonClick" text="Редактировать" />
                                           <Button mnemonicParsing="false" onAction="#onShowContractButtonClick" text="Показать контракт" />
                                           <Button mnemonicParsing="false" onAction="#onDeleteReturnButotnClick" text="Удалить" />
+                                          <Button mnemonicParsing="false" onAction="#onResetReturnButtonClick" text="Сброс" />
                                        </children>
                                     </HBox>
                                  </children>

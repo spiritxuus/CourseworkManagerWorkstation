@@ -11,6 +11,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.MainApplication;
 import ru.coursework.managerARM.dao.ReturnOfEquipmentDao;
 import ru.coursework.managerARM.dao.impl.ReturnOfEquipmentDaoImpl;
@@ -59,6 +61,9 @@ public class ReturnInfoController {
 
     private String photoPath;
 
+    private static final Logger logger = LoggerFactory.getLogger(ReturnInfoController.class);
+
+
     @FXML
     void initialize(){
         this.returnDao = new ReturnOfEquipmentDaoImpl();
@@ -81,6 +86,7 @@ public class ReturnInfoController {
             returnOfEquipment.setContract(selectedContract.getContractId());
         }
         else{
+            logger.info("return onOkayButtonClick() contract is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Выберите контракт.");
@@ -99,7 +105,7 @@ public class ReturnInfoController {
             confirmed = true;
             stage.close();
         } catch (Exception e){
-            e.printStackTrace(); //TODO log
+            logger.info("return onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Не все поля заполнены.");
@@ -124,7 +130,7 @@ public class ReturnInfoController {
                 photoPath = file.getAbsolutePath();
             }
         } catch (Exception e) {
-            e.printStackTrace(); //TODO log
+            logger.error("Error while opening photo", e);
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки изображения.", ButtonType.OK).showAndWait();
         }
     }

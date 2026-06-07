@@ -1,5 +1,7 @@
 package ru.coursework.managerARM.dao.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.dao.NaturalPersonDao;
 import ru.coursework.managerARM.dto.AddressView;
 import ru.coursework.managerARM.dto.NaturalPersonView;
@@ -48,6 +50,9 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
                     "FROM my_schema.natural_person " +
                     "ORDER BY surname, name, patronymic";
 
+    private static final Logger logger = LoggerFactory.getLogger(NaturalPersonDaoImpl.class);
+
+
     protected List<NaturalPerson> mapper(ResultSet rs){
         List<NaturalPerson> list = new ArrayList<>();
         try {
@@ -65,7 +70,7 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
                         rs.getLong("address")));
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -86,7 +91,7 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
             statement.setLong(10, naturalPerson.getAddress());
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -110,7 +115,7 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
                 }
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return Optional.empty();
     }
@@ -125,7 +130,7 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
             rs = statement.executeQuery();
             list = mapper(rs);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
         return list;
     }
@@ -148,7 +153,7 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
 
         return list;
@@ -170,7 +175,7 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
             statement.setLong(10, naturalPerson.getAddress());
             statement.executeUpdate();
         } catch (SQLException e){
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 
@@ -181,7 +186,7 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
             statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error("SQL error", e);
         }
     }
 }

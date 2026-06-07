@@ -11,6 +11,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.MainApplication;
 import ru.coursework.managerARM.dao.AddressDao;
 import ru.coursework.managerARM.dao.impl.AddressDaoImpl;
@@ -62,6 +64,8 @@ public class NaturalClientInfoController {
     private ObservableList<AddressView> addressViews = FXCollections.observableArrayList();
 
     private AddressDao addressDao;
+
+    private static final Logger logger = LoggerFactory.getLogger(NaturalClientInfoController.class);
 
     @FXML
     public void initialize() {
@@ -119,6 +123,7 @@ public class NaturalClientInfoController {
                 naturalPerson.setAddress(selectedAddress.getAddressId());
             }
             else{
+                logger.info("natural client onOkayButtonClick() address is not choosed");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Выберите адрес.");
@@ -129,7 +134,7 @@ public class NaturalClientInfoController {
             confirmed = true;
             stage.close();
         } catch (Exception e) {
-            e.printStackTrace(); //TODO log
+            logger.info("natural client onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Не все поля заполнены.");
@@ -143,7 +148,7 @@ public class NaturalClientInfoController {
         try{
             scene = new Scene(fxmlLoader.load(), 340, 300);
         } catch (IOException e) {
-            e.printStackTrace(); //TODO log
+            logger.error("Error while opening address window", e);
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
             return false;
         }

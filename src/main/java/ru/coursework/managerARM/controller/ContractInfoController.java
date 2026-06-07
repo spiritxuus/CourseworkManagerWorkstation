@@ -10,6 +10,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.MainApplication;
 import ru.coursework.managerARM.dto.ReservationView;
 import ru.coursework.managerARM.model.RentalContract;
@@ -61,6 +63,9 @@ public class ContractInfoController {
 
     private boolean editMode;
 
+    private static final Logger logger = LoggerFactory.getLogger(ContractInfoController.class);
+
+
     @FXML
     void initialize(){
         cbStatus.setItems(FXCollections.observableArrayList(
@@ -75,6 +80,7 @@ public class ContractInfoController {
     void onOkayButtonClick(ActionEvent event) {
         try{
             if (dpPlannedReturn.getValue() == null){
+                logger.info("contract onOkayButtonClick() dpPlannedReturn is not choosed");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Дата планируемого возвращения не заполнена.");
@@ -83,6 +89,7 @@ public class ContractInfoController {
             }
 
             if (dpCurrentDate.getValue().isAfter(dpPlannedReturn.getValue())){
+                logger.info("contract onOkayButtonClick() date error");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Дата заключения не может быть позже даты возврата.");
@@ -92,6 +99,7 @@ public class ContractInfoController {
 
             if (editMode && dpActualReturn.getValue() != null &&
                     dpCurrentDate.getValue().isAfter(dpActualReturn.getValue())) {
+                logger.info("contract onOkayButtonClick() date error");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Внимание.");
                 alert.setHeaderText("Дата заключения не может быть позже фактической даты возврата.");
@@ -117,7 +125,7 @@ public class ContractInfoController {
             confirmed = true;
             stage.close();
         } catch (Exception e){
-            e.printStackTrace(); //TODO log
+            logger.info("contract onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
             alert.setHeaderText("Не все поля заполнены.");
@@ -142,7 +150,7 @@ public class ContractInfoController {
                 photoPath = file.getAbsolutePath();
             }
         } catch (Exception e) {
-            e.printStackTrace(); //TODO log
+            logger.error("Error while opening photo", e);
             new Alert(Alert.AlertType.WARNING, "Ошибка загрузки изображения.", ButtonType.OK).showAndWait();
 
         }
