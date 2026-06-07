@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+
+<AnchorPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.coursework.managerARM.controller.LoginController">
+   <children>
+      <HBox spacing="20.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <Label text="Логин" />
+            <TextField fx:id="tfLogin" />
+         </children>
+      </HBox>
+      <HBox spacing="13.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <Label text="Пароль" />
+            <TextField fx:id="tfPassword" />
+         </children>
+      </HBox>
+      <HBox spacing="27.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <Label text="Язык" />
+            <ComboBox fx:id="cbLanguage" prefWidth="150.0" />
+         </children>
+      </HBox>
+      <HBox spacing="10.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="1.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#onAuthenticateButtonClick" text="Войти" />
+            <Button mnemonicParsing="false" onAction="#onCancelButtonClick" text="Отмена" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

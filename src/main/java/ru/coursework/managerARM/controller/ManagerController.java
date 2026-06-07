@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.MainApplication;
@@ -24,6 +25,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class ManagerController {
+
+    @Setter
+    private Stage stage;
 
     @FXML
     private ComboBox<EquipmentCategoryView> cbSearchEquipCategory;
