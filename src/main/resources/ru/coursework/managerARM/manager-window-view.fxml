@@ -18,7 +18,7 @@
    <children>
       <TabPane tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab text="Клиенты">
+          <Tab text="%tab.client">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -28,11 +28,11 @@
                                  <children>
                                     <TableView fx:id="clientsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <columns>
-                                          <TableColumn fx:id="clientTypeColumn" prefWidth="75.0" text="Тип клиента" />
-                                          <TableColumn fx:id="clientNameColumn" prefWidth="75.0" text="ФИО/Компания" />
-                                          <TableColumn fx:id="clientPhoneColumn" prefWidth="75.0" text="Телефон:" />
-                                          <TableColumn fx:id="clientEmailColumn" prefWidth="75.0" text="Email" />
-                                          <TableColumn fx:id="clientAddressColumn" prefWidth="75.0" text="Адрес" />
+                                          <TableColumn fx:id="clientTypeColumn" prefWidth="75.0" text="%column.client_type" />
+                                          <TableColumn fx:id="clientNameColumn" prefWidth="75.0" text="%column.client_name" />
+                                          <TableColumn fx:id="clientPhoneColumn" prefWidth="75.0" text="%column.client_phone" />
+                                          <TableColumn fx:id="clientEmailColumn" prefWidth="75.0" text="%column.client_email" />
+                                          <TableColumn fx:id="clientAddressColumn" prefWidth="75.0" text="%column.client_address" />
                                       </columns>
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -44,23 +44,23 @@
                                  <children>
                                     <HBox alignment="BOTTOM_CENTER" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#onAddClientButtonClick" text="Добавить" />
-                                          <Button mnemonicParsing="false" onAction="#onEditClientButtonClick" text="Редактировать" />
-                                          <Button mnemonicParsing="false" onAction="#onDeleteClientButtonClick" text="Удалить" />
-                                          <Button mnemonicParsing="false" onAction="#onResetClientButtonClick" text="Сброс" />
+                                          <Button mnemonicParsing="false" onAction="#onAddClientButtonClick" text="%button.add" />
+                                          <Button mnemonicParsing="false" onAction="#onEditClientButtonClick" text="%button.edit" />
+                                          <Button mnemonicParsing="false" onAction="#onDeleteClientButtonClick" text="button.delete" />
+                                          <Button mnemonicParsing="false" onAction="#onResetClientButtonClick" text="button.reset" />
                                        </children>
                                     </HBox>
                                     <VBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
                                        <children>
-                                          <Label text="Поиск по фамилии:" />
-                                          <Label text="Поиск по названию компании:">
+                                          <Label text="%lb.surname_search" />
+                                          <Label text="%lb.company_name_search">
                                              <VBox.margin>
                                                 <Insets top="10.0" />
                                              </VBox.margin>
                                           </Label>
                                           <HBox spacing="5.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#onSearchClientButtonClick" text="Поиск" />
+                                                <Button mnemonicParsing="false" onAction="#onSearchClientButtonClick" text="%button.search" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets top="5.0" />
@@ -90,7 +90,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Оборудование">
+          <Tab text="%tab.equipment">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -146,12 +146,12 @@
                                  <children>
                                     <HBox alignment="CENTER" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#onAddEquipButtonClick" text="Добавить оборудование" />
-                                          <Button mnemonicParsing="false" onAction="#OnEditEquipButtonClick" text="Редактировать" />
-                                          <Button mnemonicParsing="false" onAction="#onReserveButtonClick" text="Забронировать" />
-                                          <Button mnemonicParsing="false" onAction="#onRepairButtonClick" text="Создать запрос на ремонт" />
-                                          <Button mnemonicParsing="false" onAction="#onDeleteEquipButtonClick" text="Удалить" />
-                                          <Button mnemonicParsing="false" onAction="#onResetEquipClientButtonClick" text="Сброс" />
+                                          <Button mnemonicParsing="false" onAction="#onAddEquipButtonClick" text="%button.add_equip" />
+                                          <Button mnemonicParsing="false" onAction="#OnEditEquipButtonClick" text="%button.edit" />
+                                          <Button mnemonicParsing="false" onAction="#onReserveButtonClick" text="%button.reserve" />
+                                          <Button mnemonicParsing="false" onAction="#onRepairButtonClick" text="button.create_repair" />
+                                          <Button mnemonicParsing="false" onAction="#onDeleteEquipButtonClick" text="%buton.delete" />
+                                          <Button mnemonicParsing="false" onAction="#onResetEquipClientButtonClick" text="%button.reset" />
                                        </children>
                                     </HBox>
                                     <VBox AnchorPane.rightAnchor="151.3333333333334" AnchorPane.topAnchor="1.0">
@@ -164,7 +164,7 @@
                                           </Label>
                                           <HBox spacing="5.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#onSearchClientButtonClick" text="Поиск" />
+                                                <Button mnemonicParsing="false" onAction="#onSearchClientButtonClick" text="%button.search" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets top="10.0" />
@@ -196,7 +196,7 @@
                                           </Label>
                                           <HBox spacing="5.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#onSearchEquipButtonClick" text="Поиск" />
+                                                <Button mnemonicParsing="false" onAction="#onSearchEquipButtonClick" text="%button.search" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets top="10.0" />
@@ -222,7 +222,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Контракты и брони">
+            <Tab text="%tab.contracts_reservations">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -312,7 +312,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Возвраты оборудования">
+            <Tab text="%tab.returns">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -356,7 +356,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="История">
+            <Tab text="%tab.history">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
