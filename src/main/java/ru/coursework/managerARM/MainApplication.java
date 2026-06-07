@@ -10,6 +10,8 @@ import ru.coursework.managerARM.util.DbUtils;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class MainApplication extends Application {
     @Getter
@@ -17,14 +19,18 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+
         MainApplication.stage = stage;
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("login-view.fxml"));
+        Locale locale = Locale.getDefault();
+        ResourceBundle bundle = ResourceBundle.getBundle("i18n.main", locale);
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("login-view.fxml"),
+                bundle);
         Scene scene = new Scene(fxmlLoader.load(), 300, 200);
 
         LoginController controller = fxmlLoader.getController();
         controller.setStage(stage);
 
-        stage.setTitle("Введите данные.");
+        stage.setTitle(bundle.getString("login.title"));
         stage.setScene(scene);
         stage.show();
     }

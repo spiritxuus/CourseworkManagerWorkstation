@@ -66,7 +66,7 @@ public class LoginController {
             DbUtils.initConnection(username, password);
             logger.info("Successful login for user {}", username);
             showMainDialog();
-            stage.close();
+            stage.hide();
         } catch (SQLException e) {
             logger.error("Error while logging in for user {}", username, e);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -90,6 +90,7 @@ public class LoginController {
             default -> new Locale("ru", "RU");
         };
 
+
         ResourceBundle bundle = ResourceBundle.getBundle("i18n.main", locale);
 
         FXMLLoader fxmlLoader = new FXMLLoader(
@@ -107,8 +108,6 @@ public class LoginController {
         }
 
         Stage mainStage = new Stage();
-        mainStage.initModality(Modality.NONE);
-        mainStage.initOwner(MainApplication.getStage());
         mainStage.setTitle(bundle.getString("app.title"));
         mainStage.setScene(scene);
 

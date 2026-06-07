@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+//TODO ВЫНЕСТИ SQL В ПРОПЕРТИС
 
 public class AddressDaoImpl implements AddressDao {
     private static final String INSERT =

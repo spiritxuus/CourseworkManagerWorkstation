@@ -150,7 +150,7 @@
                                           <Button mnemonicParsing="false" onAction="#OnEditEquipButtonClick" text="%button.edit" />
                                           <Button mnemonicParsing="false" onAction="#onReserveButtonClick" text="%button.reserve" />
                                           <Button mnemonicParsing="false" onAction="#onRepairButtonClick" text="%button.create_repair" />
-                                          <Button mnemonicParsing="false" onAction="#onDeleteEquipButtonClick" text="%buton.delete" />
+                                          <Button mnemonicParsing="false" onAction="#onDeleteEquipButtonClick" text="%button.delete" />
                                           <Button mnemonicParsing="false" onAction="#onResetEquipClientButtonClick" text="%button.reset" />
                                        </children>
                                     </HBox>
