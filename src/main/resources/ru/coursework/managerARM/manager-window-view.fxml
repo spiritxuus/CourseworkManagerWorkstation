@@ -46,8 +46,8 @@
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#onAddClientButtonClick" text="%button.add" />
                                           <Button mnemonicParsing="false" onAction="#onEditClientButtonClick" text="%button.edit" />
-                                          <Button mnemonicParsing="false" onAction="#onDeleteClientButtonClick" text="button.delete" />
-                                          <Button mnemonicParsing="false" onAction="#onResetClientButtonClick" text="button.reset" />
+                                          <Button mnemonicParsing="false" onAction="#onDeleteClientButtonClick" text="%button.delete" />
+                                          <Button mnemonicParsing="false" onAction="#onResetClientButtonClick" text="%button.reset" />
                                        </children>
                                     </HBox>
                                     <VBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
@@ -104,17 +104,17 @@
                                              <children>
                                                 <TableView fx:id="equipmentTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
-                                                      <TableColumn fx:id="equipNameColumn" prefWidth="75.0" text="Наименование" />
-                                                      <TableColumn fx:id="equipManufacturerColumn" prefWidth="75.0" text="Производитель" />
-                                                      <TableColumn fx:id="equipModelColumn" prefWidth="75.0" text="Модель" />
-                                                      <TableColumn fx:id="equipInvNumColumn" prefWidth="75.0" text="Инвентарный номер" />
-                                                      <TableColumn fx:id="equipSerialColumn" prefWidth="75.0" text="Серийный номер" />
-                                                      <TableColumn fx:id="equipRentPriceColumn" prefWidth="75.0" text="Цена аренды в сутки" />
-                                                      <TableColumn fx:id="equipDepositColumn" prefWidth="75.0" text="Стоимость залога" />
-                                                      <TableColumn fx:id="equipStatusColumn" prefWidth="75.0" text="Состояние:" />
-                                                      <TableColumn fx:id="equipRepairColumn" prefWidth="75.0" text="Требуется ли ремонт" />
-                                                      <TableColumn fx:id="equipPhotoPathColumn" prefWidth="75.0" text="Путь к фото" />
-                                                      <TableColumn fx:id="equipDescColumn" prefWidth="75.0" text="Описание" />
+                                                      <TableColumn fx:id="equipNameColumn" prefWidth="75.0" text="%column.equipment_name" />
+                                                      <TableColumn fx:id="equipManufacturerColumn" prefWidth="75.0" text="%column.equipment_manufacturer" />
+                                                      <TableColumn fx:id="equipModelColumn" prefWidth="75.0" text="%column.equipment_model" />
+                                                      <TableColumn fx:id="equipInvNumColumn" prefWidth="75.0" text="%column.equipment_inv_number" />
+                                                      <TableColumn fx:id="equipSerialColumn" prefWidth="75.0" text="%column.equipment.serial_number" />
+                                                      <TableColumn fx:id="equipRentPriceColumn" prefWidth="75.0" text="%column.equipment_rent_price_per_day" />
+                                                      <TableColumn fx:id="equipDepositColumn" prefWidth="75.0" text="%column.equipment_deposit_amount" />
+                                                      <TableColumn fx:id="equipStatusColumn" prefWidth="75.0" text="%column.equipment_state" />
+                                                      <TableColumn fx:id="equipRepairColumn" prefWidth="75.0" text="%column.equipment_repair_required" />
+                                                      <TableColumn fx:id="equipPhotoPathColumn" prefWidth="75.0" text="%column.equipment_photo_path" />
+                                                      <TableColumn fx:id="equipDescColumn" prefWidth="75.0" text="%column.equipment_description" />
                                                    </columns>
                                                    <columnResizePolicy>
                                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -126,11 +126,11 @@
                                              <children>
                                                 <TableView fx:id="clientsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
-                                                      <TableColumn fx:id="clientTypeColumn" prefWidth="75.0" text="Тип клиента" />
-                                                      <TableColumn fx:id="clientNameColumn" prefWidth="75.0" text="ФИО/Название компании" />
-                                                      <TableColumn fx:id="clientPhoneColumn" prefWidth="75.0" text="Телефон:" />
-                                                      <TableColumn fx:id="clientEmailColumn" prefWidth="75.0" text="Email" />
-                                                      <TableColumn fx:id="clientAddressColumn" prefWidth="75.0" text="Адрес" />
+                                                      <TableColumn fx:id="clientTypeColumn" prefWidth="75.0" text="%column.client_type" />
+                                                      <TableColumn fx:id="clientNameColumn" prefWidth="75.0" text="%column.client_name" />
+                                                      <TableColumn fx:id="clientPhoneColumn" prefWidth="75.0" text="%column.client_phone" />
+                                                      <TableColumn fx:id="clientEmailColumn" prefWidth="75.0" text="%column.client_email" />
+                                                      <TableColumn fx:id="clientAddressColumn" prefWidth="75.0" text="%column.client_address" />
                                                    </columns>
                                                    <columnResizePolicy>
                                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -149,15 +149,15 @@
                                           <Button mnemonicParsing="false" onAction="#onAddEquipButtonClick" text="%button.add_equip" />
                                           <Button mnemonicParsing="false" onAction="#OnEditEquipButtonClick" text="%button.edit" />
                                           <Button mnemonicParsing="false" onAction="#onReserveButtonClick" text="%button.reserve" />
-                                          <Button mnemonicParsing="false" onAction="#onRepairButtonClick" text="button.create_repair" />
+                                          <Button mnemonicParsing="false" onAction="#onRepairButtonClick" text="%button.create_repair" />
                                           <Button mnemonicParsing="false" onAction="#onDeleteEquipButtonClick" text="%buton.delete" />
                                           <Button mnemonicParsing="false" onAction="#onResetEquipClientButtonClick" text="%button.reset" />
                                        </children>
                                     </HBox>
                                     <VBox AnchorPane.rightAnchor="151.3333333333334" AnchorPane.topAnchor="1.0">
                                        <children>
-                                          <Label text="Поиск по фамилии:" />
-                                          <Label text="Поиск по названию компании:">
+                                          <Label text="%lb.surname_search" />
+                                          <Label text="%lb.company_name_search">
                                              <VBox.margin>
                                                 <Insets top="10.0" />
                                              </VBox.margin>
@@ -188,8 +188,8 @@
                                     </VBox>
                                     <VBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
                                        <children>
-                                          <Label text="Поиск по категории:" />
-                                          <Label text="Поиск по названию:">
+                                          <Label text="%lb.category_search" />
+                                          <Label text="%lb.equip_name_search">
                                              <VBox.margin>
                                                 <Insets top="10.0" />
                                              </VBox.margin>
@@ -236,15 +236,15 @@
                                              <children>
                                                 <TableView fx:id="contractsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
-                                                      <TableColumn fx:id="contractClientColumn" prefWidth="75.0" text="Клиент" />
-                                                      <TableColumn fx:id="contractCreateDateColumn" prefWidth="75.0" text="Дата создания" />
-                                                      <TableColumn fx:id="contractPlannedDateColumn" prefWidth="75.0" text="Планируемая дата возврата" />
-                                                      <TableColumn fx:id="contractActualDateColumn" prefWidth="75.0" text="Актуальная дата возврата" />
-                                                      <TableColumn fx:id="contractDepositColumn" prefWidth="75.0" text="Стоимость залога" />
-                                                      <TableColumn fx:id="contractFinalPriceColumn" prefWidth="75.0" text="Итоговая цена" />
-                                                      <TableColumn fx:id="contractStatusColumn" prefWidth="75.0" text="Статус" />
-                                                      <TableColumn fx:id="contractDescColumn" prefWidth="75.0" text="Описание в момент аренды" />
-                                                      <TableColumn fx:id="contractPhotoColumn" prefWidth="75.0" text="Фото в момент аренды" />
+                                                      <TableColumn fx:id="contractClientColumn" prefWidth="75.0" text="%column.contracts_client_name" />
+                                                      <TableColumn fx:id="contractCreateDateColumn" prefWidth="75.0" text="%column.contracts_creation_date" />
+                                                      <TableColumn fx:id="contractPlannedDateColumn" prefWidth="75.0" text="%column.contracts_planned_return_date" />
+                                                      <TableColumn fx:id="contractActualDateColumn" prefWidth="75.0" text="%column.contracts_actual_return_date" />
+                                                      <TableColumn fx:id="contractDepositColumn" prefWidth="75.0" text="%column.contracts_deposit_amount" />
+                                                      <TableColumn fx:id="contractFinalPriceColumn" prefWidth="75.0" text="%column.contracts_total_price" />
+                                                      <TableColumn fx:id="contractStatusColumn" prefWidth="75.0" text="%column.contracts_status" />
+                                                      <TableColumn fx:id="contractDescColumn" prefWidth="75.0" text="%column.contracts_issue_description" />
+                                                      <TableColumn fx:id="contractPhotoColumn" prefWidth="75.0" text="%column.contracts_issue_photo" />
                                                    </columns>
                                                    <columnResizePolicy>
                                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -256,10 +256,10 @@
                                              <children>
                                                 <TableView fx:id="reservationsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <columns>
-                                                      <TableColumn fx:id="reservClientColumn" prefWidth="75.0" text="Клиент" />
-                                                      <TableColumn fx:id="reservEquipColumn" prefWidth="75.0" text="Оборудование" />
-                                                      <TableColumn fx:id="reservStartColumn" prefWidth="75.0" text="Дата начала брони" />
-                                                      <TableColumn fx:id="reservEndColumn" prefWidth="75.0" text="Дата окончания брони" />
+                                                      <TableColumn fx:id="reservClientColumn" prefWidth="75.0" text="%column.reservation_client" />
+                                                      <TableColumn fx:id="reservEquipColumn" prefWidth="75.0" text="%column.reservation_equipment" />
+                                                      <TableColumn fx:id="reservStartColumn" prefWidth="75.0" text="%column.reservation_start_date" />
+                                                      <TableColumn fx:id="reservEndColumn" prefWidth="75.0" text="%column.reservation_end_date" />
                                                    </columns>
                                                    <columnResizePolicy>
                                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -275,19 +275,19 @@
                                  <children>
                                     <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#onAddContractButtonClick" text="Создать контракт" />
-                                          <Button mnemonicParsing="false" onAction="#onEditContractButtonClick" text="Редактировать" />
-                                          <Button mnemonicParsing="false" onAction="#onShowPaymentButtonClick" text="Показать платеж" />
-                                          <Button mnemonicParsing="false" onAction="#onDeleteContractReservButtonClick" text="Удалить" />
-                                          <Button mnemonicParsing="false" onAction="#onResetContractReservButtonClick" text="Сброс" />
+                                          <Button mnemonicParsing="false" onAction="#onAddContractButtonClick" text="%button.create_contract" />
+                                          <Button mnemonicParsing="false" onAction="#onEditContractButtonClick" text="%button.edit" />
+                                          <Button mnemonicParsing="false" onAction="#onShowPaymentButtonClick" text="%button.show_payment" />
+                                          <Button mnemonicParsing="false" onAction="#onDeleteContractReservButtonClick" text="%button.delete" />
+                                          <Button mnemonicParsing="false" onAction="#onResetContractReservButtonClick" text="button.reset" />
                                        </children>
                                     </HBox>
                                     <VBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
                                        <children>
-                                          <Label text="Поиск по фамилии:" />
+                                          <Label text="button.surname_search" />
                                           <HBox spacing="5.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#onSearchContractButtonClick" text="Поиск" />
+                                                <Button mnemonicParsing="false" onAction="#onSearchContractButtonClick" text="%button.search" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets top="10.0" />
@@ -322,14 +322,14 @@
                                  <children>
                                     <TableView fx:id="returnsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <columns>
-                                          <TableColumn fx:id="returnClientNameColumn" prefWidth="75.0" text="Имя клиента" />
-                                          <TableColumn fx:id="returnEquipNameColumn" prefWidth="75.0" text="Название оборудования" />
-                                          <TableColumn fx:id="returnDateColumn" prefWidth="75.0" text="Дата возврата" />
-                                          <TableColumn fx:id="returnDescColumn" prefWidth="75.0" text="Описание состояния" />
-                                          <TableColumn fx:id="returnPhotoColumn" prefWidth="75.0" text="Фото " />
-                                          <TableColumn fx:id="returnDamageColumn" prefWidth="75.0" text="Сумма ущерба" />
-                                          <TableColumn fx:id="returnDeductionColumn" prefWidth="75.0" text="Сумма удержания" />
-                                          <TableColumn fx:id="returnRepairColumn" prefWidth="75.0" text="Нужен ли ремонт" />
+                                          <TableColumn fx:id="returnClientNameColumn" prefWidth="75.0" text="%column.returns_client" />
+                                          <TableColumn fx:id="returnEquipNameColumn" prefWidth="75.0" text="%column.returns_equipment" />
+                                          <TableColumn fx:id="returnDateColumn" prefWidth="75.0" text="%column.returns_date" />
+                                          <TableColumn fx:id="returnDescColumn" prefWidth="75.0" text="%column.returns_description" />
+                                          <TableColumn fx:id="returnPhotoColumn" prefWidth="75.0" text="%column.returns_photo" />
+                                          <TableColumn fx:id="returnDamageColumn" prefWidth="75.0" text="%column.returns_damage" />
+                                          <TableColumn fx:id="returnDeductionColumn" prefWidth="75.0" text="%column.returns_deduction" />
+                                          <TableColumn fx:id="returnRepairColumn" prefWidth="75.0" text="%column.returns_repair" />
                                        </columns>
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -341,11 +341,11 @@
                                  <children>
                                     <HBox alignment="CENTER" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#OnAddReturnButtonClick" text="Добавить" />
-                                          <Button mnemonicParsing="false" onAction="#onEditReturnButtonClick" text="Редактировать" />
-                                          <Button mnemonicParsing="false" onAction="#onShowContractButtonClick" text="Показать контракт" />
-                                          <Button mnemonicParsing="false" onAction="#onDeleteReturnButotnClick" text="Удалить" />
-                                          <Button mnemonicParsing="false" onAction="#onResetReturnButtonClick" text="Сброс" />
+                                          <Button mnemonicParsing="false" onAction="#OnAddReturnButtonClick" text="%button.add" />
+                                          <Button mnemonicParsing="false" onAction="#onEditReturnButtonClick" text="%button.edit" />
+                                          <Button mnemonicParsing="false" onAction="#onShowContractButtonClick" text="%button.show_contract" />
+                                          <Button mnemonicParsing="false" onAction="#onDeleteReturnButotnClick" text="%button.delete" />
+                                          <Button mnemonicParsing="false" onAction="#onResetReturnButtonClick" text="%button.reset" />
                                        </children>
                                     </HBox>
                                  </children>
@@ -366,9 +366,9 @@
                                  <children>
                                     <TableView fx:id="historyTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <columns>
-                                          <TableColumn fx:id="historyDateColumn" prefWidth="75.0" text="Дата события" />
-                                          <TableColumn fx:id="historyTypeColumn" prefWidth="75.0" text="Тип события" />
-                                          <TableColumn fx:id="historyDescColumn" prefWidth="75.0" text="Описание" />
+                                          <TableColumn fx:id="historyDateColumn" prefWidth="75.0" text="%column.history_date" />
+                                          <TableColumn fx:id="historyTypeColumn" prefWidth="75.0" text="%column.history_type" />
+                                          <TableColumn fx:id="historyDescColumn" prefWidth="75.0" text="%column.history_description" />
                                        </columns>
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -380,9 +380,9 @@
                                  <children>
                                     <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#onCreateReportButtonClick" text="Создать отчет" />
-                                          <Button mnemonicParsing="false" onAction="#onDeleteHistoryButtonClick" text="Удалить" />
-                                          <Button mnemonicParsing="false" onAction="#onResetHistoryButtonClick" text="Сброс" />
+                                          <Button mnemonicParsing="false" onAction="#onCreateReportButtonClick" text="%button.create_report" />
+                                          <Button mnemonicParsing="false" onAction="#onDeleteHistoryButtonClick" text="%button.delete" />
+                                          <Button mnemonicParsing="false" onAction="#onResetHistoryButtonClick" text="%button.reset" />
                                        </children>
                                     </HBox>
                                     <VBox AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">

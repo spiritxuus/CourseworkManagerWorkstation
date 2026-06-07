@@ -12,22 +12,22 @@
    <children>
       <VBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
          <children>
-            <Label text="Клиент:">
+            <Label text="%lb.reservation_client">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </Label>
-            <Label text="Оборудование:">
+            <Label text="%lb.reservation_equipment">
                <VBox.margin>
                   <Insets bottom="8.0" />
                </VBox.margin>
             </Label>
-            <Label text="Дата начала брони:">
+            <Label text="%lb.reservation_start">
                <VBox.margin>
                   <Insets bottom="13.0" />
                </VBox.margin>
             </Label>
-            <Label text="Дата окончания брони:">
+            <Label text="%lb.reservation_end">
                <VBox.margin>
                   <Insets bottom="13.0" />
                </VBox.margin>
@@ -36,12 +36,12 @@
       </VBox>
       <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
          <children>
-            <Label fx:id="lbClient" text="1">
+            <Label fx:id="lbClient">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="lbEquip" text="1">
+            <Label fx:id="lbEquip">
                <VBox.margin>
                   <Insets top="7.0" />
                </VBox.margin>
@@ -60,7 +60,7 @@
       </VBox>
       <HBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="200.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="Ок" />
+            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="%button.ok" />
          </children>
       </HBox>
    </children>

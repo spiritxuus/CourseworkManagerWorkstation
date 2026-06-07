@@ -12,32 +12,32 @@
    <children>
       <VBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
          <children>
-            <Label text="Страна:">
+            <Label text="%lb.address_county">
                <VBox.margin>
                   <Insets bottom="12.0" top="5.0" />
                </VBox.margin>
             </Label>
-            <Label text="Область:">
+            <Label text="%lb.address_region">
                <VBox.margin>
                   <Insets bottom="13.0" />
                </VBox.margin>
             </Label>
-            <Label text="Пункт проживания:">
+            <Label text="%lb.address_city">
                <VBox.margin>
                   <Insets bottom="13.0" />
                </VBox.margin>
             </Label>
-            <Label text="Улица:">
+            <Label text="%lb.address_street">
                <VBox.margin>
                   <Insets bottom="13.0" />
                </VBox.margin>
             </Label>
-            <Label text="Дом:">
+            <Label text="%lb.address_house">
                <VBox.margin>
                   <Insets bottom="13.0" />
                </VBox.margin>
             </Label>
-            <Label text="Квартира:">
+            <Label text="%lb.address_apartment">
                <VBox.margin>
                   <Insets bottom="13.0" />
                </VBox.margin>
@@ -46,32 +46,32 @@
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
          <children>
-            <TextField fx:id="tfCountry" text="country">
+            <TextField fx:id="tfCountry">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfRegion" text="region">
+            <TextField fx:id="tfRegion">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfCity" text="city">
+            <TextField fx:id="tfCity">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfStreet" text="street">
+            <TextField fx:id="tfStreet">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfHouse" text="house">
+            <TextField fx:id="tfHouse">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfApartment" text="apartment">
+            <TextField fx:id="tfApartment">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
@@ -80,12 +80,12 @@
       </VBox>
       <HBox AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="200.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="Ок">
+            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="%button.ok">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onExitButton" text="Выход">
+            <Button mnemonicParsing="false" onAction="#onExitButton" text="%button.exit">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin></Button>

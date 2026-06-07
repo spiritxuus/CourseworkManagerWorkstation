@@ -11,22 +11,22 @@
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
          <children>
-            <Label text="ID контракта:">
+            <Label text="%lb.payment_contract">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </Label>
-            <Label text="Дата платежа:">
+            <Label text="%lb.payment_date">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <Label text="Сумма платежа:">
+            <Label text="%lb.payment_sum">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <Label text="Метод платежа:">
+            <Label text="%lb.payment_method">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -35,27 +35,27 @@
       </VBox>
       <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
          <children>
-            <Label fx:id="lbContractID" text="contract">
+            <Label fx:id="lbContractID">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="lbPaymentDate" text="payment date">
+            <Label fx:id="lbPaymentDate">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="lbPaymentAmount" text="amount">
+            <Label fx:id="lbPaymentAmount">
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="lbPaymentMethod" text="payment method" />
+            <Label fx:id="lbPaymentMethod" />
          </children>
       </VBox>
       <HBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="200.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="Ок" />
+            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="%button.ok" />
          </children>
       </HBox>
    </children>

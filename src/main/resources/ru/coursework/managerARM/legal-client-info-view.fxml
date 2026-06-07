@@ -13,42 +13,42 @@
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
          <children>
-            <Label text="Компания:">
+            <Label text="%lb.legal_company">
                <VBox.margin>
                   <Insets bottom="15.0" top="5.0" />
                </VBox.margin>
             </Label>
-            <Label text="ИНН:">
+            <Label text="%lb.legal_inn">
                <VBox.margin>
                   <Insets bottom="11.0" />
                </VBox.margin>
             </Label>
-            <Label text="КПП:">
+            <Label text="%lb.legal_kpp">
                <VBox.margin>
                   <Insets bottom="12.0" />
                </VBox.margin>
             </Label>
-            <Label text="ОГРН:">
+            <Label text="%lb.legal_ogrn">
                <VBox.margin>
                   <Insets bottom="13.0" />
                </VBox.margin>
             </Label>
-            <Label text="Телефон">
+            <Label text="%lb.phone">
                <VBox.margin>
                   <Insets bottom="14.0" />
                </VBox.margin>
             </Label>
-            <Label text="Email">
+            <Label text="%lb.email">
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin>
             </Label>
-            <Label text="Адрес">
+            <Label text="%lb.address">
                <VBox.margin>
                   <Insets bottom="11.0" />
                </VBox.margin>
             </Label>
-            <Label text="Контактное лицо:">
+            <Label text="%lb.legal_contact">
                <VBox.margin>
                   <Insets bottom="11.0" top="5.0" />
                </VBox.margin>
@@ -57,42 +57,42 @@
       </VBox>
       <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
          <children>
-            <TextField fx:id="tfCompanyName" text="company">
+            <TextField fx:id="tfCompanyName">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfInn" text="ИНН">
+            <TextField fx:id="tfInn">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfKpp" text="КПП">
+            <TextField fx:id="tfKpp">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfOgrn" text="ОГРН">
+            <TextField fx:id="tfOgrn">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="tfPhoneNumber" text="phone_number">
+            <TextField fx:id="tfPhoneNumber">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="ftEmail" text="email">
+            <TextField fx:id="ftEmail">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <ComboBox fx:id="cbAddress" prefWidth="150.0" promptText="address">
+            <ComboBox fx:id="cbAddress" prefWidth="150.0">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </ComboBox>
-            <ComboBox fx:id="cbContactPerson" prefWidth="150.0" promptText="phone">
+            <ComboBox fx:id="cbContactPerson" prefWidth="150.0">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
@@ -101,12 +101,12 @@
       </VBox>
       <HBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="300.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="Ок" />
-            <Button mnemonicParsing="false" onAction="#onAddContactButton" text="Добавить контактное лицо">
+            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="%button.ok" />
+            <Button mnemonicParsing="false" onAction="#onAddContactButton" text="%button.add_contact">
                <HBox.margin>
                   <Insets bottom="10.0" left="5.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" onAction="#onAddAddrButton" text="Добавить адрес">
+            <Button mnemonicParsing="false" onAction="#onAddAddrButton" text="%button.add_address">
                <HBox.margin>
                   <Insets left="5.0" />
                </HBox.margin>

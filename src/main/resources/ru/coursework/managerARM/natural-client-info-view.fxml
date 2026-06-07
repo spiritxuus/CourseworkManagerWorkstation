@@ -14,43 +14,43 @@
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
          <children>
-            <Label text="Имя:">
+            <Label text="%lb.natural_name">
                <VBox.margin>
                   <Insets bottom="12.0" top="5.0" />
                </VBox.margin></Label>
-            <Label text="Фамилия:">
+            <Label text="%lb.natural_surname">
                <VBox.margin>
                   <Insets bottom="13.0" />
                </VBox.margin></Label>
-            <Label text="Отчество:">
+            <Label text="%lb.natural_patronymic">
                <VBox.margin>
                   <Insets bottom="13.0" />
                </VBox.margin></Label>
-            <Label text="Дата рождения:">
+            <Label text="%lb.natural_birthdate">
                <VBox.margin>
                   <Insets bottom="13.0" />
                </VBox.margin></Label>
-            <Label text="Пол:">
+            <Label text="%lb.natural_gender">
                <VBox.margin>
                   <Insets bottom="13.0" />
                </VBox.margin></Label>
-            <Label text="Серия паспорта:">
+            <Label text="%lb.natural_passport_series">
                <VBox.margin>
                   <Insets bottom="13.0" />
                </VBox.margin></Label>
-            <Label text="Номер паспорта:">
+            <Label text="%lb.natural_passport_number">
                <VBox.margin>
                   <Insets bottom="14.0" />
                </VBox.margin></Label>
-            <Label text="Телефон:">
+            <Label text="%lb.phone">
                <VBox.margin>
                   <Insets bottom="13.0" />
                </VBox.margin></Label>
-            <Label text="Email">
+            <Label text="%lb.email">
                <VBox.margin>
                   <Insets bottom="14.0" />
                </VBox.margin></Label>
-            <Label text="Адрес">
+            <Label text="%lb.address">
                <VBox.margin>
                   <Insets />
                </VBox.margin></Label>
@@ -112,12 +112,12 @@
       </VBox>
       <HBox AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="350.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="Ок">
+            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="%button.ok">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#onAddAddrButton" text="Добавить адрес">
+            <Button mnemonicParsing="false" onAction="#onAddAddrButton" text="%button.add_address">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>

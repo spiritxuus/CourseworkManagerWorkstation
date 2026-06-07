@@ -12,27 +12,27 @@
    <children>
       <VBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
          <children>
-            <Label text="Оборудование:">
+            <Label text="%lb.repair_equip">
                <VBox.margin>
                   <Insets bottom="10.0" top="5.0" />
                </VBox.margin>
             </Label>
-            <Label text="Дата создания:">
+            <Label text="%lb.repair_date">
                <VBox.margin>
                   <Insets bottom="13.0" />
                </VBox.margin>
             </Label>
-            <Label text="Причина ремонта:">
+            <Label text="%lb.repair_reason">
                <VBox.margin>
                   <Insets bottom="13.0" />
                </VBox.margin>
             </Label>
-            <Label text="Статус ремонта:">
+            <Label text="%lb.repair_status">
                <VBox.margin>
                   <Insets bottom="13.0" />
                </VBox.margin>
             </Label>
-            <Label text="Сумма ремонта:">
+            <Label text="%lb.repair_sum">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -70,7 +70,7 @@
       </VBox>
       <HBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="300.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="Ок" />
+            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="%button.ok" />
          </children>
       </HBox>
    </children>

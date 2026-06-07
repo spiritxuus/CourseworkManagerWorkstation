@@ -19,62 +19,62 @@
                <children>
                   <VBox layoutY="2.0" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
                      <children>
-                        <Label text="Категория: ">
+                        <Label text="%lb.equip_category">
                            <VBox.margin>
                               <Insets bottom="12.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Название:">
+                        <Label text="%lb.equip_name">
                            <VBox.margin>
                               <Insets bottom="12.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Производитель: ">
+                        <Label text="%lb.equip_manufacturer">
                            <VBox.margin>
                               <Insets bottom="12.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Модель: ">
+                        <Label text="%lb.equip_model">
                            <VBox.margin>
                               <Insets bottom="12.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Инвентарный номер: ">
+                        <Label text="%lb.equip_inv_number">
                            <VBox.margin>
                               <Insets bottom="12.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Серийный номер: ">
+                        <Label text="%lb.equip_serial_number">
                            <VBox.margin>
                               <Insets bottom="13.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Цена аренды за сутки: ">
+                        <Label text="%lb.equip_rent_price">
                            <VBox.margin>
                               <Insets bottom="13.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Сумма депозита: ">
+                        <Label text="%lb.equip_deposit">
                            <VBox.margin>
                               <Insets bottom="13.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Состояние: ">
+                        <Label text="%lb.equip_state">
                            <VBox.margin>
                               <Insets bottom="13.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Требуется ли ремонт: ">
+                        <Label text="%lb.equip_repair">
                            <VBox.margin>
                               <Insets bottom="13.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Фото: ">
+                        <Label text="%lb.equip_photo">
                            <VBox.margin>
                               <Insets bottom="13.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Описание: ">
+                        <Label text="%lb.equip_desc">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -83,43 +83,43 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
                      <children>
-                        <ComboBox fx:id="cbCategory" prefWidth="150.0" promptText="category" />
-                        <TextField fx:id="tfName" text="name">
+                        <ComboBox fx:id="cbCategory" prefWidth="150.0" />
+                        <TextField fx:id="tfName">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField fx:id="tfManufacturer" text="manufacturer">
+                        <TextField fx:id="tfManufacturer">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField fx:id="tfModel" text="model">
+                        <TextField fx:id="tfModel">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField fx:id="tfInvNumber" text="inventory number">
+                        <TextField fx:id="tfInvNumber">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField fx:id="tfSerialNumber" text="serial number">
+                        <TextField fx:id="tfSerialNumber">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField fx:id="tfRentPerDay" text="rent per day">
+                        <TextField fx:id="tfRentPerDay">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField fx:id="tfDepositAmount" text="deposit amount">
+                        <TextField fx:id="tfDepositAmount">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
                         </TextField>
-                        <TextField fx:id="tfCondition" text="condition">
+                        <TextField fx:id="tfCondition">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
@@ -129,12 +129,12 @@
                               <Insets top="5.0" />
                            </VBox.margin>
                         </ComboBox>
-                        <Button mnemonicParsing="false" onAction="#onOpenPhotoButtonClick" text="Открыть ">
+                        <Button mnemonicParsing="false" onAction="#onOpenPhotoButtonClick" text="%button.open">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
                         </Button>
-                        <TextField fx:id="tfDescription" text="description">
+                        <TextField fx:id="tfDescription">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
@@ -152,7 +152,7 @@
       </SplitPane>
       <HBox AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="Ок" />
+            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="%button.ok" />
          </children>
       </HBox>
    </children>

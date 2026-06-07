@@ -13,26 +13,26 @@
    <children>
       <HBox spacing="20.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="20.0">
          <children>
-            <Label text="Логин" />
+            <Label text="%lb.login" />
             <TextField fx:id="tfLogin" />
          </children>
       </HBox>
-      <HBox spacing="13.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="60.0">
+      <HBox AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="60.0">
          <children>
-            <Label text="Пароль" />
+            <Label text="%lb.password" />
             <PasswordField fx:id="tfPassword" />
          </children>
       </HBox>
-      <HBox spacing="27.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="100.0">
+      <HBox AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="100.0">
          <children>
-            <Label text="Язык" />
+            <Label text="%lb.language" />
             <ComboBox fx:id="cbLanguage" prefWidth="150.0" />
          </children>
       </HBox>
       <HBox spacing="10.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="1.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onAuthenticateButtonClick" text="Войти" />
-            <Button mnemonicParsing="false" onAction="#onCancelButtonClick" text="Отмена" />
+            <Button mnemonicParsing="false" onAction="#onAuthenticateButtonClick" text="%button.ok" />
+            <Button mnemonicParsing="false" onAction="#onCancelButtonClick" text="%button.exit" />
          </children>
       </HBox>
    </children>

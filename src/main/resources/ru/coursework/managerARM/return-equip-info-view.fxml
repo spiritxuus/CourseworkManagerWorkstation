@@ -35,7 +35,7 @@
                               <Insets top="5.0" />
                            </VBox.margin>
                         </TextField>
-                        <Button mnemonicParsing="false" onAction="#onOpenPhotoButtonClick" text="Открыть ">
+                        <Button mnemonicParsing="false" onAction="#onOpenPhotoButtonClick" text="%button.open">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
@@ -59,37 +59,37 @@
                   </VBox>
                   <VBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">
                      <children>
-                        <Label text="Контракт:">
+                        <Label text="%lb.return_contract">
                            <VBox.margin>
                               <Insets bottom="13.0" top="5.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Дата возврата: ">
+                        <Label text="%lb.return_date">
                            <VBox.margin>
                               <Insets bottom="13.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Описание состояния:">
+                        <Label text="%lb.return_state">
                            <VBox.margin>
                               <Insets bottom="13.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Фото состояния:">
+                        <Label text="%lb.return_photo">
                            <VBox.margin>
                               <Insets bottom="13.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Сумма повреждений:">
+                        <Label text="%lb.return_damage">
                            <VBox.margin>
                               <Insets bottom="13.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Сумма удержания:">
+                        <Label text="%lb.return_deduction">
                            <VBox.margin>
                               <Insets bottom="13.0" />
                            </VBox.margin>
                         </Label>
-                        <Label text="Требуется ли ремонт:">
+                        <Label text="%lb.return_repair">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -107,7 +107,7 @@
       </SplitPane>
       <HBox AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="Ок" />
+            <Button mnemonicParsing="false" onAction="#onOkayButtonClick" text="%button.ok" />
          </children>
       </HBox>
    </children>
