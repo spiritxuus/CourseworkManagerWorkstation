@@ -6,6 +6,7 @@ import ru.coursework.managerARM.dao.ClientDao;
 import ru.coursework.managerARM.dto.ClientView;
 import ru.coursework.managerARM.model.Client;
 import ru.coursework.managerARM.util.DbUtils;
+import ru.coursework.managerARM.util.SqlProvider;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,43 +16,17 @@ import java.util.List;
 import java.util.Optional;
 
 public class ClientDaoImpl implements ClientDao {
-    private static final String INSERT =
-            "INSERT INTO my_schema.client (natural_person_id, legal_person_id) VALUES (?, ?)";
+    private static final String INSERT = SqlProvider.get("sql.client_insert");
 
-    private static final String SELECT_BY_ID =
-            "SELECT client_id, natural_person_id, legal_person_id FROM my_schema.client WHERE client_id = ?";
+    private static final String SELECT_BY_ID = SqlProvider.get("sql.client_selectById");
 
-    private static final String SELECT =
-            "SELECT client_id, natural_person_id, legal_person_id FROM my_schema.client";
+    private static final String SELECT = SqlProvider.get("sql.client_select");
 
-    private static final String UPDATE =
-            "UPDATE my_schema.client " +
-                    "SET natural_person_id = ?, legal_person_id = ? " +
-                    "WHERE client_id = ?";
+    private static final String UPDATE = SqlProvider.get("sql.client_update");
 
-    private static final String DELETE =
-            "DELETE FROM my_schema.client WHERE client_id = ?";
+    private static final String DELETE = SqlProvider.get("sql.client_delete");
 
-    private static final String SELECT_VIEWS =
-            "SELECT " +
-                    "c.client_id, " +
-                    "c.natural_person_id, " +
-                    "c.legal_person_id, " +
-                    "CASE " +
-                    "    WHEN c.natural_person_id IS NOT NULL THEN 'Физическое лицо' " +
-                    "    ELSE 'Юридическое лицо' " +
-                    "END AS client_type, " +
-                    "CASE " +
-                    "    WHEN c.natural_person_id IS NOT NULL THEN CONCAT_WS(' ', np.surname, np.name, np.patronymic) " +
-                    "    ELSE lp.company_name " +
-                    "END AS client_name, " +
-                    "COALESCE(np.phone, lp.phone) AS client_phone, " +
-                    "COALESCE(np.email, lp.email) AS client_email, " +
-                    "CONCAT_WS(', ', a.country, a.region, a.city, a.street, a.house, a.apartment) AS client_address " +
-                    "FROM my_schema.client c " +
-                    "LEFT JOIN my_schema.natural_person np ON c.natural_person_id = np.natural_person_id " +
-                    "LEFT JOIN my_schema.legal_person lp ON c.legal_person_id = lp.legal_person_id " +
-                    "LEFT JOIN my_schema.address a ON a.address_id = COALESCE(np.address, lp.address)";
+    private static final String SELECT_VIEWS = SqlProvider.get("sql.client_selectViews");
 
     private static final Logger logger = LoggerFactory.getLogger(ClientDaoImpl.class);
 

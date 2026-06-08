@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.dao.LegalPersonDao;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.LegalPerson;
+import ru.coursework.managerARM.util.SqlProvider;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,29 +16,15 @@ import java.util.List;
 import java.util.Optional;
 
 public class LegalPersonDaoImpl implements LegalPersonDao {
-    private static final String INSERT =
-            "INSERT INTO my_schema.legal_person (company_name, inn, kpp, ogrn, " +
-                    "phone, email, address, contact_person) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT = SqlProvider.get("sql.legalPerson_insert");
 
-    private static final String SELECT_BY_ID =
-            "SELECT legal_person_id, company_name, inn, kpp, ogrn, " +
-                    "phone, email, address, contact_person " +
-                    "FROM my_schema.legal_person WHERE legal_person_id = ?";
+    private static final String SELECT_BY_ID = SqlProvider.get("sql.legalPerson_selectById");
 
-    private static final String SELECT =
-            "SELECT legal_person_id, company_name, inn, kpp, ogrn, " +
-                    "phone, email, address, contact_person " +
-                    "FROM my_schema.legal_person";
+    private static final String SELECT = SqlProvider.get("sql.legalPerson_select");
 
-    private static final String UPDATE =
-            "UPDATE my_schema.legal_person " +
-                    "SET company_name = ?, inn = ?, kpp = ?, ogrn = ?, " +
-                    "phone = ?, email = ?, address = ?, contact_person = ? " +
-                    "WHERE legal_person_id = ?";
+    private static final String UPDATE = SqlProvider.get("sql.legalPerson_update");
 
-    private final static String DELETE =
-            "DELETE FROM my_schema.legal_person WHERE legal_person_id = ?";
+    private final static String DELETE = SqlProvider.get("sql.legalPerson_delete");
 
     private static final Logger logger = LoggerFactory.getLogger(LegalPersonDaoImpl.class);
 

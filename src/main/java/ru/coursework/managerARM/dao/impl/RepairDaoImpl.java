@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.dao.RepairDao;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.Repair;
+import ru.coursework.managerARM.util.SqlProvider;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,22 +15,15 @@ import java.util.List;
 import java.util.Optional;
 
 public class RepairDaoImpl implements RepairDao {
-    private static final String INSERT =
-            "INSERT INTO my_schema.repair (equipment, repair_reason, repair_cost) VALUES (?, ?, ?)";
+    private static final String INSERT = SqlProvider.get("sql.repair_insert");
 
-    private static final String SELECT_BY_ID =
-            "SELECT repair_id, equipment, date_created, repair_reason, repair_status, repair_cost FROM my_schema.repair WHERE repair_id = ?";
+    private static final String SELECT_BY_ID = SqlProvider.get("sql.repair_selectById");
 
-    private static final String SELECT =
-            "SELECT repair_id, equipment, date_created, repair_reason, repair_status, repair_cost FROM my_schema.repair";
+    private static final String SELECT = SqlProvider.get("sql.repair_select");
 
-    private static final String UPDATE =
-            "UPDATE my_schema.repair " +
-                    "SET equipment = ?, repair_reason = ?, repair_status = ?, repair_cost = ? " +
-                    "WHERE repair_id = ?";
+    private static final String UPDATE = SqlProvider.get("sql.repair_update");
 
-    private final static String DELETE =
-            "DELETE FROM my_schema.repair WHERE repair_id = ?";
+    private final static String DELETE = SqlProvider.get("sql.repair_delete");
 
     private static final Logger logger = LoggerFactory.getLogger(RepairDaoImpl.class);
 

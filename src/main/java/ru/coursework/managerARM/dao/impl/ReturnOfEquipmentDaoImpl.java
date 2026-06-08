@@ -8,6 +8,7 @@ import ru.coursework.managerARM.dto.RentalContractViewCb;
 import ru.coursework.managerARM.dto.ReturnView;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.ReturnOfEquipment;
+import ru.coursework.managerARM.util.SqlProvider;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -19,60 +20,19 @@ import java.util.List;
 import java.util.Optional;
 
 public class ReturnOfEquipmentDaoImpl implements ReturnOfEquipmentDao {
-    private static final String INSERT =
-            "INSERT INTO my_schema.return_of_equipment (contract, return_date, condition_desc, condition_photo, damage_amount, deduction_amount, repair_required) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT = SqlProvider.get("sql.returnOfEquipment_insert");
 
-    private static final String SELECT_BY_ID =
-            "SELECT return_id, contract, return_date, condition_desc, condition_photo, damage_amount, deduction_amount, repair_required FROM my_schema.return_of_equipment WHERE return_id = ?";
+    private static final String SELECT_BY_ID = SqlProvider.get("sql.returnOfEquipment_selectById");
 
-    private static final String SELECT_CONTRACT_VIEWS =
-            "SELECT " +
-                    "contract.contract_id AS contract_id, " +
-                    "contract.reservation_id AS reservation_id, " +
-                    "CASE " +
-                    "    WHEN client.natural_person_id IS NOT NULL THEN CONCAT_WS(' ', np.surname, np.name) " +
-                    "    ELSE lp.company_name " +
-                    "END AS client_name, " +
-                    "contract.issue_date AS issue_date " +
-                    "FROM my_schema.rental_contract contract " +
-                    "LEFT JOIN my_schema.reservation r ON contract.reservation_id = r.reservation_id " +
-                    "LEFT JOIN my_schema.client client ON r.client = client.client_id " +
-                    "LEFT JOIN my_schema.natural_person np ON client.natural_person_id = np.natural_person_id " +
-                    "LEFT JOIN my_schema.legal_person lp ON client.legal_person_id = lp.legal_person_id";
+    private static final String SELECT_CONTRACT_VIEWS = SqlProvider.get("sql.returnOfEquipment_selectContractViews");
 
-    private static final String SELECT_VIEWS =
-            "SELECT " +
-                    "ret.return_id AS return_id, " +
-                    "contract.contract_id AS contract_id, " +
-                    "CASE " +
-                    "    WHEN client.natural_person_id IS NOT NULL THEN CONCAT_WS(' ', np.surname, np.name) " +
-                    "    ELSE lp.company_name " +
-                    "END AS client_name, " +
-                    "equip.name AS equipment_name, " +
-                    "ret.return_date AS return_date, " +
-                    "ret.condition_desc AS condition_desc, " +
-                    "ret.condition_photo AS condition_photo, " +
-                    "ret.damage_amount AS damage_amount, " +
-                    "ret.deduction_amount AS deduction_amount, " +
-                    "ret.repair_required AS repair_required " +
-                    "FROM my_schema.return_of_equipment ret " +
-                    "LEFT JOIN my_schema.rental_contract contract ON contract.contract_id = ret.contract " +
-                    "LEFT JOIN my_schema.reservation r ON contract.reservation_id = r.reservation_id " +
-                    "LEFT JOIN my_schema.equipment equip ON r.equipment = equip.equipment_id " +
-                    "LEFT JOIN my_schema.client client ON r.client = client.client_id " +
-                    "LEFT JOIN my_schema.natural_person np ON client.natural_person_id = np.natural_person_id " +
-                    "LEFT JOIN my_schema.legal_person lp ON client.legal_person_id = lp.legal_person_id";
+    private static final String SELECT_VIEWS = SqlProvider.get("sql.returnOfEquipment_selectViews");
 
-    private static final String SELECT =
-            "SELECT return_id, contract, return_date, condition_desc, condition_photo, damage_amount, deduction_amount, repair_required FROM my_schema.return_of_equipment";
+    private static final String SELECT = SqlProvider.get("sql.returnOfEquipment_select");
 
-    private static final String UPDATE =
-            "UPDATE my_schema.return_of_equipment " +
-                    "SET contract = ?, return_date = ?, condition_desc = ?, condition_photo = ?, damage_amount = ?, deduction_amount = ?, repair_required = ? " +
-                    "WHERE return_id = ?";
+    private static final String UPDATE = SqlProvider.get("sql.returnOfEquipment_update");
 
-    private final static String DELETE =
-            "DELETE FROM my_schema.return_of_equipment WHERE return_id = ?";
+    private final static String DELETE = SqlProvider.get("sql.returnOfEquipment_delete");
 
     private static final Logger logger = LoggerFactory.getLogger(ReturnOfEquipmentDaoImpl.class);
 

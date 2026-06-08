@@ -39,6 +39,8 @@ public class LoginController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
+    private ResourceBundle bundle = MainApplication.getAppBundle();
+
     @FXML
     void initialize(){
         cbLanguage.setItems(FXCollections.observableArrayList(
@@ -56,8 +58,8 @@ public class LoginController {
 
         if (username.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Введите логин.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("login.title"));
             alert.showAndWait();
             return;
         }
@@ -70,8 +72,8 @@ public class LoginController {
         } catch (SQLException e) {
             logger.error("Error while logging in for user {}", username, e);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Ошибка подключения.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.connection_error"));
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
@@ -104,7 +106,7 @@ public class LoginController {
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
             logger.error("Error while opening main window", e);
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
             return;
         }
 

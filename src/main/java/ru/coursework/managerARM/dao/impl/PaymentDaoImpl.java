@@ -6,6 +6,7 @@ import ru.coursework.managerARM.controller.ManagerController;
 import ru.coursework.managerARM.dao.PaymentDao;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.Payment;
+import ru.coursework.managerARM.util.SqlProvider;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -16,31 +17,17 @@ import java.util.List;
 import java.util.Optional;
 
 public class PaymentDaoImpl implements PaymentDao {
-    private static final String INSERT =
-            "INSERT INTO my_schema.payment (contract, payment_date, amount, payment_method) VALUES (?, ?, ?, ?)";
+    private static final String INSERT = SqlProvider.get("sql.payment_insert");
 
-    private static final String SELECT_BY_ID =
-            "SELECT payment_id, contract, payment_date, amount, payment_method FROM my_schema.payment WHERE payment_id = ?";
+    private static final String SELECT_BY_ID = SqlProvider.get("sql.payment_selectById");
 
-    private static final String SELECT_BY_CONTRACT =
-            "SELECT p.payment_id, " +
-                    "p.contract, " +
-                    "p.payment_date, " +
-                    "p.amount, " +
-                    "p.payment_method " +
-                    "FROM my_schema.payment p " +
-                    "WHERE p.contract = ?";
+    private static final String SELECT_BY_CONTRACT = SqlProvider.get("sql.payment_selectByContract");
 
-    private static final String SELECT =
-            "SELECT payment_id, contract, payment_date, amount, payment_method FROM my_schema.payment";
+    private static final String SELECT = SqlProvider.get("sql.payment_select");
 
-    private static final String UPDATE =
-            "UPDATE my_schema.payment " +
-                    "SET contract = ?, payment_date = ?, amount = ?, payment_method = ? " +
-                    "WHERE payment_id = ?";
+    private static final String UPDATE = SqlProvider.get("sql.payment_update");
 
-    private final static String DELETE =
-            "DELETE FROM my_schema.payment WHERE payment_id = ?";
+    private final static String DELETE = SqlProvider.get("sql.payment_delete");
 
     private static final Logger logger = LoggerFactory.getLogger(PaymentDaoImpl.class);
 

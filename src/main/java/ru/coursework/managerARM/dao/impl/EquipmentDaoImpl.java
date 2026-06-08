@@ -7,6 +7,7 @@ import ru.coursework.managerARM.dao.EquipmentDao;
 import ru.coursework.managerARM.dto.EquipmentCategoryView;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.Equipment;
+import ru.coursework.managerARM.util.SqlProvider;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,38 +17,17 @@ import java.util.List;
 import java.util.Optional;
 
 public class EquipmentDaoImpl implements EquipmentDao {
-    private static final String INSERT =
-            "INSERT INTO my_schema.equipment (category, name, manufacturer, model, " +
-                    "inventory_number, serial_number, rental_price_per_day, " +
-                    "deposit_amount, condition_status, requires_repair, photo, description) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT = SqlProvider.get("sql.equipment_insert");
 
-    private static final String SELECT_BY_ID =
-            "SELECT equipment_id, category, name, manufacturer, " +
-                    "model, inventory_number, serial_number, rental_price_per_day, " +
-                    "deposit_amount, condition_status, requires_repair, photo, description " +
-                    "FROM my_schema.equipment WHERE equipment_id = ?";
+    private static final String SELECT_BY_ID = SqlProvider.get("sql.equipment_selectById");
 
-    private static final String SELECT_CATEGORY_VIEWS =
-            "SELECT category_id, category_name " +
-                    "FROM my_schema.equipment_category " +
-                    "ORDER BY category_name";
+    private static final String SELECT_CATEGORY_VIEWS = SqlProvider.get("sql.equipment_selectCategoryViews");
 
-    private static final String SELECT =
-            "SELECT equipment_id, category, name, manufacturer, " +
-                    "model, inventory_number, serial_number, rental_price_per_day, " +
-                    "deposit_amount, condition_status, requires_repair, photo, description " +
-                    "FROM my_schema.equipment";
+    private static final String SELECT = SqlProvider.get("sql.equipment_select");
 
-    private static final String UPDATE =
-            "UPDATE my_schema.equipment " +
-                    "SET category = ?, name = ?, manufacturer = ?, model = ?, " +
-                    "inventory_number = ?, serial_number = ?, rental_price_per_day = ?, deposit_amount = ?, " +
-                    "condition_status = ?, requires_repair = ?, photo = ?, description = ? " +
-                    "WHERE equipment_id = ?";
+    private static final String UPDATE = SqlProvider.get("sql.equipment_update");
 
-    private final static String DELETE =
-            "DELETE FROM my_schema.equipment WHERE equipment_id = ?";
+    private final static String DELETE = SqlProvider.get("sql.equipment_delete");
 
     private static final Logger logger = LoggerFactory.getLogger(EquipmentDaoImpl.class);
 

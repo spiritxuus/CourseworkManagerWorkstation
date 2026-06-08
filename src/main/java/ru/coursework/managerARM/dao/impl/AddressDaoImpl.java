@@ -6,6 +6,7 @@ import ru.coursework.managerARM.dao.AddressDao;
 import ru.coursework.managerARM.dto.AddressView;
 import ru.coursework.managerARM.model.Address;
 import ru.coursework.managerARM.util.DbUtils;
+import ru.coursework.managerARM.util.SqlProvider;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,30 +14,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-//TODO ВЫНЕСТИ SQL В ПРОПЕРТИС
 
 public class AddressDaoImpl implements AddressDao {
-    private static final String INSERT =
-            "INSERT INTO my_schema.address (country, region, city, street, house, apartment) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String INSERT = SqlProvider.get("sql.address_insert");
 
-    private static final String SELECT_BY_ID =
-            "SELECT address_id, country, region, city, street, house, apartment FROM my_schema.address WHERE address_id = ?";
+    private static final String SELECT_BY_ID = SqlProvider.get("sql.address_selectById");
 
-    private static final String SELECT =
-            "SELECT address_id, country, region, city, street, house, apartment FROM my_schema.address";
+    private static final String SELECT = SqlProvider.get("sql.address_select");
 
-    private static final String UPDATE =
-            "UPDATE my_schema.address " +
-                    "SET country = ?, region = ?, city = ?, street = ?, house = ?, apartment = ? " +
-                    "WHERE address_id = ?";
+    private static final String UPDATE = SqlProvider.get("sql.address_update");
 
-    private static final String DELETE =
-            "DELETE FROM my_schema.address WHERE address_id = ?";
+    private static final String DELETE = SqlProvider.get("sql.address_delete");
 
-    private static final String SELECT_VIEWS =
-            "SELECT address_id, country, region, city, street, house, apartment " +
-                    "FROM my_schema.address " +
-                    "ORDER BY country, region, city, street, house, apartment";
+    private static final String SELECT_VIEWS = SqlProvider.get("sql.address_selectViews");
 
     private static final Logger logger = LoggerFactory.getLogger(AddressDaoImpl.class);
 

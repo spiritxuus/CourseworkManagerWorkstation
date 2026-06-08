@@ -7,6 +7,7 @@ import ru.coursework.managerARM.dto.ClientView;
 import ru.coursework.managerARM.dto.RentalContractView;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.RentalContract;
+import ru.coursework.managerARM.util.SqlProvider;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -18,55 +19,17 @@ import java.util.List;
 import java.util.Optional;
 
 public class RentalContractDaoImpl implements RentalContractDao {
-    private static final String INSERT =
-            "SELECT my_schema.f_create_rental_contract(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT = SqlProvider.get("sql.rentalContract_insert");
 
-    private static final String SELECT_BY_ID =
-            "SELECT contract_id, reservation_id, client_id, issue_date, " +
-                    "planned_return_date, actual_return_date, deposit_amount, total_amount, " +
-                    "status, issue_condition_desc, issue_condition_photo " +
-                    "FROM my_schema.rental_contract WHERE contract_id = ?";
+    private static final String SELECT_BY_ID = SqlProvider.get("sql.rentalContract_selectById");
 
-    private static final String SELECT =
-            "SELECT contract_id, reservation_id, client_id, issue_date, " +
-                    "planned_return_date, actual_return_date, deposit_amount, total_amount, " +
-                    "status, issue_condition_desc, issue_condition_photo " +
-                    "FROM my_schema.rental_contract";
+    private static final String SELECT = SqlProvider.get("sql.rentalContract_select");
 
-    private static final String UPDATE =
-            "UPDATE my_schema.rental_contract " +
-                    "SET reservation_id = ?, client_id = ?, issue_date = ?, " +
-                    "planned_return_date = ?, actual_return_date = ?, deposit_amount = ?, total_amount = ?, " +
-                    "status = ?, issue_condition_desc = ?, issue_condition_photo = ? " +
-                    "WHERE contract_id = ?";
+    private static final String UPDATE = SqlProvider.get("sql.rentalContract_update");
 
-    private final static String DELETE =
-            "DELETE FROM my_schema.rental_contract WHERE contract_id = ?";
+    private final static String DELETE = SqlProvider.get("sql.rentalContract_delete");
 
-    private static final String SELECT_VIEWS =
-            "SELECT " +
-                    "contr.contract_id, " +
-                    "r.reservation_id, " +
-                    "r.client, " +
-                    "c.natural_person_id, " +
-                    "c.legal_person_id, " +
-                    "CASE " +
-                    "    WHEN c.natural_person_id IS NOT NULL THEN CONCAT_WS(' ', np.surname, np.name, np.patronymic) " +
-                    "    ELSE lp.company_name " +
-                    "END AS client_name, " +
-                    "contr.issue_date, " +
-                    "contr.planned_return_date, " +
-                    "contr.actual_return_date, " +
-                    "contr.deposit_amount, " +
-                    "contr.total_amount, " +
-                    "contr.status, " +
-                    "contr.issue_condition_desc, " +
-                    "contr.issue_condition_photo " +
-                    "FROM my_schema.rental_contract contr " +
-                    "LEFT JOIN my_schema.reservation r ON contr.reservation_id = r.reservation_id " +
-                    "LEFT JOIN my_schema.client c ON r.client = c.client_id " +
-                    "LEFT JOIN my_schema.natural_person np ON c.natural_person_id = np.natural_person_id " +
-                    "LEFT JOIN my_schema.legal_person lp ON c.legal_person_id = lp.legal_person_id ";
+    private static final String SELECT_VIEWS = SqlProvider.get("sql.rentalContract_selectViews");
 
     private static final Logger logger = LoggerFactory.getLogger(RentalContractDaoImpl.class);
 
@@ -203,7 +166,7 @@ public class RentalContractDaoImpl implements RentalContractDao {
     @Override
     public void update(RentalContract contract) {
         try(PreparedStatement statement =
-                    DbUtils.getConnection().prepareStatement(INSERT)){
+                    DbUtils.getConnection().prepareStatement(UPDATE)){
             statement.setLong(1, contract.getReservationId());
             statement.setLong(2, contract.getClientId());
             statement.setDate(3, Date.valueOf(contract.getIssueDate()));

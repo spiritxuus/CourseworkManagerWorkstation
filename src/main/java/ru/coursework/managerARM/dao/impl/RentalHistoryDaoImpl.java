@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import ru.coursework.managerARM.dao.RentalHistoryDao;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.RentalHistory;
+import ru.coursework.managerARM.util.SqlProvider;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -15,22 +16,15 @@ import java.util.List;
 import java.util.Optional;
 
 public class RentalHistoryDaoImpl implements RentalHistoryDao {
-    private static final String INSERT =
-            "INSERT INTO my_schema.rental_history (contract, event_date, event_type, details) VALUES (?, ?, ?, ?)";
+    private static final String INSERT = SqlProvider.get("sql.rentalHistory_insert");
 
-    private static final String SELECT_BY_ID =
-            "SELECT history_id, contract, event_date, event_type, details FROM my_schema.rental_history WHERE history_id = ?";
+    private static final String SELECT_BY_ID = SqlProvider.get("sql.rentalHistory_selectById");
 
-    private static final String SELECT =
-            "SELECT history_id, contract, event_date, event_type, details FROM my_schema.rental_history";
+    private static final String SELECT =  SqlProvider.get("sql.rentalHistory_select");
 
-    private static final String UPDATE =
-            "UPDATE my_schema.rental_history " +
-                    "SET contract = ?, event_date = ?, event_type = ?, details = ? " +
-                    "WHERE history_id = ?";
+    private static final String UPDATE = SqlProvider.get("sql.rentalHistory_update");
 
-    private final static String DELETE =
-            "DELETE FROM my_schema.rental_history WHERE history_id = ?";
+    private final static String DELETE = SqlProvider.get("sql.rentalHistory_delete");
 
     private static final Logger logger = LoggerFactory.getLogger(RentalHistoryDaoImpl.class);
 

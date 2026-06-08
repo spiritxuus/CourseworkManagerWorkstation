@@ -8,6 +8,7 @@ import ru.coursework.managerARM.dto.NaturalPersonView;
 import ru.coursework.managerARM.model.LegalPerson;
 import ru.coursework.managerARM.util.DbUtils;
 import ru.coursework.managerARM.model.NaturalPerson;
+import ru.coursework.managerARM.util.SqlProvider;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -19,36 +20,17 @@ import java.util.List;
 import java.util.Optional;
 
 public class NaturalPersonDaoImpl implements NaturalPersonDao {
-    private static final String INSERT =
-            "INSERT INTO my_schema.natural_person (name, surname, patronymic, birth_date, " +
-                    "gender, passport_series, passport_number, phone, email, address) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT = SqlProvider.get("sql.naturalPerson_insert");
 
-    private static final String SELECT_BY_ID =
-            "SELECT natural_person_id, name, surname, patronymic, birth_date, " +
-                    "gender, passport_series, passport_number, phone, email, address " +
-                    "FROM my_schema.natural_person WHERE natural_person_id = ?";
+    private static final String SELECT_BY_ID = SqlProvider.get("sql.naturalPerson_selectById");
 
-    private static final String SELECT =
-            "SELECT natural_person_id, name, surname, patronymic, birth_date, " +
-                    "gender, passport_series, passport_number, phone, email, address " +
-                    "FROM my_schema.natural_person";
+    private static final String SELECT = SqlProvider.get("sql.naturalPerson_select");
 
-    private static final String UPDATE =
-            "UPDATE my_schema.natural_person " +
-                    "SET name = ?, surname = ?, patronymic = ?, birth_date = ?, " +
-                    "gender = ?, passport_series = ?, passport_number = ?, " +
-                    "phone = ?, email = ?, address = ? " +
-                    "WHERE natural_person_id = ?";
+    private static final String UPDATE = SqlProvider.get("sql.naturalPerson_update");
 
-    private static final String DELETE =
-            "DELETE FROM my_schema.natural_person WHERE natural_person_id = ?";
+    private static final String DELETE = SqlProvider.get("sql.naturalPerson_delete");
 
-
-    private static final String SELECT_VIEWS =
-            "SELECT natural_person_id, name, surname, patronymic, phone, email " +
-                    "FROM my_schema.natural_person " +
-                    "ORDER BY surname, name, patronymic";
+    private static final String SELECT_VIEWS = SqlProvider.get("sql.naturalPerson_selectViews");
 
     private static final Logger logger = LoggerFactory.getLogger(NaturalPersonDaoImpl.class);
 
