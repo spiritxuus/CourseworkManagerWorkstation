@@ -431,7 +431,7 @@ public class ManagerController {
     }
 
     @FXML
-    void onDeleteEquipButtonClick(ActionEvent event) {
+    public void onDeleteEquipButtonClick(ActionEvent event) {
         Equipment equipmentToDelete = equipmentTable.getSelectionModel().getSelectedItem();
         if (equipmentToDelete == null) {
             logger.info("onDeleteEquipButtonClick() equipment is not choosed");

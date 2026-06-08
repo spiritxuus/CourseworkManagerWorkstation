@@ -99,7 +99,7 @@ public class EquipmentInfoController {
     }
 
     @FXML
-    void onOkayButtonClick(ActionEvent event) {
+    public void onOkayButtonClick(ActionEvent event) {
         EquipmentCategoryView selectedCategory = cbCategory.getValue();
 
         if (selectedCategory != null) {
@@ -194,5 +194,9 @@ public class EquipmentInfoController {
     }
 
         tfDescription.setText(equipment.getDescription());
+    }
+
+    public void setPhotoPathForTest(String photoPath) {
+        this.photoPath = photoPath;
     }
 }

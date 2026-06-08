@@ -7,10 +7,18 @@ module ru.coursework.managerARM {
     requires jdk.compiler;
     requires javafx.base;
     requires org.slf4j;
-    requires ru.coursework.managerARM;
 
+
+    opens ru.coursework.managerARM.controller to javafx.fxml;
+    opens ru.coursework.managerARM.dao to javafx.base;
+    opens ru.coursework.managerARM.dto to javafx.base;
+    opens ru.coursework.managerARM.model to javafx.base;
+    opens ru.coursework.managerARM.util to javafx.base;
     opens ru.coursework.managerARM to javafx.fxml;
     exports ru.coursework.managerARM;
     exports ru.coursework.managerARM.controller;
-    opens ru.coursework.managerARM.controller to javafx.fxml;
+    exports ru.coursework.managerARM.dao;
+    exports ru.coursework.managerARM.dto;
+    exports ru.coursework.managerARM.model;
+    exports ru.coursework.managerARM.util;
 }
