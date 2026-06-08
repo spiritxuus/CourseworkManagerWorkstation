@@ -53,8 +53,8 @@ public class ReservationDaoImpl implements ReservationDao {
     public void add(Reservation reservation) {
         try(PreparedStatement statement =
                     DbUtils.getConnection().prepareStatement(INSERT)){
-            statement.setLong(1, reservation.getClient());
-            statement.setLong(2, reservation.getEquipment());
+            statement.setLong(1, reservation.getEquipment());
+            statement.setLong(2, reservation.getClient());
             statement.setDate(3, Date.valueOf(reservation.getStartDate()));
             statement.setDate(4, Date.valueOf(reservation.getEndDate()));
             statement.execute();

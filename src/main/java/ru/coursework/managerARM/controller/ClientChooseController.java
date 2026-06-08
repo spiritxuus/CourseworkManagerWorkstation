@@ -44,26 +44,22 @@ public class ClientChooseController {
             FXMLLoader fxmlLoader;
             if (cbChooseClientType.getValue().equals(bundle.getString("combo_box.natural_face"))) {
                 fxmlLoader = new FXMLLoader(MainApplication.class.getResource("natural-client-info-view.fxml"), bundle);
-            } else {
-                fxmlLoader = new FXMLLoader(MainApplication.class.getResource("legal-client-info-view.fxml"), bundle);
-            }
-
-            rootPane.setCenter(fxmlLoader.load());
-
-            if (cbChooseClientType.getValue().equals(bundle.getString("combo_box.natural_face"))) {
+                rootPane.setCenter(fxmlLoader.load());
                 NaturalClientInfoController controller = fxmlLoader.getController();
+                controller.setStage(this.stage);          // ← передаём stage диалога
                 controller.setNaturalPerson(new NaturalPerson());
             } else {
+                fxmlLoader = new FXMLLoader(MainApplication.class.getResource("legal-client-info-view.fxml"), bundle);
+                rootPane.setCenter(fxmlLoader.load());
                 LegalClientInfoController controller = fxmlLoader.getController();
+                controller.setStage(this.stage);          // ← передаём stage диалога
                 controller.setLegalPerson(new LegalPerson());
             }
-
         } catch (IOException e) {
-            logger.error("Error while opening onClientTypeSelected window", e);
+            logger.error("Error while opening client info form", e);
             new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
         }
     }
-
     @FXML
     public void initialize() {
         cbChooseClientType.setItems(FXCollections.observableArrayList(

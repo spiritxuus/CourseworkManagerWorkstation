@@ -35,8 +35,8 @@ public class ClientDaoImpl implements ClientDao {
         try {
             while (rs.next()) {
                 list.add(new Client(rs.getLong("client_id"),
-                        rs.getObject("natural_person_id", Long.class),
-                        rs.getObject("legal_person_id", Long.class)));
+                        rs.getLong("natural_person_id"),
+                        rs.getLong("legal_person_id")));
             }
         } catch (SQLException e) {
             logger.error("SQL error", e);
@@ -72,8 +72,8 @@ public class ClientDaoImpl implements ClientDao {
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     return Optional.of(new Client(rs.getLong("client_id"),
-                            rs.getObject("natural_person_id", Long.class),
-                            rs.getObject("legal_person_id", Long.class)));
+                            rs.getLong("natural_person_id"),
+                            rs.getLong("legal_person_id")));
                 }
             }
         } catch (SQLException e) {
@@ -104,8 +104,8 @@ public class ClientDaoImpl implements ClientDao {
             while (rs.next()) {
                 list.add(new ClientView(
                         rs.getLong("client_id"),
-                        rs.getObject("natural_person_id", Long.class),
-                        rs.getObject("legal_person_id", Long.class),
+                        rs.getLong("natural_person_id"),
+                        rs.getLong("legal_person_id"),
                         rs.getString("client_type"),
                         rs.getString("client_name"),
                         rs.getString("client_phone"),

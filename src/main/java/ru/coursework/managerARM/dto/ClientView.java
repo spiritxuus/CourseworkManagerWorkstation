@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClientView {
-    private long clientId;
+    private Long clientId;
     private Long naturalPersonId;
     private Long legalPersonId;
     private String clientType;

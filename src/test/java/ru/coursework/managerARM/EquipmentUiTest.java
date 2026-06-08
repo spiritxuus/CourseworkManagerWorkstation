@@ -31,6 +31,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.testfx.util.WaitForAsyncUtils.waitFor;
@@ -222,23 +223,32 @@ public class EquipmentUiTest extends ApplicationTest {
         );
     }
 
-    private DialogHandle openEquipmentDialog(Equipment equipment) throws Exception {
-        FXMLLoader loader = new FXMLLoader(
-                MainApplication.class.getResource("equipment-info-view.fxml"),
-                MainApplication.getAppBundle()
-        );
-        Parent root = loader.load();
+    private DialogHandle openEquipmentDialog(Equipment equipment) {
+        AtomicReference<DialogHandle> ref = new AtomicReference<>();
 
-        dialogController = loader.getController();
-        dialogStage = new Stage();
-        dialogStage.setScene(new Scene(root, 600, 500));
+        interact(() -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        MainApplication.class.getResource("equipment-info-view.fxml"),
+                        MainApplication.getAppBundle()
+                );
+                Parent root = loader.load();
 
-        dialogController.setStage(dialogStage);
-        dialogController.setEquipment(equipment);
+                EquipmentInfoController controller = loader.getController();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root, 600, 500));
 
-        dialogStage.show();
+                controller.setStage(stage);
+                controller.setEquipment(equipment);
 
-        return new DialogHandle(dialogStage, dialogController);
+                stage.show();
+                ref.set(new DialogHandle(stage, controller));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        return ref.get();
     }
 
     private static final class DialogHandle {

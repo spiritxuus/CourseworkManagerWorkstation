@@ -368,6 +368,8 @@ public class ManagerController {
         contract.setReservationId(selectedReservation.getReservationId());
         contract.setClientId(selectedReservation.getClientId());
         contract.setPlannedReturnDate(selectedReservation.getEndDate());
+        contract.setActualReturnDate(null);
+        contract.setStatus(1);
 
         if (showContractDialog(contract, selectedReservation, false) && isValid(contract)){
             contractDao.add(contract);
@@ -686,6 +688,7 @@ public class ManagerController {
 
         Repair repair = new Repair();
         repair.setEquipment(selectedEquipment.getEquipmentId());
+        repair.setRepairStatus(1);
 
         if (showRepairDialog(repair, selectedEquipment, false) && isValid(repair)){
             repairDao.add(repair);
@@ -1145,6 +1148,8 @@ public class ManagerController {
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
+            scene.getRoot().applyCss();
+            scene.getRoot().layout();
         } catch (IOException e) {
             logger.error("Error while opening contract window", e);
             new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
@@ -1276,7 +1281,6 @@ public class ManagerController {
                 && contract.getClientId() != null
                 && contract.getIssueDate() != null
                 && contract.getPlannedReturnDate() != null
-                && contract.getActualReturnDate() != null
                 && contract.getDepositAmount() != null
                 && contract.getTotalAmount() != null
                 && contract.getStatus() != null

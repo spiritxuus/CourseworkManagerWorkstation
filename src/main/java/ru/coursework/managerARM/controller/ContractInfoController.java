@@ -123,7 +123,7 @@ public class ContractInfoController {
             contract.setDepositAmount(new BigDecimal(tfDeposit.getText().trim()));
             contract.setTotalAmount(new BigDecimal(tfTotalAmount.getText().trim()));
 
-            if (Objects.equals(cbStatus.getValue(), "combo_box.contract_ready")) { contract.setStatus(1); }
+            if (Objects.equals(cbStatus.getValue(), bundle.getString("combo_box.contract_ready"))) { contract.setStatus(1); }
             else { contract.setStatus(2); }
 
             contract.setIssueConditionDesc(tfIssueCondDesc.getText().trim());
