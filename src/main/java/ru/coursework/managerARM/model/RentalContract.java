@@ -20,7 +20,7 @@ public class RentalContract {
     private LocalDate actualReturnDate;
     private BigDecimal depositAmount;
     private BigDecimal totalAmount;
-    private String status;
+    private Integer status;
     private String issueConditionDesc;
     private String issueConditionPhoto;
 }

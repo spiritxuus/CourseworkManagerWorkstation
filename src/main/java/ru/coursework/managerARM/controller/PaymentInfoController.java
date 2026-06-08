@@ -6,7 +6,10 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import ru.coursework.managerARM.MainApplication;
 import ru.coursework.managerARM.model.Payment;
+
+import java.util.ResourceBundle;
 
 public class PaymentInfoController {
 
@@ -30,6 +33,9 @@ public class PaymentInfoController {
     @FXML
     private Label lbPaymentMethod;
 
+    private ResourceBundle bundle = MainApplication.getAppBundle();
+
+
     @FXML
     void onOkayButtonClick(ActionEvent event) {
         confirmed = true;
@@ -42,7 +48,13 @@ public class PaymentInfoController {
         lbContractID.setText(String.valueOf(payment.getContract()));
         lbPaymentDate.setText(String.valueOf(payment.getPaymentDate()));
         lbPaymentAmount.setText(String.valueOf(payment.getAmount()));
-        lbPaymentMethod.setText(payment.getPaymentMethod());
+
+        if (payment.getPaymentMethod() == 1) {
+            lbPaymentMethod.setText(bundle.getString("lb.payment_method_cash"));
+        }
+        else{
+            lbPaymentMethod.setText(bundle.getString("lb.payment_method_no_cash"));
+        }
     }
 
 }

@@ -24,6 +24,8 @@ import ru.coursework.managerARM.model.Equipment;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class EquipmentInfoController {
 
@@ -81,6 +83,7 @@ public class EquipmentInfoController {
 
     private static final Logger logger = LoggerFactory.getLogger(EquipmentInfoController.class);
 
+    private ResourceBundle bundle = MainApplication.getAppBundle();
 
     @FXML
     void initialize(){
@@ -90,8 +93,8 @@ public class EquipmentInfoController {
         cbCategory.setItems(categoriesView);
 
         cbRepairReq.setItems(FXCollections.observableArrayList(
-                "Да",
-                "Нет"
+                bundle.getString("combo_box.yes"),
+                bundle.getString("combo_box.no")
         ));
     }
 
@@ -105,8 +108,8 @@ public class EquipmentInfoController {
         else{
             logger.info("equipment onOkayButtonClick() category is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Выберите категорию.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.category_not_selected"));
             alert.showAndWait();
             return;
         }
@@ -120,7 +123,7 @@ public class EquipmentInfoController {
             equipment.setRentalPricePerDay(new BigDecimal(tfRentPerDay.getText().trim()));
             equipment.setDepositAmount(new BigDecimal(tfDepositAmount.getText().trim()));
             equipment.setConditionStatus(tfCondition.getText().trim());
-            equipment.setRequiresRepair("Да".equals(cbRepairReq.getValue()));
+            equipment.setRequiresRepair(Objects.equals(cbRepairReq.getValue(), bundle.getString("combo_box.yes")));
             equipment.setPhoto(photoPath);
             equipment.setDescription(tfDescription.getText().trim());
 
@@ -129,8 +132,8 @@ public class EquipmentInfoController {
         } catch (Exception e){
             logger.info("equipment onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Не все поля заполнены.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.not_all_fields_are_written"));
             alert.showAndWait();
         }
     }
@@ -153,7 +156,7 @@ public class EquipmentInfoController {
             }
         } catch (Exception e) {
             logger.error("Error while opening photo", e);
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки изображения.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.photo_open"), ButtonType.OK).showAndWait();
 
         }
     }
@@ -177,9 +180,9 @@ public class EquipmentInfoController {
         tfCondition.setText(equipment.getConditionStatus());
 
         if (Boolean.TRUE.equals(equipment.getRequiresRepair())) {
-            cbRepairReq.setValue("Да");
+            cbRepairReq.setValue(bundle.getString("combo_box.yes"));
         } else {
-            cbRepairReq.setValue("Нет");
+            cbRepairReq.setValue(bundle.getString("combo_box.no"));
         }
 
         if (equipment.getPhoto() != null && !equipment.getPhoto().isBlank()) {

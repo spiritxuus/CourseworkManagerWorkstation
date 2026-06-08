@@ -10,11 +10,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.coursework.managerARM.MainApplication;
 import ru.coursework.managerARM.model.Equipment;
 import ru.coursework.managerARM.model.Repair;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 
 public class RepairRequestController {
 
@@ -45,6 +47,9 @@ public class RepairRequestController {
 
     private static final Logger logger = LoggerFactory.getLogger(RepairRequestController.class);
 
+    private ResourceBundle bundle = MainApplication.getAppBundle();
+
+
     @FXML
     void onOkayButtonClick(ActionEvent event) {
         try{
@@ -56,8 +61,8 @@ public class RepairRequestController {
         } catch (Exception e){
             logger.info("repair onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Не все поля заполнены.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.not_all_fields_are_written"));
             alert.showAndWait();
         }
     }
@@ -67,8 +72,18 @@ public class RepairRequestController {
 
         lbEquipment.setText(equipment.getName());
         lbCreationDate.setText(String.valueOf(LocalDate.now()));
-        tfRepairReason.setText("Запрос");
-        lbRepairStatus.setText(repair.getRepairStatus());
+        tfRepairReason.setText(bundle.getString("lb.repair_request"));
+
+        if (repair.getRepairStatus() == 1){
+            lbRepairStatus.setText(bundle.getString("lb.repair_request"));
+        }
+        else if (repair.getRepairStatus() == 2){
+            lbRepairStatus.setText(bundle.getString("lb.repair_completed"));
+        }
+        else{
+            lbRepairStatus.setText(bundle.getString("lb.repair_cancelled"));
+        }
+
         tfRepairAmount.setText(String.valueOf(repair.getRepairCost()));
     }
 }

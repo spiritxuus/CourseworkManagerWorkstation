@@ -27,6 +27,7 @@ import ru.coursework.managerARM.model.Address;
 import ru.coursework.managerARM.model.LegalPerson;
 import ru.coursework.managerARM.model.NaturalPerson;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 public class LegalClientInfoController {
 
@@ -73,6 +74,8 @@ public class LegalClientInfoController {
     private AddressDao addressDao;
 
     private static final Logger logger = LoggerFactory.getLogger(LegalClientInfoController.class);
+
+    private ResourceBundle bundle = MainApplication.getAppBundle();
 
 
     @FXML
@@ -130,8 +133,8 @@ public class LegalClientInfoController {
             else{
                 logger.info("legal client onOkayButtonClick() address is not choosed");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Внимание.");
-                alert.setHeaderText("Выберите адрес.");
+                alert.setTitle(bundle.getString("warning.title"));
+                alert.setHeaderText(bundle.getString("warning.no_address"));
                 alert.showAndWait();
                 return;
             }
@@ -142,8 +145,8 @@ public class LegalClientInfoController {
             else{
                 logger.info("legal client onOkayButtonClick() contact person is not choosed");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Внимание.");
-                alert.setHeaderText("Выберите контактное лицо.");
+                alert.setTitle(bundle.getString("warning.title"));
+                alert.setHeaderText(bundle.getString("warning.no_contact_person"));
                 alert.showAndWait();
                 return;
             }
@@ -153,8 +156,8 @@ public class LegalClientInfoController {
         } catch (Exception e) {
             logger.info("legal client onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Не все поля заполнены.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.not_all_fields_are_written"));
             alert.showAndWait();
         }
     }
@@ -184,7 +187,7 @@ public class LegalClientInfoController {
         return person.getName() != null && !person.getName().isBlank()
                 && person.getSurname() != null && !person.getSurname().isBlank()
                 && person.getBirthDate() != null
-                && person.getGender() != null && !person.getGender().isBlank()
+                && person.getGender() != null
                 && person.getPassportSeries() != null && !person.getPassportSeries().isBlank()
                 && person.getPassportNumber() != null && !person.getPassportNumber().isBlank()
                 && person.getPhone() != null && !person.getPhone().isBlank()
@@ -192,20 +195,20 @@ public class LegalClientInfoController {
     }
 
     private boolean showContactDialog(NaturalPerson naturalPerson){
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("natural-client-info-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("natural-client-info-view.fxml"), bundle);
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
             logger.error("Error while opening contract window", e);
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
             return false;
         }
         Stage stage = new Stage();
 
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
-        stage.setTitle("Введите данные контактного лица.");
+        stage.setTitle(bundle.getString("contact.title"));
         stage.setScene(scene);
 
         NaturalClientInfoController controller = fxmlLoader.getController();
@@ -217,20 +220,20 @@ public class LegalClientInfoController {
     }
 
     private boolean showAddressDialog(Address address){
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("address-info-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("address-info-view.fxml"), bundle);
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 340, 300);
         } catch (IOException e) {
             logger.error("Error while opening address window", e);
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
             return false;
         }
         Stage stage = new Stage();
 
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
-        stage.setTitle("Введите адрес.");
+        stage.setTitle(bundle.getString("address.title_add"));
         stage.setScene(scene);
 
         AddressInfoController controller = fxmlLoader.getController();

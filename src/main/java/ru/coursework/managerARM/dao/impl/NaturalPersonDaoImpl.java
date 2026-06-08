@@ -62,7 +62,7 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
                         rs.getString("surname"),
                         rs.getString("patronymic"),
                         rs.getDate( "birth_date").toLocalDate(),
-                        rs.getString("gender"),
+                        rs.getBoolean("gender"),
                         rs.getString("passport_series"),
                         rs.getString("passport_number"),
                         rs.getString("phone"),
@@ -83,7 +83,7 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
             statement.setString(2, naturalPerson.getSurname());
             statement.setString(3, naturalPerson.getPatronymic());
             statement.setDate(4, Date.valueOf(naturalPerson.getBirthDate()));
-            statement.setString(5, naturalPerson.getGender());
+            statement.setBoolean(5, naturalPerson.getGender());
             statement.setString(6, naturalPerson.getPassportSeries());
             statement.setString(7, naturalPerson.getPassportNumber());
             statement.setString(8, naturalPerson.getPhone());
@@ -106,7 +106,7 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
                             rs.getString("surname"),
                             rs.getString("patronymic"),
                             rs.getDate( "birth_date").toLocalDate(),
-                            rs.getString("gender"),
+                            rs.getBoolean("gender"),
                             rs.getString("passport_series"),
                             rs.getString("passport_number"),
                             rs.getString("phone"),
@@ -167,7 +167,7 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
             statement.setString(2, naturalPerson.getSurname());
             statement.setString(3, naturalPerson.getPatronymic());
             statement.setDate(4, Date.valueOf(naturalPerson.getBirthDate()));
-            statement.setString(5, naturalPerson.getGender());
+            statement.setBoolean(5, naturalPerson.getGender());
             statement.setString(6, naturalPerson.getPassportSeries());
             statement.setString(7, naturalPerson.getPassportNumber());
             statement.setString(8, naturalPerson.getPhone());

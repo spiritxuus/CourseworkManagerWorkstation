@@ -19,6 +19,8 @@ import ru.coursework.managerARM.model.RentalContract;
 import java.io.File;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class ContractInfoController {
 
@@ -65,12 +67,14 @@ public class ContractInfoController {
 
     private static final Logger logger = LoggerFactory.getLogger(ContractInfoController.class);
 
+    private ResourceBundle bundle = MainApplication.getAppBundle();
+
 
     @FXML
     void initialize(){
         cbStatus.setItems(FXCollections.observableArrayList(
-                "Действителен",
-                "Завершён"
+                bundle.getString("combo_box.contract_ready"),
+                bundle.getString("combo_box.contract_end")
         ));
 
         dpCurrentDate.setEditable(false);
@@ -82,8 +86,8 @@ public class ContractInfoController {
             if (dpPlannedReturn.getValue() == null){
                 logger.info("contract onOkayButtonClick() dpPlannedReturn is not choosed");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Внимание.");
-                alert.setHeaderText("Дата планируемого возвращения не заполнена.");
+                alert.setTitle(bundle.getString("warning.title"));
+                alert.setHeaderText(bundle.getString("warning.date_warning_planned"));
                 alert.showAndWait();
                 return;
             }
@@ -91,8 +95,8 @@ public class ContractInfoController {
             if (dpCurrentDate.getValue().isAfter(dpPlannedReturn.getValue())){
                 logger.info("contract onOkayButtonClick() date error");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Внимание.");
-                alert.setHeaderText("Дата заключения не может быть позже даты возврата.");
+                alert.setTitle(bundle.getString("warning.title"));
+                alert.setHeaderText(bundle.getString("warning.date_warning_current"));
                 alert.showAndWait();
                 return;
             }
@@ -101,8 +105,8 @@ public class ContractInfoController {
                     dpCurrentDate.getValue().isAfter(dpActualReturn.getValue())) {
                 logger.info("contract onOkayButtonClick() date error");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Внимание.");
-                alert.setHeaderText("Дата заключения не может быть позже фактической даты возврата.");
+                alert.setTitle(bundle.getString("warning.title"));
+                alert.setHeaderText(bundle.getString("warning.date_warning_actual"));
                 alert.showAndWait();
                 return;
             }
@@ -118,7 +122,10 @@ public class ContractInfoController {
 
             contract.setDepositAmount(new BigDecimal(tfDeposit.getText().trim()));
             contract.setTotalAmount(new BigDecimal(tfTotalAmount.getText().trim()));
-            contract.setStatus(cbStatus.getValue());
+
+            if (Objects.equals(cbStatus.getValue(), "combo_box.contract_ready")) { contract.setStatus(1); }
+            else { contract.setStatus(2); }
+
             contract.setIssueConditionDesc(tfIssueCondDesc.getText().trim());
             contract.setIssueConditionPhoto(photoPath);
 
@@ -127,8 +134,8 @@ public class ContractInfoController {
         } catch (Exception e){
             logger.info("contract onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Не все поля заполнены.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.not_all_fields_are_written"));
             alert.showAndWait();
         }
     }
@@ -151,7 +158,7 @@ public class ContractInfoController {
             }
         } catch (Exception e) {
             logger.error("Error while opening photo", e);
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки изображения.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.photo_open"), ButtonType.OK).showAndWait();
 
         }
     }
@@ -167,7 +174,10 @@ public class ContractInfoController {
         dpActualReturn.setValue(contract.getActualReturnDate());
         tfDeposit.setText(String.valueOf(contract.getDepositAmount()));
         tfTotalAmount.setText(String.valueOf(contract.getTotalAmount()));
-        cbStatus.setValue(contract.getStatus() != null ? contract.getStatus() : "Действителен");
+
+        if (contract.getStatus() == 1) { cbStatus.setValue(bundle.getString("combo_box.contract_ready")); }
+        else { cbStatus.setValue(bundle.getString("combo_box.contract_end")); }
+
         tfIssueCondDesc.setText(contract.getIssueConditionDesc());
 
         if (contract.getIssueConditionPhoto() != null && !contract.getIssueConditionPhoto().isBlank()) {

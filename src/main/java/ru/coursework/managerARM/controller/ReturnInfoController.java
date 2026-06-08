@@ -21,6 +21,8 @@ import ru.coursework.managerARM.model.ReturnOfEquipment;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class ReturnInfoController {
 
@@ -63,6 +65,8 @@ public class ReturnInfoController {
 
     private static final Logger logger = LoggerFactory.getLogger(ReturnInfoController.class);
 
+    private ResourceBundle bundle = MainApplication.getAppBundle();
+
 
     @FXML
     void initialize(){
@@ -72,8 +76,8 @@ public class ReturnInfoController {
         cbContract.setItems(contractsView);
 
         cbRepairReq.setItems(FXCollections.observableArrayList(
-                "Да",
-                "Нет"
+                bundle.getString("combo_box.yes"),
+                bundle.getString("combo_box.no")
         ));
     }
 
@@ -88,8 +92,8 @@ public class ReturnInfoController {
         else{
             logger.info("return onOkayButtonClick() contract is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Выберите контракт.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.contract_is_not_selected"));
             alert.showAndWait();
             return;
         }
@@ -100,15 +104,15 @@ public class ReturnInfoController {
             returnOfEquipment.setConditionPhoto(photoPath);
             returnOfEquipment.setDamageAmount (new BigDecimal(tfDamage.getText().trim()));
             returnOfEquipment.setDeductionAmount(new BigDecimal(tfDeduction.getText().trim()));
-            returnOfEquipment.setRepairRequired("Да".equals(cbRepairReq.getValue()));
+            returnOfEquipment.setRepairRequired(Objects.equals(cbRepairReq.getValue(), bundle.getString("combo_box.yes")));
 
             confirmed = true;
             stage.close();
         } catch (Exception e){
             logger.info("return onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Не все поля заполнены.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.not_all_fields_are_written"));
             alert.showAndWait();
         }
     }
@@ -131,7 +135,7 @@ public class ReturnInfoController {
             }
         } catch (Exception e) {
             logger.error("Error while opening photo", e);
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки изображения.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
         }
     }
 
@@ -160,9 +164,9 @@ public class ReturnInfoController {
         tfDeduction.setText(String.valueOf(returnOfEquipment.getDeductionAmount()));
 
         if (Boolean.TRUE.equals(returnOfEquipment.getRepairRequired())) {
-            cbRepairReq.setValue("Да");
+            cbRepairReq.setValue(bundle.getString("combo_box.yes"));
         } else {
-            cbRepairReq.setValue("Нет");
+            cbRepairReq.setValue(bundle.getString("combo_box.no"));
         }
     }
 }

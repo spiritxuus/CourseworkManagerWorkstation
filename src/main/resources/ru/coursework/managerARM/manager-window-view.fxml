@@ -279,7 +279,7 @@
                                           <Button mnemonicParsing="false" onAction="#onEditContractButtonClick" text="%button.edit" />
                                           <Button mnemonicParsing="false" onAction="#onShowPaymentButtonClick" text="%button.show_payment" />
                                           <Button mnemonicParsing="false" onAction="#onDeleteContractReservButtonClick" text="%button.delete" />
-                                          <Button mnemonicParsing="false" onAction="#onResetContractReservButtonClick" text="button.reset" />
+                                          <Button mnemonicParsing="false" onAction="#onResetContractReservButtonClick" text="%button.reset" />
                                        </children>
                                     </HBox>
                                     <VBox AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="1.0">

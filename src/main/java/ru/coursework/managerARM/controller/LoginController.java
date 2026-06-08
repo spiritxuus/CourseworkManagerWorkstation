@@ -90,8 +90,9 @@ public class LoginController {
             default -> new Locale("ru", "RU");
         };
 
+        MainApplication.setAppLocale(locale);
 
-        ResourceBundle bundle = ResourceBundle.getBundle("i18n.main", locale);
+        ResourceBundle bundle = MainApplication.getAppBundle();
 
         FXMLLoader fxmlLoader = new FXMLLoader(
                 MainApplication.class.getResource("manager-window-view.fxml"),

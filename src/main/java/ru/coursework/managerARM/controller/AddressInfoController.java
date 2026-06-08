@@ -9,7 +9,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.coursework.managerARM.MainApplication;
 import ru.coursework.managerARM.model.Address;
+
+import java.util.ResourceBundle;
 
 public class AddressInfoController {
 
@@ -41,6 +44,7 @@ public class AddressInfoController {
 
     private static final Logger logger = LoggerFactory.getLogger(AddressInfoController.class);
 
+    private ResourceBundle bundle = MainApplication.getAppBundle();
 
     @FXML
     void onOkayButtonClick(ActionEvent event) {
@@ -57,8 +61,8 @@ public class AddressInfoController {
         } catch (Exception e) {
             logger.info("address onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Не все поля заполнены.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.not_all_fields_are_written"));
             alert.showAndWait();
         }
     }

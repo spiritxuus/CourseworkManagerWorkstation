@@ -23,6 +23,7 @@ import ru.coursework.managerARM.util.ReportService;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class ManagerController {
 
@@ -224,6 +225,8 @@ public class ManagerController {
 
     private static final Logger logger = LoggerFactory.getLogger(ManagerController.class);
 
+    private ResourceBundle bundle = MainApplication.getAppBundle();
+
     public ManagerController() {
         this.clientDao = new ClientDaoImpl();
         this.naturalPersonDao = new NaturalPersonDaoImpl();
@@ -320,8 +323,8 @@ public class ManagerController {
         if (equipment == null) {
             logger.info("OnEditEquipButtonClick() nothing is redacted");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Ничего не редактируется.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.nothing_redacted"));
             alert.showAndWait();
             return;
         }
@@ -332,8 +335,8 @@ public class ManagerController {
         if (!isValid(equipment)) {
             logger.info("OnEditEquipButtonClick() incorrect data");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Введены некорректные данные.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.incorrect_data"));
             alert.showAndWait();
             return;
         }
@@ -355,8 +358,8 @@ public class ManagerController {
         if (selectedReservation == null) {
             logger.info("onAddContractButtonClick() reservation is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Выберите бронь.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.choose_reserv"));
             alert.showAndWait();
             return;
         }
@@ -388,8 +391,8 @@ public class ManagerController {
         if (clientToDelete == null) {
             logger.info("onDeleteClientButtonClick() client is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Клиент не выбран.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.client_not_selected"));
             alert.showAndWait();
             return;
         }
@@ -410,10 +413,10 @@ public class ManagerController {
         if (contractSelected == reservationSelected) {
             logger.info("onDeleteContractReservButtonClick() both objects are choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
+            alert.setTitle(bundle.getString("warning.title"));
             alert.setHeaderText(contractSelected
-                    ? "Выберите только один объект."
-                    : "Выберите контракт или бронь.");
+                    ? bundle.getString("warning.choose_one_object")
+                    : bundle.getString("warning.choose_contract_or_reserv"));
             alert.showAndWait();
             return;
         }
@@ -433,8 +436,8 @@ public class ManagerController {
         if (equipmentToDelete == null) {
             logger.info("onDeleteEquipButtonClick() equipment is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Оборудование не выбрано.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.equip_not_selected"));
             alert.showAndWait();
             return;
         }
@@ -450,8 +453,8 @@ public class ManagerController {
         if (historyToDelete == null) {
             logger.info("onDeleteHistoryButtonClick() history is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("История не выбрана.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.history_not_selected"));
             alert.showAndWait();
             return;
         }
@@ -467,8 +470,8 @@ public class ManagerController {
         if (returnOfEquipmentToDelete == null) {
             logger.info("onDeleteReturnButotnClick() returnOfEquipment is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Возврат оборудования не выбран.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.return_not_selected"));
             alert.showAndWait();
             return;
         }
@@ -484,8 +487,8 @@ public class ManagerController {
         if(client == null) {
             logger.info("onEditClientButtonClick() client is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Ничего не редактируется.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.nothing_redacted"));
             alert.showAndWait();
             return;
         }
@@ -496,8 +499,8 @@ public class ManagerController {
             if (naturalPerson == null){
                 logger.info("onEditClientButtonClick() natural person not found");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Внимание.");
-                alert.setHeaderText("Физическое лицо не найдено.");
+                alert.setTitle(bundle.getString("warning.title"));
+                alert.setHeaderText(bundle.getString("warning.natural_not_found"));
                 alert.showAndWait();
                 return;
             }
@@ -508,8 +511,8 @@ public class ManagerController {
             if (!isValid(naturalPerson)){
                 logger.info("onEditClientButtonClick() incorrect data");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Внимание.");
-                alert.setHeaderText("Введены некорректные данные.");
+                alert.setTitle(bundle.getString("warning.title"));
+                alert.setHeaderText(bundle.getString("warning.incorrect_data"));
                 alert.showAndWait();
                 return;
             }
@@ -523,8 +526,8 @@ public class ManagerController {
             if (legalPerson == null) {
                 logger.info("onEditClientButtonClick() legal person not found");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Внимание.");
-                alert.setHeaderText("Юридическое лицо не найдено.");
+                alert.setTitle(bundle.getString("warning.title"));
+                alert.setHeaderText(bundle.getString("warning.legal_not_found"));
                 alert.showAndWait();
                 return;
             }
@@ -537,8 +540,8 @@ public class ManagerController {
             if (!isValid(legalPerson)) {
                 logger.info("onEditClientButtonClick() incorrect data");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Внимание.");
-                alert.setHeaderText("Введены некорректные данные.");
+                alert.setTitle(bundle.getString("warning.title"));
+                alert.setHeaderText(bundle.getString("warning.incorrect_data"));
                 alert.showAndWait();
                 return;
             }
@@ -556,8 +559,8 @@ public class ManagerController {
         if (contractToEdit == null && reservationToEdit == null) {
             logger.info("onEditContractButtonClick() contract or reservation not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Ничего не редактируется.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.nothing_redacted"));
             alert.showAndWait();
             return;
         }
@@ -565,8 +568,8 @@ public class ManagerController {
         if (reservationToEdit != null && contractToEdit != null) {
             logger.info("onEditContractButtonClick() both objects are choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Выберите только один объект.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.choose_one_object"));
             alert.showAndWait();
             return;
         }
@@ -578,8 +581,8 @@ public class ManagerController {
             if (contract == null || reservationView == null) {
                 logger.info("onEditContractButtonClick() objects are not found");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Внимание.");
-                alert.setHeaderText("Контракт или бронь не найдены.");
+                alert.setTitle(bundle.getString("warning.title"));
+                alert.setHeaderText(bundle.getString("warning.contract_or_reserv_not_found"));
                 alert.showAndWait();
                 return;
             }
@@ -590,8 +593,8 @@ public class ManagerController {
             if (!isValid(contract)) {
                 logger.info("onEditContractButtonClick() incorrect data");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Внимание.");
-                alert.setHeaderText("Введены некорректные данные.");
+                alert.setTitle(bundle.getString("warning.title"));
+                alert.setHeaderText(bundle.getString("warning.incorrect_data"));
                 alert.showAndWait();
                 return;
             }
@@ -606,8 +609,8 @@ public class ManagerController {
         if (reservation == null) {
             logger.info("onEditContractButtonClick() reservation not found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Бронь не найдена.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.reserv_not_found"));
             alert.showAndWait();
             return;
         }
@@ -618,8 +621,8 @@ public class ManagerController {
         if (!isValid(reservation)) {
             logger.info("onEditContractButtonClick() incorrect data");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Введены некорректные данные.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.incorrect_data"));
             alert.showAndWait();
             return;
         }
@@ -635,8 +638,8 @@ public class ManagerController {
         if (returnOfEquipmentSelected == null) {
             logger.info("onEditReturnButtonClick() returnOfEquipment is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Ничего не редактируется.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.nothing_redacted"));
             alert.showAndWait();
             return;
         }
@@ -646,8 +649,8 @@ public class ManagerController {
         if (returnOfEquipment == null) {
             logger.info("onEditReturnButtonClick() returnOfEquipment is not found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Возврат не найден.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.return_not_found"));
             alert.showAndWait();
             return;
         }
@@ -658,8 +661,8 @@ public class ManagerController {
         if (!isValid(returnOfEquipment)) {
             logger.info("onEditReturnButtonClick() incorrect data");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Введены некорректные данные.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.incorrect_data"));
             alert.showAndWait();
             return;
         }
@@ -675,8 +678,8 @@ public class ManagerController {
         if (selectedEquipment == null) {
             logger.info("onEditReturnButtonClick() selectedEquipment is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Выберите оборудование.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.equip_not_selected"));
             alert.showAndWait();
             return;
         }
@@ -698,8 +701,8 @@ public class ManagerController {
         if (selectedClient == null || selectedEquipment == null) {
             logger.info("onReserveButtonClick() selectedEquipment or selectedClient is not choosed");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Выберите клиента и оборудование.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.equip_and_client_not_selected"));
             alert.showAndWait();
             return;
         }
@@ -761,8 +764,8 @@ public class ManagerController {
         if (companyText.isEmpty() && surnameText.isEmpty()) {
             logger.info("onSearchClientButtonClick() no data for search");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Введите данные для поиска.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.no_data_for_search"));
             alert.showAndWait();
             return;
         }
@@ -770,8 +773,8 @@ public class ManagerController {
         if (!companyText.isEmpty() && !surnameText.isEmpty()) {
             logger.info("onSearchClientButtonClick() both fields contains text");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Заполните только одно поле поиска.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.only_one_field_for_search"));
             alert.showAndWait();
             return;
         }
@@ -796,8 +799,8 @@ public class ManagerController {
         if (filtered.isEmpty()) {
             logger.info("onSearchClientButtonClick() no data found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Результат поиска");
-            alert.setHeaderText("Ничего не найдено.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.nothing_found"));
             alert.showAndWait();
         }
     }
@@ -809,8 +812,8 @@ public class ManagerController {
         if (contractReservSurnameText.isEmpty()) {
             logger.info("onSearchContractButtonClick() no data for search");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Введите данные для поиска.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.no_data_for_search"));
             alert.showAndWait();
             return;
         }
@@ -835,22 +838,22 @@ public class ManagerController {
         if (filteredContracts.isEmpty() && filteredReserv.isEmpty()) {
             logger.info("onSearchContractButtonClick() no data found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Результат поиска");
-            alert.setHeaderText("Ничего не найдено.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.nothing_found"));
             alert.showAndWait();
         }
         else if (filteredContracts.isEmpty()){
             logger.info("onSearchContractButtonClick() no contract found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Результат поиска");
-            alert.setHeaderText("Контракты не найдены.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.contracts_not_found"));
             alert.showAndWait();
         }
         else if (filteredReserv.isEmpty()){
             logger.info("onSearchContractButtonClick() no reservation found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Результат поиска");
-            alert.setHeaderText("Брони не найдены.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.reservs_not_found"));
             alert.showAndWait();
         }
     }
@@ -863,8 +866,8 @@ public class ManagerController {
         if (selectedCategory == null && equipNameText.isEmpty()) {
             logger.info("onSearchEquipButtonClick() no data for search");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Введите данные для поиска.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.no_data_for_search"));
             alert.showAndWait();
             return;
         }
@@ -883,8 +886,8 @@ public class ManagerController {
         if (filtered.isEmpty()) {
             logger.info("onSearchEquipButtonClick() no data found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Результат поиска");
-            alert.setHeaderText("Ничего не найдено.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.nothing_found"));
             alert.showAndWait();
         }
     }
@@ -897,8 +900,8 @@ public class ManagerController {
         if (returnOfEquipment == null) {
             logger.info("onShowContractButtonClick() returnOfEquipment is not selected");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Выберите возврат оборудования.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.return_not_selected"));
             alert.showAndWait();
             return;
         }
@@ -907,8 +910,8 @@ public class ManagerController {
         if (contract == null) {
             logger.info("onShowContractButtonClick() contract is not found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Контракт по этому возврату не найден.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.contract_reserv_not_found"));
             alert.showAndWait();
             return;
         }
@@ -917,8 +920,8 @@ public class ManagerController {
         if (reservationView == null) {
             logger.info("onShowContractButtonClick() reservation not found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Бронь по этому контракту не найдена.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.reserv_contract_not_found"));
             alert.showAndWait();
             return;
         }
@@ -934,8 +937,8 @@ public class ManagerController {
         if (contract == null) {
             logger.info("onShowPaymentButtonClick() reservation not found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Выберите контракт.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.reserv_not_found"));
             alert.showAndWait();
             return;
         }
@@ -945,8 +948,8 @@ public class ManagerController {
         if (payment == null) {
             logger.info("onShowContractButtonClick() payment not found");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Платёж по этому контракту не найден.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.payment_not_found"));
             alert.showAndWait();
             return;
         }
@@ -967,13 +970,13 @@ public class ManagerController {
             logger.info("onCreateReportButtonClick() report saved");
             service.generateReportToFile(year, month, filePath);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setContentText("Отчёт сохранён в " + filePath);
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setContentText(bundle.getString("warning.report_saved_path") + " " + filePath);
             alert.showAndWait();
         } catch (IOException e) {
             logger.error("Error while writing report", e);
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Ошибка записи файла: " + e.getMessage());
+            alert.setContentText(bundle.getString("warning.error_saving_file") + " " + e.getMessage());
             alert.showAndWait();
         }
     }
@@ -986,20 +989,20 @@ public class ManagerController {
     }
 
     private void showClientDialog(){
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("client-choose-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("client-choose-view.fxml"), bundle);
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
             logger.error("Error while opening client window", e);
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
         }
         Stage stage = new Stage();
 
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
 
-        stage.setTitle("Выберите тип клиента.");
+        stage.setTitle(bundle.getString("client.title_choose"));
         stage.setScene(scene);
 
         ClientChooseController controller = fxmlLoader.getController();
@@ -1009,13 +1012,13 @@ public class ManagerController {
     }
 
     private boolean showNaturalPersonDialog(NaturalPerson naturalPerson, boolean editMode){
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("natural-client-info-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("natural-client-info-view.fxml"), bundle);
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
             logger.error("Error while opening natural person window", e);
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
             return false;
         }
         Stage stage = new Stage();
@@ -1023,7 +1026,7 @@ public class ManagerController {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
 
-        stage.setTitle(editMode ? "Редактирование клиента." : "Добавление клиента.");
+        stage.setTitle(editMode ? bundle.getString("natural.title_edit") : bundle.getString("natural.title_add"));
         stage.setScene(scene);
 
         NaturalClientInfoController controller = fxmlLoader.getController();
@@ -1035,13 +1038,13 @@ public class ManagerController {
     }
 
     private boolean showLegalPersonDialog(LegalPerson legalPerson, boolean editMode){
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("legal-client-info-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("legal-client-info-view.fxml"), bundle);
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
             logger.error("Error while opening legal person window", e);
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
             return false;
         }
         Stage stage = new Stage();
@@ -1049,7 +1052,7 @@ public class ManagerController {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
 
-        stage.setTitle(editMode ? "Редактирование клиента." : "Добавление клиента.");
+        stage.setTitle(editMode ? bundle.getString("legal.title_edit") : bundle.getString("legal.title_add"));
         stage.setScene(scene);
 
         LegalClientInfoController controller = fxmlLoader.getController();
@@ -1061,13 +1064,13 @@ public class ManagerController {
     }
 
     private boolean showEquipDialog(Equipment equipment, boolean editMode){
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("equipment-info-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("equipment-info-view.fxml"), bundle);
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
             logger.error("Error while opening equipment window", e);
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
             return false;
         }
         Stage stage = new Stage();
@@ -1075,7 +1078,7 @@ public class ManagerController {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
 
-        stage.setTitle(editMode ? "Редактирование оборудование." : "Добавление оборудования.");
+        stage.setTitle(editMode ? bundle.getString("equipment.title_edit") : bundle.getString("equipment.title_add"));
         stage.setScene(scene);
 
         EquipmentInfoController controller = fxmlLoader.getController();
@@ -1087,20 +1090,20 @@ public class ManagerController {
     }
 
     private boolean showReservDialog(Reservation reservation, ReservationView reservationView, boolean editMode){
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("reservation-info-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("reservation-info-view.fxml"), bundle);
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
             logger.error("Error while opening reservation window", e);
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
             return false;
         }
         Stage stage = new Stage();
 
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
-        stage.setTitle(editMode ? "Редактирование брони." : "Создание брони.");
+        stage.setTitle(editMode ? bundle.getString("reservation.title_edit") : bundle.getString("reservation.title_add"));
         stage.setScene(scene);
 
         ReservationInfoController controller = fxmlLoader.getController();
@@ -1112,13 +1115,13 @@ public class ManagerController {
     }
 
     private boolean showRepairDialog(Repair repair, Equipment equipment, boolean editMode){
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("repair-request-info-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("repair-request-info-view.fxml"), bundle);
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
             logger.error("Error while opening repair window", e);
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
             return false;
         }
         Stage stage = new Stage();
@@ -1126,7 +1129,7 @@ public class ManagerController {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
 
-        stage.setTitle(editMode ? "Редактирование запроса на ремонт." : "Создание запроса на ремонт.");
+        stage.setTitle(editMode ? bundle.getString("repair.title_edit") : bundle.getString("repair.title_add"));
         stage.setScene(scene);
 
         RepairRequestController controller = fxmlLoader.getController();
@@ -1138,13 +1141,13 @@ public class ManagerController {
     }
 
     private boolean showContractDialog(RentalContract contract, ReservationView reservation, Boolean editMode){
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("contract-info-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("contract-info-view.fxml"), bundle);
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
             logger.error("Error while opening contract window", e);
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
             return false;
         }
         Stage stage = new Stage();
@@ -1152,7 +1155,7 @@ public class ManagerController {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
 
-        stage.setTitle(editMode ? "Редактирование контракта." : "Создание контракта.");
+        stage.setTitle(editMode ? bundle.getString("contract.title_edit") : bundle.getString("contract.title_add"));
         stage.setScene(scene);
 
         ContractInfoController controller = fxmlLoader.getController();
@@ -1165,13 +1168,13 @@ public class ManagerController {
     }
 
     private boolean showPaymentDialog(Payment payment){
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("payment-info-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("payment-info-view.fxml"), bundle);
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
             logger.error("Error while opening payment window", e);
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
             return false;
         }
         Stage stage = new Stage();
@@ -1179,7 +1182,7 @@ public class ManagerController {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
 
-        stage.setTitle("Информация о платеже.");
+        stage.setTitle(bundle.getString("payment.title_show"));
         stage.setScene(scene);
 
         PaymentInfoController controller = fxmlLoader.getController();
@@ -1191,13 +1194,13 @@ public class ManagerController {
     }
 
     private boolean showReturnDialog(ReturnOfEquipment returnOfEquipment, boolean editMode){
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("return-equip-info-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("return-equip-info-view.fxml"), bundle);
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
             logger.error("Error while opening return window", e);
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
             return false;
         }
         Stage stage = new Stage();
@@ -1205,7 +1208,7 @@ public class ManagerController {
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
 
-        stage.setTitle(editMode ? "Редактирование возврата." : "Добавление возврата.");
+        stage.setTitle(editMode ? bundle.getString("return.title_edit") : bundle.getString("return.title_add"));
         stage.setScene(scene);
 
         ReturnInfoController controller = fxmlLoader.getController();
@@ -1220,7 +1223,7 @@ public class ManagerController {
         return person.getName() != null && !person.getName().isBlank()
                 && person.getSurname() != null && !person.getSurname().isBlank()
                 && person.getBirthDate() != null
-                && person.getGender() != null && !person.getGender().isBlank()
+                && person.getGender() != null && !person.getGender()
                 && person.getPassportSeries() != null && !person.getPassportSeries().isBlank()
                 && person.getPassportNumber() != null && !person.getPassportNumber().isBlank()
                 && person.getPhone() != null && !person.getPhone().isBlank()
@@ -1264,7 +1267,7 @@ public class ManagerController {
 
     private boolean isValid(Repair repair){
         return repair.getEquipment() != null
-                && repair.getRepairStatus() != null && !repair.getRepairStatus().isBlank()
+                && repair.getRepairStatus() != null
                 && repair.getRepairCost() != null;
     }
 
@@ -1276,7 +1279,7 @@ public class ManagerController {
                 && contract.getActualReturnDate() != null
                 && contract.getDepositAmount() != null
                 && contract.getTotalAmount() != null
-                && contract.getStatus() != null && !contract.getStatus().isBlank()
+                && contract.getStatus() != null
                 && contract.getIssueConditionDesc() != null && !contract.getIssueConditionDesc().isBlank()
                 && contract.getIssueConditionPhoto() != null && !contract.getIssueConditionPhoto().isBlank();
 

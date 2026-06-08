@@ -17,5 +17,5 @@ public class Payment {
     private Long contract;
     private LocalDate paymentDate;
     private BigDecimal amount;
-    private String paymentMethod;
+    private Integer paymentMethod;
 }

@@ -88,7 +88,7 @@ public class RentalContractDaoImpl implements RentalContractDao {
                         actualReturnDate,
                         rs.getBigDecimal("deposit_amount"),
                         rs.getBigDecimal("total_amount"),
-                        rs.getString("status"),
+                        rs.getInt("status"),
                         rs.getString("issue_condition_desc"),
                         rs.getString("issue_condition_photo")));
             }
@@ -112,7 +112,7 @@ public class RentalContractDaoImpl implements RentalContractDao {
             }
             statement.setBigDecimal(5, contract.getDepositAmount());
             statement.setBigDecimal(6, contract.getTotalAmount());
-            statement.setString(7, contract.getStatus());
+            statement.setInt(7, contract.getStatus());
             statement.setString(8, contract.getIssueConditionDesc());
             statement.setString(9, contract.getIssueConditionPhoto());
             statement.execute();
@@ -140,7 +140,7 @@ public class RentalContractDaoImpl implements RentalContractDao {
                             actualReturnDate,
                             rs.getBigDecimal("deposit_amount"),
                             rs.getBigDecimal("total_amount"),
-                            rs.getString("status"),
+                            rs.getInt("status"),
                             rs.getString("issue_condition_desc"),
                             rs.getString("issue_condition_photo")));
                 }
@@ -215,7 +215,7 @@ public class RentalContractDaoImpl implements RentalContractDao {
             }
             statement.setBigDecimal(6, contract.getDepositAmount());
             statement.setBigDecimal(7, contract.getTotalAmount());
-            statement.setString(8, contract.getStatus());
+            statement.setInt(8, contract.getStatus());
             statement.setString(9, contract.getIssueConditionDesc());
             statement.setString(10, contract.getIssueConditionPhoto());
             statement.executeUpdate();

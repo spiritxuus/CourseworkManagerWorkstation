@@ -20,6 +20,8 @@ import ru.coursework.managerARM.dto.AddressView;
 import ru.coursework.managerARM.model.Address;
 import ru.coursework.managerARM.model.NaturalPerson;
 import java.io.IOException;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class NaturalClientInfoController {
 
@@ -67,9 +69,14 @@ public class NaturalClientInfoController {
 
     private static final Logger logger = LoggerFactory.getLogger(NaturalClientInfoController.class);
 
+    private ResourceBundle bundle = MainApplication.getAppBundle();
+
+
     @FXML
     public void initialize() {
-        cbGender.setItems(FXCollections.observableArrayList("Мужчина", "Женщина"));
+        cbGender.setItems(FXCollections.observableArrayList(
+                bundle.getString("combo_box.male"),
+                bundle.getString("combo_box.female")));
 
         this.addressDao = new AddressDaoImpl();
 
@@ -85,7 +92,13 @@ public class NaturalClientInfoController {
         tfPatronymic.setText(naturalPerson.getPatronymic());
         dpBirthDate.setValue(naturalPerson.getBirthDate());
         tfPassportNumber.setText(naturalPerson.getPassportNumber());
-        cbGender.setValue(naturalPerson.getGender());
+
+        if (Boolean.TRUE.equals(naturalPerson.getGender())) {
+            cbGender.setValue(bundle.getString("combo_box.male"));
+        } else {
+            cbGender.setValue(bundle.getString("combo_box.female"));
+        }
+
         tfPassportSeries.setText(naturalPerson.getPassportSeries());
         tfPhoneNumber.setText(naturalPerson.getPhone());
         ftEmail.setText(naturalPerson.getEmail());
@@ -113,7 +126,7 @@ public class NaturalClientInfoController {
             naturalPerson.setSurname(tfSurname.getText().trim());
             naturalPerson.setPatronymic(tfPatronymic.getText());
             naturalPerson.setBirthDate(dpBirthDate.getValue());
-            naturalPerson.setGender(cbGender.getValue());
+            naturalPerson.setGender(Objects.equals(cbGender.getValue(), bundle.getString("combo_box.male")));
             naturalPerson.setPassportSeries(tfPassportSeries.getText().trim());
             naturalPerson.setPassportNumber(tfPassportNumber.getText().trim());
             naturalPerson.setPhone(tfPhoneNumber.getText().trim());
@@ -125,8 +138,8 @@ public class NaturalClientInfoController {
             else{
                 logger.info("natural client onOkayButtonClick() address is not choosed");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Внимание.");
-                alert.setHeaderText("Выберите адрес.");
+                alert.setTitle(bundle.getString("warning.title"));
+                alert.setHeaderText(bundle.getString("warning.no_address"));
                 alert.showAndWait();
                 return;
             }
@@ -136,27 +149,27 @@ public class NaturalClientInfoController {
         } catch (Exception e) {
             logger.info("natural client onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание.");
-            alert.setHeaderText("Не все поля заполнены.");
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.not_all_fields_are_written"));
             alert.showAndWait();
         }
     }
 
     private boolean showAddressDialog(Address address){
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("address-info-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("address-info-view.fxml"), bundle);
         Scene scene = null;
         try{
             scene = new Scene(fxmlLoader.load(), 340, 300);
         } catch (IOException e) {
             logger.error("Error while opening address window", e);
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
             return false;
         }
         Stage stage = new Stage();
 
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
-        stage.setTitle("Введите адрес.");
+        stage.setTitle(bundle.getString("warning.no_address"));
         stage.setScene(scene);
 
         AddressInfoController controller = fxmlLoader.getController();

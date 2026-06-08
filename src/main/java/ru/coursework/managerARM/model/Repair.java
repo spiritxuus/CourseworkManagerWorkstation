@@ -16,6 +16,6 @@ public class Repair {
     private Long equipment;
     private LocalDate dateCreated;
     private String repairReason;
-    private String repairStatus;
+    private Integer repairStatus;
     private BigDecimal repairCost;
 }

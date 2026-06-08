@@ -41,7 +41,7 @@ public class RepairDaoImpl implements RepairDao {
                         rs.getLong("equipment"),
                         rs.getDate("date_created").toLocalDate(),
                         rs.getString("repair_reason"),
-                        rs.getString("repair_status"),
+                        rs.getInt("repair_status"),
                         rs.getBigDecimal("repair_cost")));
             }
         } catch (SQLException e) {
@@ -73,7 +73,7 @@ public class RepairDaoImpl implements RepairDao {
                             rs.getLong("equipment"),
                             rs.getDate("date_created").toLocalDate(),
                             rs.getString("repair_reason"),
-                            rs.getString("repair_status"),
+                            rs.getInt("repair_status"),
                             rs.getBigDecimal("repair_cost")));
                 }
             }
@@ -103,7 +103,7 @@ public class RepairDaoImpl implements RepairDao {
                     DbUtils.getConnection().prepareStatement(UPDATE)){
             statement.setLong(1, repair.getEquipment());
             statement.setString(2, repair.getRepairReason());
-            statement.setString(3, repair.getRepairStatus());
+            statement.setInt(3, repair.getRepairStatus());
             statement.setBigDecimal(4, repair.getRepairCost());
             statement.executeUpdate();
         } catch (SQLException e){

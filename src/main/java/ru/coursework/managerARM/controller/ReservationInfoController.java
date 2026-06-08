@@ -8,10 +8,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.coursework.managerARM.MainApplication;
 import ru.coursework.managerARM.dto.ClientView;
 import ru.coursework.managerARM.dto.ReservationView;
 import ru.coursework.managerARM.model.Equipment;
 import ru.coursework.managerARM.model.Reservation;
+
+import java.util.ResourceBundle;
 
 public class ReservationInfoController {
 
@@ -39,14 +42,17 @@ public class ReservationInfoController {
 
     private static final Logger logger = LoggerFactory.getLogger(ReservationInfoController.class);
 
+    private ResourceBundle bundle = MainApplication.getAppBundle();
+
+
     @FXML
     void onOkayButtonClick(ActionEvent event) {
         try{
             if (dpStartDate.getValue() == null || dpEndDate.getValue() == null){
                 logger.info("reservation onOkayButtonClick() dates are empty");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Внимание.");
-                alert.setHeaderText("Даты не заполнены.");
+                alert.setTitle(bundle.getString("warning.title"));
+                alert.setHeaderText(bundle.getString("warning.reserv_date_not_filled"));
                 alert.showAndWait();
                 return;
             }
@@ -54,8 +60,8 @@ public class ReservationInfoController {
             if (dpStartDate.getValue().isAfter(dpEndDate.getValue())){
                 logger.info("reservation onOkayButtonClick() data error");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Внимание.");
-                alert.setHeaderText("Дата начала не может быть позже даты окончания.");
+                alert.setTitle(bundle.getString("warning.title"));
+                alert.setHeaderText(bundle.getString("warning.reserv_date_start"));
                 alert.showAndWait();
                 return;
             }
@@ -69,7 +75,7 @@ public class ReservationInfoController {
             logger.info("reservation onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Внимание.");
-            alert.setHeaderText("Не все поля заполнены.");
+            alert.setHeaderText(bundle.getString("warning.not_all_fields_are_written"));
             alert.showAndWait();
         }
     }

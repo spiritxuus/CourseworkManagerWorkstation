@@ -16,7 +16,7 @@ public class NaturalPerson {
     private String surname;
     private String patronymic;
     private LocalDate birthDate;
-    private String gender;
+    private Boolean gender;
     private String passportSeries;
     private String passportNumber;
     private String phone;

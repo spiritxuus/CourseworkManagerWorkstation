@@ -53,7 +53,7 @@ public class PaymentDaoImpl implements PaymentDao {
                         rs.getLong("contract"),
                         rs.getDate("payment_date").toLocalDate(),
                         rs.getBigDecimal("amount"),
-                        rs.getString("payment_method")));
+                        rs.getInt("payment_method")));
             }
         } catch (SQLException e) {
             logger.error("SQL error", e);
@@ -68,7 +68,7 @@ public class PaymentDaoImpl implements PaymentDao {
             statement.setLong(1, payment.getContract());
             statement.setDate(2, Date.valueOf(payment.getPaymentDate()));
             statement.setBigDecimal(3, payment.getAmount());
-            statement.setString(4, payment.getPaymentMethod());
+            statement.setInt(4, payment.getPaymentMethod());
             statement.executeUpdate();
         } catch (SQLException e){
             logger.error("SQL error", e);
@@ -85,7 +85,7 @@ public class PaymentDaoImpl implements PaymentDao {
                             rs.getLong("contract"),
                             rs.getDate("payment_date").toLocalDate(),
                             rs.getBigDecimal("amount"),
-                            rs.getString("payment_method")));
+                            rs.getInt("payment_method")));
                 }
             }
         } catch (SQLException e) {
@@ -104,7 +104,7 @@ public class PaymentDaoImpl implements PaymentDao {
                             rs.getLong("contract"),
                             rs.getDate("payment_date").toLocalDate(),
                             rs.getBigDecimal("amount"),
-                            rs.getString("payment_method")));
+                            rs.getInt("payment_method")));
                 }
             }
         } catch (SQLException e) {
@@ -134,7 +134,7 @@ public class PaymentDaoImpl implements PaymentDao {
             statement.setLong(1, payment.getContract());
             statement.setDate(2, Date.valueOf(payment.getPaymentDate()));
             statement.setBigDecimal(3, payment.getAmount());
-            statement.setString(4, payment.getPaymentMethod());
+            statement.setInt(4, payment.getPaymentMethod());
             statement.executeUpdate();
         } catch (SQLException e){
             logger.error("SQL error", e);

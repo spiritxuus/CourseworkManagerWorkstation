@@ -17,6 +17,7 @@ import ru.coursework.managerARM.model.LegalPerson;
 import ru.coursework.managerARM.model.NaturalPerson;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 public class ClientChooseController {
 
@@ -31,6 +32,7 @@ public class ClientChooseController {
 
     private static final Logger logger = LoggerFactory.getLogger(ClientChooseController.class);
 
+    private ResourceBundle bundle = MainApplication.getAppBundle();
 
     @FXML
     void onClientTypeSelected(ActionEvent event) {
@@ -40,15 +42,15 @@ public class ClientChooseController {
 
         try {
             FXMLLoader fxmlLoader;
-            if (cbChooseClientType.getValue().equals("Физическое лицо")) {
-                fxmlLoader = new FXMLLoader(MainApplication.class.getResource("natural-client-info-view.fxml"));
+            if (cbChooseClientType.getValue().equals(bundle.getString("combo_box.natural_face"))) {
+                fxmlLoader = new FXMLLoader(MainApplication.class.getResource("natural-client-info-view.fxml"), bundle);
             } else {
-                fxmlLoader = new FXMLLoader(MainApplication.class.getResource("legal-client-info-view.fxml"));
+                fxmlLoader = new FXMLLoader(MainApplication.class.getResource("legal-client-info-view.fxml"), bundle);
             }
 
             rootPane.setCenter(fxmlLoader.load());
 
-            if (cbChooseClientType.getValue().equals("Физическое лицо")) {
+            if (cbChooseClientType.getValue().equals(bundle.getString("combo_box.natural_face"))) {
                 NaturalClientInfoController controller = fxmlLoader.getController();
                 controller.setNaturalPerson(new NaturalPerson());
             } else {
@@ -58,15 +60,15 @@ public class ClientChooseController {
 
         } catch (IOException e) {
             logger.error("Error while opening onClientTypeSelected window", e);
-            new Alert(Alert.AlertType.WARNING, "Ошибка загрузки окна.", ButtonType.OK).showAndWait();
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
         }
     }
 
     @FXML
     public void initialize() {
         cbChooseClientType.setItems(FXCollections.observableArrayList(
-                "Физическое лицо",
-                "Юридическое лицо"
+                bundle.getString("combo_box.natural_face"),
+                bundle.getString("combo_box.legal_face")
         ));
     }
 
