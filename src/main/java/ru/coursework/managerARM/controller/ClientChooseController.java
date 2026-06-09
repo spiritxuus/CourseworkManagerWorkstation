@@ -9,6 +9,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,11 @@ import java.util.ResourceBundle;
 
 public class ClientChooseController {
 
+    public enum ClientType {
+        NATURAL,
+        LEGAL
+    }
+
     @Setter
     private Stage stage;
 
@@ -32,34 +38,15 @@ public class ClientChooseController {
 
     private static final Logger logger = LoggerFactory.getLogger(ClientChooseController.class);
 
-    private ResourceBundle bundle = MainApplication.getAppBundle();
+    private final ResourceBundle bundle = MainApplication.getAppBundle();
 
-    @FXML
-    void onClientTypeSelected(ActionEvent event) {
-        if (cbChooseClientType.getValue() == null) {
-            return;
-        }
+    @Getter
+    private ClientType selectedType;
+    @Getter
+    private NaturalClientInfoController naturalController;
+    @Getter
+    private LegalClientInfoController legalController;
 
-        try {
-            FXMLLoader fxmlLoader;
-            if (cbChooseClientType.getValue().equals(bundle.getString("combo_box.natural_face"))) {
-                fxmlLoader = new FXMLLoader(MainApplication.class.getResource("natural-client-info-view.fxml"), bundle);
-                rootPane.setCenter(fxmlLoader.load());
-                NaturalClientInfoController controller = fxmlLoader.getController();
-                controller.setStage(this.stage);          // ← передаём stage диалога
-                controller.setNaturalPerson(new NaturalPerson());
-            } else {
-                fxmlLoader = new FXMLLoader(MainApplication.class.getResource("legal-client-info-view.fxml"), bundle);
-                rootPane.setCenter(fxmlLoader.load());
-                LegalClientInfoController controller = fxmlLoader.getController();
-                controller.setStage(this.stage);          // ← передаём stage диалога
-                controller.setLegalPerson(new LegalPerson());
-            }
-        } catch (IOException e) {
-            logger.error("Error while opening client info form", e);
-            new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
-        }
-    }
     @FXML
     public void initialize() {
         cbChooseClientType.setItems(FXCollections.observableArrayList(
@@ -68,6 +55,42 @@ public class ClientChooseController {
         ));
     }
 
+    @FXML
+    void onClientTypeSelected(ActionEvent event) {
+        if (cbChooseClientType.getValue() == null) {
+            return;
+        }
+
+        try {
+            if (cbChooseClientType.getValue().equals(bundle.getString("combo_box.natural_face"))) {
+                selectedType = ClientType.NATURAL;
+
+                FXMLLoader fxmlLoader = new FXMLLoader(
+                        MainApplication.class.getResource("natural-client-info-view.fxml"),
+                        bundle
+                );
+                rootPane.setCenter(fxmlLoader.load());
+
+                naturalController = fxmlLoader.getController();
+                naturalController.setNaturalPerson(new NaturalPerson());
+
+            } else {
+                selectedType = ClientType.LEGAL;
+
+                FXMLLoader fxmlLoader = new FXMLLoader(
+                        MainApplication.class.getResource("legal-client-info-view.fxml"),
+                        bundle
+                );
+                rootPane.setCenter(fxmlLoader.load());
+
+                legalController = fxmlLoader.getController();
+                legalController.setLegalPerson(new LegalPerson());
+            }
+        } catch (IOException e) {
+            logger.error("Error while opening client info form", e);
+            new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
+        }
+    }
 
     @FXML
     void onExitButtonClick(ActionEvent event) {

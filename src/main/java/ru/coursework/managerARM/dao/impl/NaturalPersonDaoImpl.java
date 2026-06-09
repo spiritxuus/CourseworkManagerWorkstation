@@ -58,7 +58,7 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
     }
 
     @Override
-    public void add(NaturalPerson naturalPerson) {
+    public Long add(NaturalPerson naturalPerson) {
         try(PreparedStatement statement =
                     DbUtils.getConnection().prepareStatement(INSERT)){
             statement.setString(1, naturalPerson.getName());
@@ -71,10 +71,16 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
             statement.setString(8, naturalPerson.getPhone());
             statement.setString(9, naturalPerson.getEmail());
             statement.setLong(10, naturalPerson.getAddress());
-            statement.executeUpdate();
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getLong(1);
+                }
+            }
         } catch (SQLException e){
             logger.error("SQL error", e);
         }
+        return null;
     }
 
     @Override

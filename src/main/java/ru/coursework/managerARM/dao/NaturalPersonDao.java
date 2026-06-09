@@ -16,7 +16,7 @@ public interface NaturalPersonDao {
      *
      * @param client объект {@link NaturalPerson}.
      */
-    void add(NaturalPerson client);
+    Long add(NaturalPerson client);
 
     /**
      * Находит физическое лицо по идентификатору.

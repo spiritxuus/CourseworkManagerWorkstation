@@ -18,7 +18,7 @@ public interface ClientDao {
      *               должны ссылаться на существующие записи в соответствующих таблицах).
      * @throws RuntimeException если произошла ошибка при выполнении SQL-запроса.
      */
-    void add(Client client);
+    Long add(Client client);
 
     /**
      * Находит клиента по его идентификатору.

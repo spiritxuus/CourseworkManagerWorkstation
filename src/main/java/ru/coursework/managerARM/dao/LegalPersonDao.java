@@ -16,7 +16,7 @@ public interface LegalPersonDao {
      *
      * @param client объект {@link LegalPerson}.
      */
-    void add(LegalPerson client);
+    Long add(LegalPerson client);
 
     /**
      * Находит юридическое лицо по идентификатору.

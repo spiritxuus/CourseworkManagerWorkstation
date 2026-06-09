@@ -34,16 +34,14 @@ public class RentalContractDaoImpl implements RentalContractDao {
     private static final Logger logger = LoggerFactory.getLogger(RentalContractDaoImpl.class);
 
 
-    protected List<RentalContract> mapper(ResultSet rs){
+    protected List<RentalContract> mapper(ResultSet rs) {
         List<RentalContract> list = new ArrayList<>();
         try {
-            Date actualReturnSqlDate = rs.getDate("actual_return_date");
-            LocalDate actualReturnDate = actualReturnSqlDate != null
-                    ? actualReturnSqlDate.toLocalDate()
-                    : null;
-
             while (rs.next()) {
-                list.add(new RentalContract(rs.getLong("contract_id"),
+                Date actualReturnSqlDate = rs.getDate("actual_return_date");
+                LocalDate actualReturnDate = actualReturnSqlDate != null ? actualReturnSqlDate.toLocalDate() : null;
+                list.add(new RentalContract(
+                        rs.getLong("contract_id"),
                         rs.getLong("reservation_id"),
                         rs.getLong("client_id"),
                         rs.getDate("issue_date").toLocalDate(),
@@ -53,7 +51,8 @@ public class RentalContractDaoImpl implements RentalContractDao {
                         rs.getBigDecimal("total_amount"),
                         rs.getInt("status"),
                         rs.getString("issue_condition_desc"),
-                        rs.getString("issue_condition_photo")));
+                        rs.getString("issue_condition_photo")
+                ));
             }
         } catch (SQLException e) {
             logger.error("SQL error", e);
@@ -89,13 +88,11 @@ public class RentalContractDaoImpl implements RentalContractDao {
         try (PreparedStatement statement = DbUtils.getConnection().prepareStatement(SELECT_BY_ID)) {
             statement.setLong(1, id);
             try (ResultSet rs = statement.executeQuery()) {
-                Date actualReturnSqlDate = rs.getDate("actual_return_date");
-                LocalDate actualReturnDate = actualReturnSqlDate != null
-                        ? actualReturnSqlDate.toLocalDate()
-                        : null;
-
                 if (rs.next()) {
-                    return Optional.of(new RentalContract(rs.getLong("contract_id"),
+                    Date actualReturnSqlDate = rs.getDate("actual_return_date");
+                    LocalDate actualReturnDate = actualReturnSqlDate != null ? actualReturnSqlDate.toLocalDate() : null;
+                    return Optional.of(new RentalContract(
+                            rs.getLong("contract_id"),
                             rs.getLong("reservation_id"),
                             rs.getLong("client_id"),
                             rs.getDate("issue_date").toLocalDate(),
@@ -105,7 +102,8 @@ public class RentalContractDaoImpl implements RentalContractDao {
                             rs.getBigDecimal("total_amount"),
                             rs.getInt("status"),
                             rs.getString("issue_condition_desc"),
-                            rs.getString("issue_condition_photo")));
+                            rs.getString("issue_condition_photo")
+                    ));
                 }
             }
         } catch (SQLException e) {

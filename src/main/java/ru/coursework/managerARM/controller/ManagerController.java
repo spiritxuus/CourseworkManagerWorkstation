@@ -49,7 +49,25 @@ public class ManagerController {
     private TableColumn<ClientView, String> clientTypeColumn;
 
     @FXML
+    private TableColumn<ClientView, String> clientAddressColumnEquip;
+
+    @FXML
+    private TableColumn<ClientView, String> clientEmailColumnEquip;
+
+    @FXML
+    private TableColumn<ClientView, String> clientNameColumnEquip;
+
+    @FXML
+    private TableColumn<ClientView, String> clientPhoneColumnEquip;
+
+    @FXML
+    private TableColumn<ClientView, String> clientTypeColumnEquip;
+
+    @FXML
     private TableView<ClientView> clientsTable;
+
+    @FXML
+    private TableView<ClientView> clientsTableEquip;
 
     @FXML
     private TableColumn<RentalContractView, String> contractDescColumn;
@@ -248,6 +266,12 @@ public class ManagerController {
         clientEmailColumn.setCellValueFactory(new PropertyValueFactory<>("clientEmail"));
         clientAddressColumn.setCellValueFactory(new PropertyValueFactory<>("clientAddress"));
 
+        clientTypeColumnEquip.setCellValueFactory(new PropertyValueFactory<>("clientType"));
+        clientNameColumnEquip.setCellValueFactory(new PropertyValueFactory<>("clientName"));
+        clientPhoneColumnEquip.setCellValueFactory(new PropertyValueFactory<>("clientPhone"));
+        clientEmailColumnEquip.setCellValueFactory(new PropertyValueFactory<>("clientEmail"));
+        clientAddressColumnEquip.setCellValueFactory(new PropertyValueFactory<>("clientAddress"));
+
         equipNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         equipManufacturerColumn.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
         equipModelColumn.setCellValueFactory(new PropertyValueFactory<>("model"));
@@ -289,6 +313,7 @@ public class ManagerController {
         historyDescColumn.setCellValueFactory(new PropertyValueFactory<>("details"));
 
         clientViews.setAll(clientDao.getAllViews());
+        logger.info("clientsView size = {}, table items = {}", clientViews.size(), clientsTable.getItems().size());
         equipViews.setAll(equipmentDao.getAll());
         reservationsViews.setAll(reservationDao.getAllViews());
         contractViews.setAll(contractDao.getAllViews());
@@ -296,6 +321,7 @@ public class ManagerController {
         historyViews.setAll(historyDao.getAll());
 
         clientsTable.setItems(clientViews);
+        clientsTableEquip.setItems(clientViews);
         equipmentTable.setItems(equipViews);
         reservationsTable.setItems(reservationsViews);
         contractsTable.setItems(contractViews);
@@ -347,7 +373,37 @@ public class ManagerController {
 
     @FXML
     void onAddClientButtonClick(ActionEvent event) {
-        showClientDialog();
+        ClientChooseController controller = showClientDialog();
+        if (controller == null) {
+            return;
+        }
+
+        if (controller.getSelectedType() == ClientChooseController.ClientType.NATURAL) {
+            NaturalClientInfoController naturalController = controller.getNaturalController();
+            if (naturalController == null || !naturalController.isConfirmed()) {
+                return;
+            }
+
+            NaturalPerson naturalPerson = naturalController.getNaturalPerson();
+            Long naturalPersonId = naturalPersonDao.add(naturalPerson);
+
+            Client client = new Client(null, naturalPersonId, null);
+            clientDao.add(client);
+        } else if (controller.getSelectedType() == ClientChooseController.ClientType.LEGAL) {
+            LegalClientInfoController legalController = controller.getLegalController();
+            if (legalController == null || !legalController.isConfirmed()) {
+                return;
+            }
+
+            LegalPerson legalPerson = legalController.getLegalPerson();
+            Long legalPersonId = legalPersonDao.add(legalPerson);
+
+            Client client = new Client(null, null, legalPersonId);
+            clientDao.add(client);
+        } else {
+            return;
+        }
+
         clientViews.setAll(clientDao.getAllViews());
     }
 
@@ -698,7 +754,7 @@ public class ManagerController {
 
     @FXML
     void onReserveButtonClick(ActionEvent event) {
-        ClientView selectedClient = clientsTable.getSelectionModel().getSelectedItem();
+        ClientView selectedClient = clientsTableEquip.getSelectionModel().getSelectedItem();
         Equipment selectedEquipment = equipmentTable.getSelectionModel().getSelectedItem();
 
         if (selectedClient == null || selectedEquipment == null) {
@@ -739,7 +795,9 @@ public class ManagerController {
 
     @FXML
     void onResetContractReservButtonClick(ActionEvent event) {
-        contractViews.setAll(contractDao.getAllViews());
+        reservationsViews.setAll(reservationDao.getAllViews());
+        contractViews.setAll(contractDao.getAllViews()
+        );
     }
 
     @FXML
@@ -991,20 +1049,24 @@ public class ManagerController {
                 .orElse(null);
     }
 
-    private void showClientDialog(){
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("client-choose-view.fxml"), bundle);
-        Scene scene = null;
-        try{
+    private ClientChooseController showClientDialog() {
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                MainApplication.class.getResource("client-choose-view.fxml"),
+                bundle
+        );
+
+        Scene scene;
+        try {
             scene = new Scene(fxmlLoader.load(), 600, 500);
         } catch (IOException e) {
             logger.error("Error while opening client window", e);
             new Alert(Alert.AlertType.WARNING, bundle.getString("error.show_dialog"), ButtonType.OK).showAndWait();
+            return null;
         }
-        Stage stage = new Stage();
 
+        Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(MainApplication.getStage());
-
         stage.setTitle(bundle.getString("client.title_choose"));
         stage.setScene(scene);
 
@@ -1012,6 +1074,7 @@ public class ManagerController {
         controller.setStage(stage);
 
         stage.showAndWait();
+        return controller;
     }
 
     private boolean showNaturalPersonDialog(NaturalPerson naturalPerson, boolean editMode){

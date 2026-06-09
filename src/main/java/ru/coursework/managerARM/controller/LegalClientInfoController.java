@@ -95,12 +95,13 @@ public class LegalClientInfoController {
     void onAddAddrButton(ActionEvent event) {
         Address address = new Address();
 
-        if(showAddressDialog(address) && isValid(address)){
+        if (showAddressDialog(address) && isValid(address)) {
             addressDao.add(address);
             addressViews.setAll(addressDao.getAllViews());
 
-            AddressView last = addressDao.getAllViews().getLast();
-            cbAddress.getSelectionModel().select(last);
+            if (!addressViews.isEmpty()) {
+                cbAddress.setValue(addressViews.get(addressViews.size() - 1));
+            }
         }
     }
 
@@ -152,7 +153,7 @@ public class LegalClientInfoController {
             }
 
             confirmed = true;
-            stage.close();
+            ((Stage) tfCompanyName.getScene().getWindow()).close();
         } catch (Exception e) {
             logger.info("legal client onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

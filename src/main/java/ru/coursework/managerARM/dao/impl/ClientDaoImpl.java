@@ -45,7 +45,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public void add(Client client) {
+    public Long add(Client client) {
         try(PreparedStatement statement =
                     DbUtils.getConnection().prepareStatement(INSERT)){
             if (client.getNaturalPersonId() != null) {
@@ -59,10 +59,16 @@ public class ClientDaoImpl implements ClientDao {
             } else {
                 statement.setNull(2, java.sql.Types.BIGINT);
             }
-            statement.executeUpdate();
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getLong(1);
+                }
+            }
         } catch (SQLException e){
             logger.error("SQL error", e);
         }
+        return null;
     }
 
     @Override

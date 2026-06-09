@@ -49,7 +49,7 @@ public class LegalPersonDaoImpl implements LegalPersonDao {
     }
 
     @Override
-    public void add(LegalPerson legalPerson) {
+    public Long add(LegalPerson legalPerson) {
         try(PreparedStatement statement =
                     DbUtils.getConnection().prepareStatement(INSERT)){
             statement.setString(1, legalPerson.getCompanyName());
@@ -60,10 +60,16 @@ public class LegalPersonDaoImpl implements LegalPersonDao {
             statement.setString(6, legalPerson.getEmail());
             statement.setLong(7, legalPerson.getAddress());
             statement.setLong(8, legalPerson.getContactPerson());
-            statement.executeUpdate();
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getLong(1);
+                }
+            }
         } catch (SQLException e){
             logger.error("SQL error", e);
         }
+        return null;
     }
 
     @Override

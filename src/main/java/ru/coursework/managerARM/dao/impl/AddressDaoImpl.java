@@ -49,7 +49,7 @@ public class AddressDaoImpl implements AddressDao {
     }
 
     @Override
-    public void add(Address address) {
+    public Long add(Address address) {
         try(PreparedStatement statement =
                     DbUtils.getConnection().prepareStatement(INSERT)){
             statement.setString(1, address.getCountry());
@@ -58,10 +58,16 @@ public class AddressDaoImpl implements AddressDao {
             statement.setString(4, address.getStreet());
             statement.setString(5, address.getHouse());
             statement.setString(6, address.getApartment());
-            statement.executeUpdate();
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getLong(1);
+                }
+            }
         } catch (SQLException e){
             logger.error("SQL error", e);
         }
+        return null;
     }
 
     @Override

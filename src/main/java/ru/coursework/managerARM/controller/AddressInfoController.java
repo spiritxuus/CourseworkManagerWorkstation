@@ -57,7 +57,7 @@ public class AddressInfoController {
             address.setApartment(tfApartment.getText());
 
             confirmed = true;
-            stage.close();
+            ((Stage) tfCountry.getScene().getWindow()).close();
         } catch (Exception e) {
             logger.info("address onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

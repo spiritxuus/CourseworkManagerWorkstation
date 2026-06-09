@@ -28,6 +28,7 @@ public class NaturalClientInfoController {
     @Getter
     private boolean confirmed = false;
 
+    @Getter
     private NaturalPerson naturalPerson;
 
     @Setter
@@ -108,12 +109,13 @@ public class NaturalClientInfoController {
     void onAddAddrButton(ActionEvent event) {
         Address address = new Address();
 
-        if(showAddressDialog(address) && isValid(address)){
+        if (showAddressDialog(address) && isValid(address)) {
             addressDao.add(address);
             addressViews.setAll(addressDao.getAllViews());
 
-            AddressView last = addressDao.getAllViews().getLast();
-            cbAddress.getSelectionModel().select(last);
+            if (!addressViews.isEmpty()) {
+                cbAddress.setValue(addressViews.get(addressViews.size() - 1));
+            }
         }
     }
 
@@ -145,7 +147,7 @@ public class NaturalClientInfoController {
             }
 
             confirmed = true;
-            stage.close();
+            ((Stage) tfName.getScene().getWindow()).close();
         } catch (Exception e) {
             logger.info("natural client onOkayButtonClick() some fields are empty");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

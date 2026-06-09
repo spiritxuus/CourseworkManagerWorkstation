@@ -18,7 +18,7 @@ public interface AddressDao {
      * @param address объект адреса, который необходимо сохранить (без заполненного {@code addressId}).
      * @throws RuntimeException если произошла ошибка при выполнении SQL-запроса.
      */
-    void add(Address address);
+    Long add(Address address);
 
     /**
      * Находит адрес по его уникальному идентификатору.
