@@ -1,12 +1,15 @@
 package ru.coursework.managerARM;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -160,7 +163,9 @@ public class EquipmentUiTest extends ApplicationTest {
 
         waitFor(3, TimeUnit.SECONDS, () -> lookup("#tfName").tryQuery().isPresent());
 
-        interact(() -> handle.controller.onOkayButtonClick(new ActionEvent()));
+        Platform.runLater(() -> handle.controller.onOkayButtonClick(new ActionEvent()));
+
+        closeAlert();
 
         assertThat(handle.controller.isConfirmed()).isFalse();
 
@@ -185,7 +190,9 @@ public class EquipmentUiTest extends ApplicationTest {
         TextField tfRent = (TextField) lookup("#tfRentPerDay").queryTextInputControl();
         interact(() -> tfRent.setText("abc"));
 
-        interact(() -> handle.controller.onOkayButtonClick(new ActionEvent()));
+        Platform.runLater(() -> handle.controller.onOkayButtonClick(new ActionEvent()));
+
+        closeAlert();
 
         assertThat(handle.controller.isConfirmed()).isFalse();
 
@@ -249,6 +256,15 @@ public class EquipmentUiTest extends ApplicationTest {
         });
 
         return ref.get();
+    }
+
+    private void closeAlert() throws TimeoutException {
+        waitFor(3, TimeUnit.SECONDS,
+                () -> lookup(".dialog-pane").tryQuery().isPresent());
+
+        interact(() -> {});
+        press(KeyCode.ENTER);
+        release(KeyCode.ENTER);
     }
 
     private static final class DialogHandle {

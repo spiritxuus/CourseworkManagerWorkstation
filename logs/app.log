@@ -2219,3 +2219,319 @@ org.postgresql.util.PSQLException: FATAL: password authentication failed for use
 	at javafx.graphics@21.0.6/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
 	at javafx.graphics@21.0.6/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-06-09 13:16:19 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 13:16:19 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 13:16:19 [JavaFX Application Thread] INFO  r.c.m.controller.LoginController - Successful login for user manager
+2026-06-09 13:16:19 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 13:16:20 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 13:16:31 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 14:08:52 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 14:08:52 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 14:08:52 [JavaFX Application Thread] INFO  r.c.m.controller.LoginController - Successful login for user manager
+2026-06-09 14:08:52 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 14:08:53 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 14:32:52 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() category is not choosed
+2026-06-09 14:34:08 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - onReserveButtonClick() selectedEquipment or selectedClient is not choosed
+2026-06-09 14:34:17 [JavaFX Application Thread] INFO  r.c.m.c.ReservationInfoController - reservation onOkayButtonClick() data error
+2026-06-09 15:10:02 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:10:02 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:10:02 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:10:02 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:10:04 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() category is not choosed
+2026-06-09 15:10:07 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:10:07 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:10:07 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:10:07 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:10:07 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:10:08 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() some fields are empty
+2026-06-09 15:10:09 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:10:09 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:10:09 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:10:09 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:10:09 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:10:10 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:10:10 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:10:10 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:10:10 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:10:10 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:10:11 [main] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:23:55 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:23:55 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:23:55 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:23:56 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:23:58 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() category is not choosed
+2026-06-09 15:23:59 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:23:59 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:23:59 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:23:59 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:23:59 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:24:00 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() some fields are empty
+2026-06-09 15:24:01 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:24:01 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:24:01 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:24:01 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:24:02 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:24:02 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:24:02 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:24:02 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:24:03 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:24:03 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:24:04 [main] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:24:47 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:24:48 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:24:48 [JavaFX Application Thread] INFO  r.c.m.controller.LoginController - Successful login for user manager
+2026-06-09 15:24:48 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:24:48 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:32:01 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - onCreateReportButtonClick() report saved
+2026-06-09 15:32:01 [JavaFX Application Thread] ERROR r.c.managerARM.util.ReportService - Error while getting overdue equipment
+org.postgresql.util.PSQLException: ERROR: function get_overdue_equipment() does not exist
+  Подсказка: No function matches the given name and argument types. You might need to add explicit type casts.
+  Позиция: 15
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2734)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2421)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:518)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:435)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196)
+	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:139)
+	at ru.coursework.managerARM/ru.coursework.managerARM.util.ReportService.getOverdueEquipment(ReportService.java:70)
+	at ru.coursework.managerARM/ru.coursework.managerARM.util.ReportService.generateReportToFile(ReportService.java:130)
+	at ru.coursework.managerARM/ru.coursework.managerARM.controller.ManagerController.onCreateReportButtonClick(ManagerController.java:1036)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at javafx.base@21.0.6/com.sun.javafx.reflect.MethodUtil.invoke(MethodUtil.java:270)
+	at javafx.fxml@21.0.6/com.sun.javafx.fxml.MethodHelper.invoke(MethodHelper.java:84)
+	at javafx.fxml@21.0.6/javafx.fxml.FXMLLoader$MethodHandler.invoke(FXMLLoader.java:1853)
+	at javafx.fxml@21.0.6/javafx.fxml.FXMLLoader$ControllerMethodEventHandler.handle(FXMLLoader.java:1726)
+	at javafx.base@21.0.6/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@21.0.6/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@21.0.6/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.6/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.6/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.6/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.6/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base@21.0.6/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics@21.0.6/javafx.scene.Node.fireEvent(Node.java:8875)
+	at javafx.controls@21.0.6/javafx.scene.control.Button.fire(Button.java:203)
+	at javafx.controls@21.0.6/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207)
+	at javafx.controls@21.0.6/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
+	at javafx.base@21.0.6/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
+	at javafx.base@21.0.6/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@21.0.6/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@21.0.6/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.6/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.6/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.6/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.6/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@21.0.6/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.base@21.0.6/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics@21.0.6/javafx.scene.Scene$MouseHandler.process(Scene.java:3984)
+	at javafx.graphics@21.0.6/javafx.scene.Scene.processMouseEvent(Scene.java:1890)
+	at javafx.graphics@21.0.6/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2708)
+	at javafx.graphics@21.0.6/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
+	at javafx.graphics@21.0.6/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at javafx.graphics@21.0.6/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
+	at javafx.graphics@21.0.6/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
+	at javafx.graphics@21.0.6/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
+	at javafx.graphics@21.0.6/com.sun.glass.ui.View.handleMouseEvent(View.java:551)
+	at javafx.graphics@21.0.6/com.sun.glass.ui.View.notifyMouse(View.java:937)
+	at javafx.graphics@21.0.6/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@21.0.6/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-06-09 15:34:14 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:34:14 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:34:15 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:34:15 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:34:17 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() category is not choosed
+2026-06-09 15:34:21 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:34:21 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:34:21 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:34:21 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:34:21 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:34:22 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() some fields are empty
+2026-06-09 15:34:24 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:34:24 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:34:24 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:34:24 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:34:24 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:34:25 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:34:25 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:34:25 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:34:25 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:34:25 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:34:26 [main] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:38:17 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:38:17 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:38:18 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:38:18 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:38:20 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() category is not choosed
+2026-06-09 15:38:24 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:38:24 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:38:24 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:38:24 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:38:24 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:38:25 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() some fields are empty
+2026-06-09 15:38:26 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:38:26 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:38:26 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:38:26 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:38:26 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:38:27 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:38:27 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:38:27 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:38:27 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:38:27 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:38:28 [main] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:38:41 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:38:41 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:38:41 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:38:41 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:38:43 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() category is not choosed
+2026-06-09 15:38:49 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:38:49 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:38:49 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:38:49 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:38:49 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:38:50 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() some fields are empty
+2026-06-09 15:38:51 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:38:51 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:38:51 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:38:52 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:38:52 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:38:52 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:38:52 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:38:52 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:38:53 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:38:53 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:38:54 [main] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:41:16 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:41:16 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:41:16 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:41:16 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:41:18 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() category is not choosed
+2026-06-09 15:41:30 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:41:30 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:41:30 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:41:30 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:41:30 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:41:31 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() some fields are empty
+2026-06-09 15:41:35 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:41:35 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:41:35 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:41:35 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:41:35 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:41:38 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:41:38 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:41:38 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:41:38 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:41:38 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:41:39 [main] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:43:12 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:43:12 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:43:13 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:43:13 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:43:16 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() category is not choosed
+2026-06-09 15:43:21 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:43:21 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:43:21 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:43:22 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:43:22 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:43:23 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() some fields are empty
+2026-06-09 15:43:24 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:43:24 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:43:24 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:43:24 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:43:24 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:43:25 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:43:25 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:43:25 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:43:25 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:43:26 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:43:27 [main] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:47:24 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:47:24 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:47:25 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:47:26 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:47:28 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() category is not choosed
+2026-06-09 15:47:29 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:47:29 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:47:29 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:47:29 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:47:29 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:47:30 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() some fields are empty
+2026-06-09 15:47:32 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:47:32 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:47:32 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:47:32 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:47:32 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:47:33 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:47:33 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:47:33 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:47:33 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:47:33 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:47:34 [main] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:47:56 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:47:56 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:47:57 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:47:57 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:48:00 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() category is not choosed
+2026-06-09 15:48:00 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:48:00 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:48:00 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:48:00 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:48:00 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:48:02 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() some fields are empty
+2026-06-09 15:48:03 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:48:03 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:48:03 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:48:03 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:48:03 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:48:04 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:48:04 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:48:04 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:48:04 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:48:05 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:48:06 [main] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:50:00 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:50:00 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:50:00 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:50:01 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:50:04 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() category is not choosed
+2026-06-09 15:50:04 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:50:04 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:50:04 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:50:05 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:50:05 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:50:06 [JavaFX Application Thread] INFO  r.c.m.c.EquipmentInfoController - equipment onOkayButtonClick() some fields are empty
+2026-06-09 15:50:07 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:50:07 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:50:07 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:50:07 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:50:07 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:50:08 [JavaFX Application Thread] INFO  r.c.managerARM.MainApplication - Locale set to ru_RU
+2026-06-09 15:50:08 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
+2026-06-09 15:50:08 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Connecting to database jdbc:postgresql://localhost:5432/coursework_db as user manager
+2026-06-09 15:50:08 [JavaFX Application Thread] INFO  r.coursework.managerARM.util.DbUtils - Database connection established
+2026-06-09 15:50:08 [JavaFX Application Thread] INFO  r.c.m.controller.ManagerController - clientsView size = 4, table items = 0
+2026-06-09 15:50:09 [main] INFO  r.coursework.managerARM.util.DbUtils - Database connection closed
