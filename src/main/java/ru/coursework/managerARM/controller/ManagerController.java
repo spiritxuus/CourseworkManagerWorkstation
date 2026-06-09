@@ -456,6 +456,8 @@ public class ManagerController {
         }
 
         clientDao.delete(clientToDelete.getClientId());
+        naturalPersonDao.delete(clientToDelete.getNaturalPersonId());
+        legalPersonDao.delete(clientToDelete.getLegalPersonId());
         clientViews.setAll(clientDao.getAllViews());
         reservationsViews.setAll(reservationDao.getAllViews());
         contractViews.setAll(contractDao.getAllViews());
@@ -1293,7 +1295,7 @@ public class ManagerController {
         return person.getName() != null && !person.getName().isBlank()
                 && person.getSurname() != null && !person.getSurname().isBlank()
                 && person.getBirthDate() != null
-                && person.getGender() != null && !person.getGender()
+                && person.getGender() != null
                 && person.getPassportSeries() != null && !person.getPassportSeries().isBlank()
                 && person.getPassportNumber() != null && !person.getPassportNumber().isBlank()
                 && person.getPhone() != null && !person.getPhone().isBlank()
