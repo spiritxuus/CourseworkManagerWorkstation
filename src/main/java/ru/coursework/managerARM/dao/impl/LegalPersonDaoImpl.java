@@ -121,6 +121,7 @@ public class LegalPersonDaoImpl implements LegalPersonDao {
             statement.setString(6, legalPerson.getEmail());
             statement.setLong(7, legalPerson.getAddress());
             statement.setLong(8, legalPerson.getContactPerson());
+            statement.setLong(9, legalPerson.getLegalPersonId());
             statement.executeUpdate();
         } catch (SQLException e){
             logger.error("SQL error", e);

@@ -457,6 +457,8 @@ public class ManagerController {
 
         clientDao.delete(clientToDelete.getClientId());
         clientViews.setAll(clientDao.getAllViews());
+        reservationsViews.setAll(reservationDao.getAllViews());
+        contractViews.setAll(contractDao.getAllViews());
     }
 
     @FXML

@@ -71,7 +71,6 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
             statement.setString(8, naturalPerson.getPhone());
             statement.setString(9, naturalPerson.getEmail());
             statement.setLong(10, naturalPerson.getAddress());
-
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     return rs.getLong(1);
@@ -161,6 +160,7 @@ public class NaturalPersonDaoImpl implements NaturalPersonDao {
             statement.setString(8, naturalPerson.getPhone());
             statement.setString(9, naturalPerson.getEmail());
             statement.setLong(10, naturalPerson.getAddress());
+            statement.setLong(11, naturalPerson.getNaturalPersonId());
             statement.executeUpdate();
         } catch (SQLException e){
             logger.error("SQL error", e);

@@ -171,6 +171,7 @@ public class ReturnOfEquipmentDaoImpl implements ReturnOfEquipmentDao {
             statement.setBigDecimal(5, returnOfEquipment.getDamageAmount());
             statement.setBigDecimal(6, returnOfEquipment.getDeductionAmount());
             statement.setBoolean(7, returnOfEquipment.getRepairRequired());
+            statement.setLong(8, returnOfEquipment.getReturnId());
             statement.executeUpdate();
         } catch (SQLException e){
             logger.error("SQL error", e);

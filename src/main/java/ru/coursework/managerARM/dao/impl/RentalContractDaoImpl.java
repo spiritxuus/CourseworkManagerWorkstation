@@ -179,6 +179,7 @@ public class RentalContractDaoImpl implements RentalContractDao {
             statement.setInt(8, contract.getStatus());
             statement.setString(9, contract.getIssueConditionDesc());
             statement.setString(10, contract.getIssueConditionPhoto());
+            statement.setLong(11, contract.getContractId());
             statement.executeUpdate();
         } catch (SQLException e){
             logger.error("SQL error", e);

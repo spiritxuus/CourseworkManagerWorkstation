@@ -128,6 +128,7 @@ public class ReservationDaoImpl implements ReservationDao {
             statement.setLong(2, reservation.getEquipment());
             statement.setDate(3, Date.valueOf(reservation.getStartDate()));
             statement.setDate(4, Date.valueOf(reservation.getEndDate()));
+            statement.setLong(5, reservation.getReservationId());
             statement.executeUpdate();
         } catch (SQLException e){
             logger.error("SQL error", e);

@@ -100,6 +100,7 @@ public class RepairDaoImpl implements RepairDao {
             statement.setString(2, repair.getRepairReason());
             statement.setInt(3, repair.getRepairStatus());
             statement.setBigDecimal(4, repair.getRepairCost());
+            statement.setLong(5, repair.getRepairId());
             statement.executeUpdate();
         } catch (SQLException e){
             logger.error("SQL error", e);
