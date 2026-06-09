@@ -164,7 +164,7 @@
                                           </Label>
                                           <HBox spacing="5.0">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#onSearchClientButtonClick" text="%button.search" />
+                                                <Button mnemonicParsing="false" onAction="#onSearchClientEquipButton" text="%button.search" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets top="10.0" />
@@ -174,12 +174,12 @@
                                     </VBox>
                                     <VBox AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
                                        <children>
-                                          <TextField fx:id="tfSearchClientSurname">
+                                          <TextField fx:id="tfEquipSearchClientSurname">
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
                                           </TextField>
-                                          <TextField fx:id="tfSearchClientCompany">
+                                          <TextField fx:id="tfEquipSearchClientCompany">
                                              <VBox.margin>
                                                 <Insets top="5.0" />
                                              </VBox.margin>

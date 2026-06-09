@@ -189,8 +189,12 @@ public class ManagerController {
     @FXML
     private TableView<ReturnView> returnsTable;
 
+
     @FXML
-    private TextField tfSearchClientCompEquip;
+    private TextField tfEquipSearchClientCompany;
+
+    @FXML
+    private TextField tfEquipSearchClientSurname;
 
     @FXML
     private TextField tfSearchClientCompany;
@@ -823,8 +827,8 @@ public class ManagerController {
 
     @FXML
     void onSearchClientButtonClick(ActionEvent event) {
-       String companyText = tfSearchClientCompany.getText() == null ? "" : tfSearchClientCompany.getText().trim();
-       String surnameText = tfSearchClientSurname.getText() == null ? "" : tfSearchClientSurname.getText().trim();
+        String companyText = tfSearchClientCompany.getText() == null ? "" : tfSearchClientCompany.getText().trim();
+        String surnameText = tfSearchClientSurname.getText() == null ? "" : tfSearchClientSurname.getText().trim();
 
         if (companyText.isEmpty() && surnameText.isEmpty()) {
             logger.info("onSearchClientButtonClick() no data for search");
@@ -844,17 +848,12 @@ public class ManagerController {
             return;
         }
 
-        String query = !companyText.isEmpty() ? companyText.toLowerCase() : surnameText.toLowerCase();
-
-        List<ClientView> filtered = clientDao.getAllViews().stream()
-                .filter(client ->
-                        (client.getClientName() != null && client.getClientName().toLowerCase().contains(query)) ||
-                                (client.getClientPhone() != null && client.getClientPhone().toLowerCase().contains(query)) ||
-                                (client.getClientEmail() != null && client.getClientEmail().toLowerCase().contains(query)) ||
-                                (client.getClientAddress() != null && client.getClientAddress().toLowerCase().contains(query)) ||
-                                (client.getClientType() != null && client.getClientType().toLowerCase().contains(query))
-                )
-                .toList();
+        List<ClientView> filtered;
+        if (!companyText.isEmpty()) {
+            filtered = searchClients(companyText, "Юридическое лицо");
+        } else {
+            filtered = searchClients(surnameText, "Физическое лицо");
+        }
 
         clientViews.setAll(filtered);
 
@@ -869,6 +868,51 @@ public class ManagerController {
             alert.showAndWait();
         }
     }
+
+    @FXML
+    void onSearchClientEquipButton(ActionEvent event) {
+        String companyText = tfEquipSearchClientCompany.getText() == null ? "" : tfEquipSearchClientCompany.getText().trim();
+        String surnameText = tfEquipSearchClientSurname.getText() == null ? "" : tfEquipSearchClientSurname.getText().trim();
+
+        if (companyText.isEmpty() && surnameText.isEmpty()) {
+            logger.info("onSearchClientEquipButton() no data for search");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.no_data_for_search"));
+            alert.showAndWait();
+            return;
+        }
+
+        if (!companyText.isEmpty() && !surnameText.isEmpty()) {
+            logger.info("onSearchClientEquipButton() both fields contains text");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.only_one_field_for_search"));
+            alert.showAndWait();
+            return;
+        }
+
+        List<ClientView> filtered;
+        if (!companyText.isEmpty()) {
+            filtered = searchClients(companyText, "Юридическое лицо");
+        } else {
+            filtered = searchClients(surnameText, "Физическое лицо");
+        }
+
+        clientViews.setAll(filtered);
+
+        tfEquipSearchClientCompany.clear();
+        tfEquipSearchClientSurname.clear();
+
+        if (filtered.isEmpty()) {
+            logger.info("onSearchClientEquipButton() no data found");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(bundle.getString("warning.title"));
+            alert.setHeaderText(bundle.getString("warning.nothing_found"));
+            alert.showAndWait();
+        }
+    }
+
 
     @FXML
     void onSearchContractButtonClick(ActionEvent event) {
@@ -1365,5 +1409,17 @@ public class ManagerController {
                 && returnOfEquipment.getDeductionAmount() != null
                 && returnOfEquipment.getRepairRequired() != null;
 
+    }
+
+    private List<ClientView> searchClients(String query, String clientType) {
+        String q = query.toLowerCase();
+
+        return clientDao.getAllViews().stream()
+                .filter(client ->
+                        clientType.equals(client.getClientType()) &&
+                                client.getClientName() != null &&
+                                client.getClientName().toLowerCase().contains(q)
+                )
+                .toList();
     }
 }
